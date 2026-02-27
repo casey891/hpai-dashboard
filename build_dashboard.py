@@ -736,7 +736,14 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 .tbl-wrap td{padding:5px 10px;border-bottom:1px solid #f1f5f9;color:#013046}
 .tbl-wrap tr:nth-child(even) td{background:#f8fafc}
 .tbl-wrap .num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl-search{width:100%;padding:7px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:.8rem;font-family:'Lexend',sans-serif;color:#013046;margin-top:8px;box-sizing:border-box}
+.tbl-search::placeholder{color:#A7A9AC}
+.tbl-search:focus{outline:none;border-color:#1F9EBC}
 .tbl-summary{font-size:.75rem;color:#939598;margin-top:6px}
+.tbl-pager{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:.75rem;color:#939598}
+.tbl-pager button{padding:3px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;font-size:.72rem;cursor:pointer;color:#013046;font-family:'Lexend',sans-serif}
+.tbl-pager button:hover:not(:disabled){background:#e2e8f0}
+.tbl-pager button:disabled{opacity:.4;cursor:default}
 .ms-group{margin-bottom:2px}
 .ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#013046}
 .ms-group-hdr input{margin:0;cursor:pointer}
@@ -919,6 +926,7 @@ __HEATMAP_CARD__
         </div>
       </div>
     </div>
+    <input type="text" class="tbl-search" id="tblSearch" placeholder="Filter by state, county, type..." oninput="updateTable()">
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Date</th><th>State</th><th>County</th><th>Operation Type</th><th class="num">Birds Impacted</th></tr></thead>
@@ -926,6 +934,7 @@ __HEATMAP_CARD__
       </table>
     </div>
     <div class="tbl-summary" id="tblSummary"></div>
+    <div class="tbl-pager" id="tblPager"><button onclick="pageTable('tbl',-1)">← Prev</button><span id="tblPageInfo"></span><button onclick="pageTable('tbl',1)">Next →</button></div>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
   </div>
 </div>
@@ -953,6 +962,8 @@ let mapSvg,mapPath,mapTooltip,countyPaths;
 let eggRange='all',birdsRange='all',infRange='all',tblRange='all';
 let lsRange='all',wbRange='all',mmRange='all',mmTblRange='all';
 let kpiRange='30d';
+const PAGE_SIZE=100;
+let tblPage=0,lsPage=0,wbPage=0,mmPage=0;
 const panelMap={birds:'birdsMSPanel',inf:'infMSPanel',tbl:'tblMSPanel'};
 const btnMap={birds:'birdsMSBtn',inf:'infMSBtn',tbl:'tblMSBtn'};
 const MM_COLORS={'Domestic/Companion':'#F6851F','Wild Carnivores':'#013046','Rodents/Small Mammals':'#FDB714','Marine Mammals':'#1F9EBC','Captive/Zoo':'#8FCAE6','Other':'#939598'};
@@ -1135,11 +1146,29 @@ function updateInf(){
   else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
   infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
 }
-function updateTable(){
+function renderPager(id,page,total){
+  const pages=Math.ceil(total/PAGE_SIZE)||1;
+  const el=document.getElementById(id);if(!el)return;
+  const btns=el.querySelectorAll('button');
+  btns[0].disabled=page<=0;btns[1].disabled=page>=pages-1;
+  document.getElementById(id.replace('Pager','PageInfo')).textContent='Page '+(page+1)+' of '+pages;
+  el.style.display=total>PAGE_SIZE?'flex':'none';
+}
+function pageTable(tbl,dir){
+  if(tbl==='tbl'){tblPage+=dir;updateTable(false);}
+  if(tbl==='ls'){lsPage+=dir;updateLsTable(false);}
+  if(tbl==='wb'){wbPage+=dir;updateWbTable(false);}
+  if(tbl==='mm'){mmPage+=dir;updateMmTable(false);}
+}
+function updateTable(resetPage){
+  if(resetPage!==false)tblPage=0;
   const cutoff=cutoffISO(tblRange);const sel=new Set(getSelected('tblMSPanel'));
-  const filtered=D.events.filter(e=>e.d>=cutoff&&sel.has(e.p));
-  document.getElementById('tblBody').innerHTML=filtered.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.p+'</td><td class="num">'+e.f.toLocaleString()+'</td></tr>').join('');
-  document.getElementById('tblSummary').textContent='Showing '+filtered.length.toLocaleString()+' of '+D.events.length.toLocaleString()+' detections';
+  const q=(document.getElementById('tblSearch').value||'').toLowerCase().trim();
+  const filtered=D.events.filter(e=>e.d>=cutoff&&sel.has(e.p)&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.p.toLowerCase().includes(q)));
+  const start=tblPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('tblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.p+'</td><td class="num">'+e.f.toLocaleString()+'</td></tr>').join('');
+  document.getElementById('tblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('tblPager',tblPage,filtered.length);
 }
 function initTab(tab){
   if(tab==='livestock'&&D.livestock)initLivestock();
@@ -1156,11 +1185,15 @@ function updateLivestock(){
   const idx=[];LS.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});
   lsChart.data.labels=sliceByIdx(LS.month_labels,idx);lsChart.data.datasets[0].data=sliceByIdx(LS.monthly_counts,idx);lsChart.update();updateLsTable();
 }
-function updateLsTable(){
-  if(!D.livestock)return;const cutoff=cutoffISO(lsRange);
-  const filtered=D.livestock.events.filter(e=>e.d>=cutoff);
-  document.getElementById('lsTblBody').innerHTML=filtered.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.id+'</td><td>'+e.p+'</td><td>'+e.sp+'</td></tr>').join('');
-  document.getElementById('lsTblSummary').textContent='Showing '+filtered.length.toLocaleString()+' of '+D.livestock.total.toLocaleString()+' detections';
+function updateLsTable(resetPage){
+  if(!D.livestock)return;if(resetPage!==false)lsPage=0;
+  const cutoff=cutoffISO(lsRange);
+  const q=(document.getElementById('lsSearch')?.value||'').toLowerCase().trim();
+  const filtered=D.livestock.events.filter(e=>e.d>=cutoff&&(!q||e.s.toLowerCase().includes(q)||e.p.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||(e.id||'').toLowerCase().includes(q)));
+  const start=lsPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('lsTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.id+'</td><td>'+e.p+'</td><td>'+e.sp+'</td></tr>').join('');
+  document.getElementById('lsTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('lsPager',lsPage,filtered.length);
 }
 function initWildBirds(){
   const WB=D.wild_birds;
@@ -1174,13 +1207,15 @@ function updateWildBirds(){
   else{const cutM=cutoffMonth(wbRange);const idx=[];WB.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});wbChart.data.labels=sliceByIdx(WB.month_labels,idx);wbChart.data.datasets[0].data=sliceByIdx(WB.monthly_counts,idx);}
   wbChart.update();document.getElementById('wbTitle').textContent='Wild Bird HPAI Detections by '+(isDaily(wbRange)?'Day':'Month');updateWbTable();
 }
-function updateWbTable(){
-  if(!D.wild_birds)return;const cutoff=cutoffISO(wbRange);const filtered=D.wild_birds.events.filter(e=>e.d>=cutoff);
-  const cap=500;const show=filtered.slice(0,cap);
+function updateWbTable(resetPage){
+  if(!D.wild_birds)return;if(resetPage!==false)wbPage=0;
+  const cutoff=cutoffISO(wbRange);
+  const q=(document.getElementById('wbSearch')?.value||'').toLowerCase().trim();
+  const filtered=D.wild_birds.events.filter(e=>e.d>=cutoff&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.st.toLowerCase().includes(q)));
+  const start=wbPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
   document.getElementById('wbTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.st+'</td></tr>').join('');
-  let txt='Showing '+show.length.toLocaleString()+' of '+filtered.length.toLocaleString()+' detections';
-  if(filtered.length>cap)txt+=' (capped at '+cap+')';
-  document.getElementById('wbTblSummary').textContent=txt;
+  document.getElementById('wbTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('wbPager',wbPage,filtered.length);
 }
 function initMammals(){
   const MM=D.mammals;
@@ -1194,12 +1229,16 @@ function updateMammals(){
   mmChart.data.datasets=MM.groups.map(g=>({label:g,data:idx.map(i=>(MM.monthly_by_group[MM.months[i]]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#939598'}));
   mmChart.update();updateMmTable();
 }
-function updateMmTable(){
-  if(!D.mammals)return;const cutoff=cutoffISO(mmTblRange);
+function updateMmTable(resetPage){
+  if(!D.mammals)return;if(resetPage!==false)mmPage=0;
+  const cutoff=cutoffISO(mmTblRange);
   const sel=D.mammals.groups?new Set(getSelected('mmTblMSPanel')):null;
-  const filtered=D.mammals.events.filter(e=>e.d>=cutoff&&(!sel||sel.has(e.g)));
-  document.getElementById('mmTblBody').innerHTML=filtered.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.g+'</td><td>'+e.st+'</td></tr>').join('');
-  document.getElementById('mmTblSummary').textContent='Showing '+filtered.length.toLocaleString()+' of '+D.mammals.total.toLocaleString()+' detections';
+  const q=(document.getElementById('mmSearch')?.value||'').toLowerCase().trim();
+  const filtered=D.mammals.events.filter(e=>e.d>=cutoff&&(!sel||sel.has(e.g))&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.g.toLowerCase().includes(q)||e.st.toLowerCase().includes(q)));
+  const start=mmPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('mmTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.g+'</td><td>'+e.st+'</td></tr>').join('');
+  document.getElementById('mmTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('mmPager',mmPage,filtered.length);
 }
 
 /* ── KPI update ── */
@@ -1511,6 +1550,7 @@ def generate_html(data):
   <div class="card">
     <h2>Livestock/Dairy Detection Details</h2>
     <div class="sub">Individual confirmed herd detections</div>
+    <input type="text" class="tbl-search" id="lsSearch" placeholder="Filter by state, production, species..." oninput="updateLsTable()">
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Date</th><th>State</th><th>Special Id</th><th>Production</th><th>Species</th></tr></thead>
@@ -1518,6 +1558,7 @@ def generate_html(data):
       </table>
     </div>
     <div class="tbl-summary" id="lsTblSummary"></div>
+    <div class="tbl-pager" id="lsPager"><button onclick="pageTable('ls',-1)">← Prev</button><span id="lsPageInfo"></span><button onclick="pageTable('ls',1)">Next →</button></div>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock" target="_blank">USDA APHIS</a></div>
   </div>
 </div>'''
@@ -1537,7 +1578,8 @@ def generate_html(data):
   </div>
   <div class="card">
     <h2>Wild Bird Detection Details</h2>
-    <div class="sub">Individual confirmed detections (max 500 shown)</div>
+    <div class="sub">Individual confirmed detections</div>
+    <input type="text" class="tbl-search" id="wbSearch" placeholder="Filter by state, county, species..." oninput="updateWbTable()">
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Date</th><th>State</th><th>County</th><th>Species</th><th>Strain</th></tr></thead>
@@ -1545,6 +1587,7 @@ def generate_html(data):
       </table>
     </div>
     <div class="tbl-summary" id="wbTblSummary"></div>
+    <div class="tbl-pager" id="wbPager"><button onclick="pageTable('wb',-1)">← Prev</button><span id="wbPageInfo"></span><button onclick="pageTable('wb',1)">Next →</button></div>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1" target="_blank">USDA APHIS</a></div>
   </div>
 </div>'''
@@ -1582,6 +1625,7 @@ def generate_html(data):
         </div>
       </div>
     </div>
+    <input type="text" class="tbl-search" id="mmSearch" placeholder="Filter by state, county, species, group..." oninput="updateMmTable()">
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Date</th><th>State</th><th>County</th><th>Species</th><th>Group</th><th>Strain</th></tr></thead>
@@ -1589,6 +1633,7 @@ def generate_html(data):
       </table>
     </div>
     <div class="tbl-summary" id="mmTblSummary"></div>
+    <div class="tbl-pager" id="mmPager"><button onclick="pageTable('mm',-1)">← Prev</button><span id="mmPageInfo"></span><button onclick="pageTable('mm',1)">Next →</button></div>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a></div>
   </div>
 </div>'''
