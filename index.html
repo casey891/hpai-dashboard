@@ -886,7 +886,7 @@ function initDashboard(){
     if(t==='livestock'&&lsChart)lsChart.resize();
     if(t==='wildbirds'&&wbChart)wbChart.resize();
     if(t==='mammals'&&mmChart)mmChart.resize();
-    if(window.parent!==window){setTimeout(()=>{window.parent.postMessage({type:'resize',height:document.documentElement.scrollHeight},'*');},50);}
+    if(window.reportHeight){setTimeout(window.reportHeight,50);}
   });});
 
   /* Multi-select panel wiring */
@@ -922,11 +922,18 @@ function initDashboard(){
   if(D.mammals)updateMSLabel('mmTbl');
 
   /* Iframe height reporter */
+  const wrapEl=document.querySelector('.wrap');
   if(window.parent!==window){
     document.documentElement.style.overflow='hidden';
-    function reportHeight(){document.documentElement.style.height='auto';window.parent.postMessage({type:'resize',height:document.documentElement.scrollHeight},'*');}
+    document.body.style.overflow='hidden';
+    window.reportHeight=function(){
+      const h=wrapEl.getBoundingClientRect().height+40;
+      document.documentElement.style.height=h+'px';
+      document.body.style.height=h+'px';
+      window.parent.postMessage({type:'resize',height:h},'*');
+    };
     reportHeight();window.addEventListener('resize',reportHeight);
-    new ResizeObserver(reportHeight).observe(document.body);
+    new ResizeObserver(reportHeight).observe(wrapEl);
   }
 }
 
