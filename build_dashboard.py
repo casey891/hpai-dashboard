@@ -338,7 +338,7 @@ def parse_wild_birds_csv(path):
     with open(path, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            date_str = row.get("Date Detected", "").strip()
+            date_str = row.get("Collection Date", "").strip()
             if not date_str:
                 continue
             dt = None
