@@ -1312,6 +1312,7 @@ function initDashboard(){
 
   /* Iframe height reporter */
   if(window.parent!==window){
+    document.documentElement.style.overflow='hidden';
     function reportHeight(){window.parent.postMessage({type:'resize',height:document.documentElement.scrollHeight},'*');}
     reportHeight();window.addEventListener('resize',reportHeight);
     new ResizeObserver(reportHeight).observe(document.body);
