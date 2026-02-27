@@ -1153,11 +1153,9 @@ function updateBirds(){
 }
 function updateInf(){
   const sel=getSelected('infMSPanel');
-  const allSel=sel.length===D.production_types.length;
-  const combined=allSel&&!infGrouped;
-  /* Toggle visibility & active state */
+  const combined=!infGrouped;
+  /* Toggle active state */
   const tog=document.getElementById('infViewToggle');
-  tog.style.display=allSel?'flex':'none';
   tog.querySelectorAll('.rbtn').forEach(b=>{b.classList.toggle('active',combined?b.dataset.v==='combined':b.dataset.v==='category');});
   if(combined){
     if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.daily_infections[D.daily_dates[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
