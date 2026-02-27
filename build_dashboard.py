@@ -1587,7 +1587,7 @@ def generate_html(data):
   </div>
   <div class="card">
     <h2>Wild Bird Detection Details</h2>
-    <div class="sub">Individual confirmed detections</div>
+    <div class="sub">Individual confirmed detections arranged by sample collection date</div>
     <input type="text" class="tbl-search" id="wbSearch" placeholder="Filter by state, county, species..." oninput="updateWbTable()">
     <div class="tbl-wrap">
       <table>
