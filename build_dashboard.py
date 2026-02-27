@@ -948,7 +948,6 @@ __TAB_LIVESTOCK_HTML__
 <!-- Tab: Mammals -->
 __TAB_MAMMALS_HTML__
 
-<footer>Data: USDA APHIS (HPAI detections) · USDA AMS Report 2843 (egg prices)</footer>
 </div>
 
 <script>
