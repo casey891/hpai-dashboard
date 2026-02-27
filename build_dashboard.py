@@ -702,6 +702,9 @@ header .sub{color:#939598;font-size:.8rem;margin-top:2px}
 .card{background:#fff;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
 .card h2{font-size:1rem;font-weight:600;margin-bottom:2px;color:#013046}
 .card .sub{font-size:.78rem;color:#939598;margin-bottom:12px}
+.card-source{font-size:.68rem;color:#A7A9AC;margin-top:10px}
+.card-source a{color:#939598;text-decoration:none}
+.card-source a:hover{text-decoration:underline}
 footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 .up{color:#F6851F}.dn{color:#1F9EBC}
 /* range buttons */
@@ -848,6 +851,7 @@ __HEATMAP_CARD__
       </div>
     </div>
     <canvas id="cBirds"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/livestock" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
     <h2 id="infTitle">Confirmed HPAI Detections by Month</h2>
@@ -872,6 +876,7 @@ __HEATMAP_CARD__
       </div>
     </div>
     <canvas id="cInf"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/livestock" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
     <h2>Wholesale Egg Prices</h2>
@@ -887,6 +892,7 @@ __HEATMAP_CARD__
       </div>
     </div>
     <canvas id="cEgg"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://marketnews.usda.gov/mnp/py-landing" target="_blank">USDA AMS</a></div>
   </div>
   <div class="card">
     <h2>Poultry Detection Details</h2>
@@ -917,6 +923,7 @@ __HEATMAP_CARD__
       </table>
     </div>
     <div class="tbl-summary" id="tblSummary"></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/livestock" target="_blank">USDA APHIS</a></div>
   </div>
 </div>
 
@@ -1463,6 +1470,7 @@ def generate_html(data):
   </div>
   <div id="mapContainer"></div>
   <div class="tbl-summary" id="mapSummary"></div>
+  <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/livestock" target="_blank">USDA APHIS</a></div>
 </div>'''
         html = html.replace("__HEATMAP_CARD__", heatmap_card)
     else:
@@ -1495,6 +1503,7 @@ def generate_html(data):
     <div class="sub">Confirmed HPAI-affected herds</div>
     <div class="controls">{_RANGE_BUTTONS.format(chart="ls")}</div>
     <canvas id="cLivestock"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/livestock" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
     <h2>Livestock/Dairy Detection Details</h2>
@@ -1506,6 +1515,7 @@ def generate_html(data):
       </table>
     </div>
     <div class="tbl-summary" id="lsTblSummary"></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/livestock" target="_blank">USDA APHIS</a></div>
   </div>
 </div>'''
         html = html.replace("__TAB_LIVESTOCK_HTML__", ls_html)
@@ -1520,6 +1530,7 @@ def generate_html(data):
     <div class="sub">Confirmed detections in wild bird populations</div>
     <div class="controls">{_RANGE_BUTTONS.format(chart="wb")}</div>
     <canvas id="cWildBirds"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
     <h2>Wild Bird Detection Details</h2>
@@ -1531,6 +1542,7 @@ def generate_html(data):
       </table>
     </div>
     <div class="tbl-summary" id="wbTblSummary"></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds" target="_blank">USDA APHIS</a></div>
   </div>
 </div>'''
         html = html.replace("__TAB_WILDBIRDS_HTML__", wb_html)
@@ -1550,6 +1562,7 @@ def generate_html(data):
     <div class="sub">Confirmed detections by species group</div>
     <div class="controls">{_RANGE_BUTTONS.format(chart="mm")}</div>
     <canvas id="cMammals"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
     <h2>Mammal Detection Details</h2>
@@ -1573,6 +1586,7 @@ def generate_html(data):
       </table>
     </div>
     <div class="tbl-summary" id="mmTblSummary"></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a></div>
   </div>
 </div>'''
         html = html.replace("__TAB_MAMMALS_HTML__", mm_html)
