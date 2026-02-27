@@ -10,35 +10,35 @@
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lexend',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.5}
+body{font-family:'Lexend',sans-serif;background:#f0f4f8;color:#013046;line-height:1.5}
 .wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
 header{text-align:center;margin-bottom:20px}
-header h1{font-size:1.6rem;font-weight:700;color:#0f172a}
-header .sub{color:#64748b;font-size:.8rem;margin-top:2px}
+header h1{font-size:1.6rem;font-weight:700;color:#013046}
+header .sub{color:#939598;font-size:.8rem;margin-top:2px}
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px}
 .kpi{background:#fff;border-radius:10px;padding:14px 18px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.kpi .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#64748b;font-weight:600}
+.kpi .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#939598;font-weight:600}
 .kpi .val{font-size:1.4rem;font-weight:700;margin-top:2px}
-.kpi .note{font-size:.7rem;color:#94a3b8;margin-top:1px}
+.kpi .note{font-size:.7rem;color:#A7A9AC;margin-top:1px}
 .card{background:#fff;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.card h2{font-size:1rem;font-weight:600;margin-bottom:2px}
-.card .sub{font-size:.78rem;color:#64748b;margin-bottom:12px}
-footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
-.up{color:#dc2626}.dn{color:#16a34a}
+.card h2{font-size:1rem;font-weight:600;margin-bottom:2px;color:#013046}
+.card .sub{font-size:.78rem;color:#939598;margin-bottom:12px}
+footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
+.up{color:#F6851F}.dn{color:#1F9EBC}
 /* range buttons */
 .controls{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .range-row{display:flex;gap:3px;flex-wrap:wrap}
-.rbtn{padding:3px 10px;border:1px solid #e2e8f0;border-radius:16px;background:#f8fafc;font-size:.72rem;cursor:pointer;color:#475569;transition:all .15s}
+.rbtn{padding:3px 10px;border:1px solid #e2e8f0;border-radius:16px;background:#f8fafc;font-size:.72rem;cursor:pointer;color:#939598;transition:all .15s}
 .rbtn:hover{background:#e2e8f0}
-.rbtn.active{background:#1e3a5f;color:#fff;border-color:#1e3a5f}
+.rbtn.active{background:#013046;color:#fff;border-color:#013046}
 /* multi-select */
 .ms-wrap{position:relative;display:inline-block}
-.ms-btn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;font-size:.8rem;cursor:pointer;color:#334155;min-width:160px;text-align:left}
-.ms-btn::after{content:'▾';float:right;margin-left:8px;color:#94a3b8}
+.ms-btn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;font-size:.8rem;cursor:pointer;color:#013046;min-width:160px;text-align:left}
+.ms-btn::after{content:'▾';float:right;margin-left:8px;color:#A7A9AC}
 .ms-panel{display:none;position:absolute;right:0;z-index:20;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;max-height:320px;overflow-y:auto;min-width:290px;box-shadow:0 4px 16px rgba(0,0,0,.12);margin-top:4px}
 .ms-panel.open{display:block}
 .ms-actions{padding:2px 0 6px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;font-size:.75rem}
-.ms-actions a{color:#3b82f6;text-decoration:none;cursor:pointer}
+.ms-actions a{color:#1F9EBC;text-decoration:none;cursor:pointer}
 .ms-actions a:hover{text-decoration:underline}
 .ms-item{display:flex;align-items:center;padding:3px 0;cursor:pointer;font-size:.8rem;gap:6px}
 .ms-item input{margin:0;cursor:pointer}
@@ -47,35 +47,35 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
 .tbl-wrap{max-height:400px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:6px;margin-top:8px}
 .tbl-wrap table{width:100%;border-collapse:collapse;font-size:.78rem}
 .tbl-wrap thead{position:sticky;top:0;z-index:2}
-.tbl-wrap th{background:#f8fafc;padding:7px 10px;text-align:left;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;white-space:nowrap}
-.tbl-wrap td{padding:5px 10px;border-bottom:1px solid #f1f5f9;color:#334155}
+.tbl-wrap th{background:#f8fafc;padding:7px 10px;text-align:left;font-weight:600;color:#939598;border-bottom:2px solid #e2e8f0;white-space:nowrap}
+.tbl-wrap td{padding:5px 10px;border-bottom:1px solid #f1f5f9;color:#013046}
 .tbl-wrap tr:nth-child(even) td{background:#f8fafc}
 .tbl-wrap .num{text-align:right;font-variant-numeric:tabular-nums}
-.tbl-summary{font-size:.75rem;color:#64748b;margin-top:6px}
+.tbl-summary{font-size:.75rem;color:#939598;margin-top:6px}
 .ms-group{margin-bottom:2px}
-.ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#1e293b}
+.ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#013046}
 .ms-group-hdr input{margin:0;cursor:pointer}
 .ms-group-children{padding-left:20px}
 /* tabs */
 .tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e2e8f0}
-.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;font-family:'Lexend',sans-serif}
-.tab-btn:hover{color:#1e293b}
-.tab-btn.active{color:#1e3a5f;border-bottom-color:#1e3a5f}
+.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#939598;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;font-family:'Lexend',sans-serif}
+.tab-btn:hover{color:#013046}
+.tab-btn.active{color:#1F9EBC;border-bottom-color:#1F9EBC}
 .tab-content{display:none}
 .tab-content.active{display:block}
 /* heatmap */
 #mapContainer{width:100%;position:relative}
 #mapContainer svg{width:100%;height:auto;display:block}
 .county{stroke:#fff;stroke-width:.25px;transition:opacity .12s}
-.county:hover{opacity:.8;stroke:#1e293b;stroke-width:1px}
-.state-border{fill:none;stroke:#94a3b8;stroke-width:.7px;pointer-events:none}
+.county:hover{opacity:.8;stroke:#013046;stroke-width:1px}
+.state-border{fill:none;stroke:#A7A9AC;stroke-width:.7px;pointer-events:none}
 .map-tooltip{position:absolute;pointer-events:none;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;box-shadow:0 4px 12px rgba(0,0,0,.12);font-size:.8rem;max-width:280px;z-index:30;opacity:0;transition:opacity .12s}
 .map-tooltip.visible{opacity:1}
-.tt-county{font-weight:700;font-size:.9rem;color:#0f172a}
-.tt-total{font-size:1.1rem;font-weight:700;margin:4px 0;color:#dc2626}
-.tt-row{font-size:.75rem;color:#475569;line-height:1.6}
-.tt-date{font-size:.7rem;color:#94a3b8;margin-top:4px}
-.legend-wrap{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#64748b}
+.tt-county{font-weight:700;font-size:.9rem;color:#013046}
+.tt-total{font-size:1.1rem;font-weight:700;margin:4px 0;color:#F6851F}
+.tt-row{font-size:.75rem;color:#939598;line-height:1.6}
+.tt-date{font-size:.7rem;color:#A7A9AC;margin-top:4px}
+.legend-wrap{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#939598}
 .legend-bar{width:200px;height:12px;border-radius:3px}
 @keyframes spin{to{transform:rotate(360deg)}}
 #loadingOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(240,244,248,.95);z-index:1000;display:flex;align-items:center;justify-content:center}
@@ -84,8 +84,8 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
 <body>
 <div id="loadingOverlay">
   <div style="text-align:center">
-    <div style="width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:#1e3a5f;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px"></div>
-    <div style="font-size:.9rem;color:#475569;font-weight:600">Loading dashboard data&hellip;</div>
+    <div style="width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:#1F9EBC;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px"></div>
+    <div style="font-size:.9rem;color:#939598;font-weight:600">Loading dashboard data&hellip;</div>
   </div>
 </div>
 <div id="dashboardContent" class="wrap">
@@ -94,21 +94,32 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
   <div class="sub">Updated February 27, 2026</div>
 </header>
 
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+  <div class="sub" id="kpiPeriodLabel" style="margin:0;font-weight:600;font-size:.8rem">Last 30 Days</div>
+  <div class="range-row" data-chart="kpi">
+    <button class="rbtn active" data-r="30d">30D</button>
+    <button class="rbtn" data-r="3m">3M</button>
+    <button class="rbtn" data-r="6m">6M</button>
+    <button class="rbtn" data-r="1y">1Y</button>
+    <button class="rbtn" data-r="ytd">YTD</button>
+    <button class="rbtn" data-r="all">All</button>
+  </div>
+</div>
 <div class="kpi-row">
   <div class="kpi">
     <div class="lbl">Egg-Layer Birds Affected</div>
-    <div class="val" style="color:#dc2626" id="kpiLayers">&mdash;</div>
-    <div class="note">Commercial egg layers, last 30 days</div>
+    <div class="val" style="color:#F6851F" id="kpiLayers">&mdash;</div>
+    <div class="note" id="kpiLayersNote">Commercial egg layers</div>
   </div>
   <div class="kpi">
     <div class="lbl">Poultry Infection Sites</div>
-    <div class="val" style="color:#f59e0b" id="kpiSites">&mdash;</div>
-    <div class="note">All flock types, last 30 days</div>
+    <div class="val" style="color:#FDB714" id="kpiSites">&mdash;</div>
+    <div class="note" id="kpiSitesNote">All flock types</div>
   </div>
   <div class="kpi">
     <div class="lbl">Wild Bird Detections</div>
-    <div class="val" style="color:#16a34a" id="kpiWB">&mdash;</div>
-    <div class="note">Confirmed cases, last 30 days</div>
+    <div class="val" style="color:#1F9EBC" id="kpiWB">&mdash;</div>
+    <div class="note" id="kpiWBNote">Confirmed cases</div>
   </div>
   <div class="kpi">
     <div class="lbl">Detection Change (M/M)</div>
@@ -117,7 +128,7 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
   </div>
   <div class="kpi">
     <div class="lbl">Egg Price (Caged Lg)</div>
-    <div class="val" style="color:#0ea5e9" id="kpiPrice">&mdash;</div>
+    <div class="val" style="color:#013046" id="kpiPrice">&mdash;</div>
     <div class="note">National FOB, vol-weighted, $/dz</div>
   </div>
 </div>
@@ -178,34 +189,34 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
           <div class="ms-group">
           <label class="ms-group-hdr"><input type="checkbox" data-group="1" >Commercial</label>
           <div class="ms-group-children">
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Layer" checked><span class="ms-dot" style="background:#dc2626"></span>Table Egg Layer</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Meat Bird" ><span class="ms-dot" style="background:#ca8a04"></span>Turkey Meat Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Production" ><span class="ms-dot" style="background:#ea580c"></span>Broiler Production</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Pullets" ><span class="ms-dot" style="background:#f87171"></span>Table Egg Pullets</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Duck Meat Bird" ><span class="ms-dot" style="background:#16a34a"></span>Duck Meat Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Upland Gamebird Producer" ><span class="ms-dot" style="background:#2dd4bf"></span>Upland Gamebird Producer</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder" ><span class="ms-dot" style="background:#fb923c"></span>Broiler Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Hens" ><span class="ms-dot" style="background:#facc15"></span>Turkey Breeder Hens</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Duck Breeder" ><span class="ms-dot" style="background:#4ade80"></span>Duck Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Upland Game Bird" ><span class="ms-dot" style="background:#5eead4"></span>Raised for Release Upland Game Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder Pullets" ><span class="ms-dot" style="background:#fdba74"></span>Broiler Breeder Pullets</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Replacement Hens" ><span class="ms-dot" style="background:#fde047"></span>Turkey Breeder Replacement Hens</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Breeder Operation" ><span class="ms-dot" style="background:#0ea5e9"></span>Breeder Operation</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Breeder" ><span class="ms-dot" style="background:#fca5a5"></span>Table Egg Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Breeder (Multiple Bird Species)" ><span class="ms-dot" style="background:#38bdf8"></span>Breeder (Multiple Bird Species)</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Waterfowl" ><span class="ms-dot" style="background:#99f6e4"></span>Raised for Release Waterfowl</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Toms" ><span class="ms-dot" style="background:#fef08a"></span>Turkey Breeder Toms</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Poult Supplier" ><span class="ms-dot" style="background:#fef9c3"></span>Turkey Poult Supplier</label>
-            <label class="ms-item"><input type="checkbox" value="Primary Broiler Breeder Pedigree Farm" ><span class="ms-dot" style="background:#7dd3fc"></span>Primary Broiler Breeder Pedigree Farm</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Layer" checked><span class="ms-dot" style="background:#F6851F"></span>Table Egg Layer</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Meat Bird" ><span class="ms-dot" style="background:#1F9EBC"></span>Turkey Meat Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Production" ><span class="ms-dot" style="background:#013046"></span>Broiler Production</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Pullets" ><span class="ms-dot" style="background:#F9A54E"></span>Table Egg Pullets</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Duck Meat Bird" ><span class="ms-dot" style="background:#FDB714"></span>Duck Meat Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Upland Gamebird Producer" ><span class="ms-dot" style="background:#8FCAE6"></span>Upland Gamebird Producer</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder" ><span class="ms-dot" style="background:#0A4A6B"></span>Broiler Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Hens" ><span class="ms-dot" style="background:#3DB3CF"></span>Turkey Breeder Hens</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Duck Breeder" ><span class="ms-dot" style="background:#FDCB56"></span>Duck Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Upland Game Bird" ><span class="ms-dot" style="background:#B0D9ED"></span>Raised for Release Upland Game Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder Pullets" ><span class="ms-dot" style="background:#0F3D5C"></span>Broiler Breeder Pullets</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Replacement Hens" ><span class="ms-dot" style="background:#5DB8D4"></span>Turkey Breeder Replacement Hens</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Breeder Operation" ><span class="ms-dot" style="background:#165E7A"></span>Breeder Operation</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Breeder" ><span class="ms-dot" style="background:#FAB87B"></span>Table Egg Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Breeder (Multiple Bird Species)" ><span class="ms-dot" style="background:#2B7D9E"></span>Breeder (Multiple Bird Species)</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Waterfowl" ><span class="ms-dot" style="background:#D0E8F4"></span>Raised for Release Waterfowl</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Toms" ><span class="ms-dot" style="background:#78C4DC"></span>Turkey Breeder Toms</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Poult Supplier" ><span class="ms-dot" style="background:#A3D5E8"></span>Turkey Poult Supplier</label>
+            <label class="ms-item"><input type="checkbox" value="Primary Broiler Breeder Pedigree Farm" ><span class="ms-dot" style="background:#4AADCA"></span>Primary Broiler Breeder Pedigree Farm</label>
           </div>
         </div>
         <div class="ms-group">
           <label class="ms-group-hdr"><input type="checkbox" data-group="1" >Backyard</label>
           <div class="ms-group-children">
-            <label class="ms-item"><input type="checkbox" value="WOAH Poultry" ><span class="ms-dot" style="background:#6366f1"></span>WOAH Poultry</label>
-            <label class="ms-item"><input type="checkbox" value="WOAH Non-Poultry" ><span class="ms-dot" style="background:#818cf8"></span>WOAH Non-Poultry</label>
-            <label class="ms-item"><input type="checkbox" value="Live Bird Market" ><span class="ms-dot" style="background:#9333ea"></span>Live Bird Market</label>
-            <label class="ms-item"><input type="checkbox" value="Live Bird Sales  (non-slaughter)" ><span class="ms-dot" style="background:#a78bfa"></span>Live Bird Sales  (non-slaughter)</label>
+            <label class="ms-item"><input type="checkbox" value="WOAH Poultry" ><span class="ms-dot" style="background:#939598"></span>WOAH Poultry</label>
+            <label class="ms-item"><input type="checkbox" value="WOAH Non-Poultry" ><span class="ms-dot" style="background:#A7A9AC"></span>WOAH Non-Poultry</label>
+            <label class="ms-item"><input type="checkbox" value="Live Bird Market" ><span class="ms-dot" style="background:#E5700A"></span>Live Bird Market</label>
+            <label class="ms-item"><input type="checkbox" value="Live Bird Sales  (non-slaughter)" ><span class="ms-dot" style="background:#D4920E"></span>Live Bird Sales  (non-slaughter)</label>
           </div>
         </div>
         </div>
@@ -234,34 +245,34 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
           <div class="ms-group">
           <label class="ms-group-hdr"><input type="checkbox" data-group="1" checked>Commercial</label>
           <div class="ms-group-children">
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Layer" checked><span class="ms-dot" style="background:#dc2626"></span>Table Egg Layer</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Meat Bird" checked><span class="ms-dot" style="background:#ca8a04"></span>Turkey Meat Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Production" checked><span class="ms-dot" style="background:#ea580c"></span>Broiler Production</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Pullets" checked><span class="ms-dot" style="background:#f87171"></span>Table Egg Pullets</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Duck Meat Bird" checked><span class="ms-dot" style="background:#16a34a"></span>Duck Meat Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Upland Gamebird Producer" checked><span class="ms-dot" style="background:#2dd4bf"></span>Upland Gamebird Producer</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder" checked><span class="ms-dot" style="background:#fb923c"></span>Broiler Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Hens" checked><span class="ms-dot" style="background:#facc15"></span>Turkey Breeder Hens</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Duck Breeder" checked><span class="ms-dot" style="background:#4ade80"></span>Duck Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Upland Game Bird" checked><span class="ms-dot" style="background:#5eead4"></span>Raised for Release Upland Game Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder Pullets" checked><span class="ms-dot" style="background:#fdba74"></span>Broiler Breeder Pullets</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Replacement Hens" checked><span class="ms-dot" style="background:#fde047"></span>Turkey Breeder Replacement Hens</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Breeder Operation" checked><span class="ms-dot" style="background:#0ea5e9"></span>Breeder Operation</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Breeder" checked><span class="ms-dot" style="background:#fca5a5"></span>Table Egg Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Breeder (Multiple Bird Species)" checked><span class="ms-dot" style="background:#38bdf8"></span>Breeder (Multiple Bird Species)</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Waterfowl" checked><span class="ms-dot" style="background:#99f6e4"></span>Raised for Release Waterfowl</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Toms" checked><span class="ms-dot" style="background:#fef08a"></span>Turkey Breeder Toms</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Poult Supplier" checked><span class="ms-dot" style="background:#fef9c3"></span>Turkey Poult Supplier</label>
-            <label class="ms-item"><input type="checkbox" value="Primary Broiler Breeder Pedigree Farm" checked><span class="ms-dot" style="background:#7dd3fc"></span>Primary Broiler Breeder Pedigree Farm</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Layer" checked><span class="ms-dot" style="background:#F6851F"></span>Table Egg Layer</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Meat Bird" checked><span class="ms-dot" style="background:#1F9EBC"></span>Turkey Meat Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Production" checked><span class="ms-dot" style="background:#013046"></span>Broiler Production</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Pullets" checked><span class="ms-dot" style="background:#F9A54E"></span>Table Egg Pullets</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Duck Meat Bird" checked><span class="ms-dot" style="background:#FDB714"></span>Duck Meat Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Upland Gamebird Producer" checked><span class="ms-dot" style="background:#8FCAE6"></span>Upland Gamebird Producer</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder" checked><span class="ms-dot" style="background:#0A4A6B"></span>Broiler Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Hens" checked><span class="ms-dot" style="background:#3DB3CF"></span>Turkey Breeder Hens</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Duck Breeder" checked><span class="ms-dot" style="background:#FDCB56"></span>Duck Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Upland Game Bird" checked><span class="ms-dot" style="background:#B0D9ED"></span>Raised for Release Upland Game Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder Pullets" checked><span class="ms-dot" style="background:#0F3D5C"></span>Broiler Breeder Pullets</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Replacement Hens" checked><span class="ms-dot" style="background:#5DB8D4"></span>Turkey Breeder Replacement Hens</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Breeder Operation" checked><span class="ms-dot" style="background:#165E7A"></span>Breeder Operation</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Breeder" checked><span class="ms-dot" style="background:#FAB87B"></span>Table Egg Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Breeder (Multiple Bird Species)" checked><span class="ms-dot" style="background:#2B7D9E"></span>Breeder (Multiple Bird Species)</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Waterfowl" checked><span class="ms-dot" style="background:#D0E8F4"></span>Raised for Release Waterfowl</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Toms" checked><span class="ms-dot" style="background:#78C4DC"></span>Turkey Breeder Toms</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Poult Supplier" checked><span class="ms-dot" style="background:#A3D5E8"></span>Turkey Poult Supplier</label>
+            <label class="ms-item"><input type="checkbox" value="Primary Broiler Breeder Pedigree Farm" checked><span class="ms-dot" style="background:#4AADCA"></span>Primary Broiler Breeder Pedigree Farm</label>
           </div>
         </div>
         <div class="ms-group">
           <label class="ms-group-hdr"><input type="checkbox" data-group="1" checked>Backyard</label>
           <div class="ms-group-children">
-            <label class="ms-item"><input type="checkbox" value="WOAH Poultry" checked><span class="ms-dot" style="background:#6366f1"></span>WOAH Poultry</label>
-            <label class="ms-item"><input type="checkbox" value="WOAH Non-Poultry" checked><span class="ms-dot" style="background:#818cf8"></span>WOAH Non-Poultry</label>
-            <label class="ms-item"><input type="checkbox" value="Live Bird Market" checked><span class="ms-dot" style="background:#9333ea"></span>Live Bird Market</label>
-            <label class="ms-item"><input type="checkbox" value="Live Bird Sales  (non-slaughter)" checked><span class="ms-dot" style="background:#a78bfa"></span>Live Bird Sales  (non-slaughter)</label>
+            <label class="ms-item"><input type="checkbox" value="WOAH Poultry" checked><span class="ms-dot" style="background:#939598"></span>WOAH Poultry</label>
+            <label class="ms-item"><input type="checkbox" value="WOAH Non-Poultry" checked><span class="ms-dot" style="background:#A7A9AC"></span>WOAH Non-Poultry</label>
+            <label class="ms-item"><input type="checkbox" value="Live Bird Market" checked><span class="ms-dot" style="background:#E5700A"></span>Live Bird Market</label>
+            <label class="ms-item"><input type="checkbox" value="Live Bird Sales  (non-slaughter)" checked><span class="ms-dot" style="background:#D4920E"></span>Live Bird Sales  (non-slaughter)</label>
           </div>
         </div>
         </div>
@@ -305,34 +316,34 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
           <div class="ms-group">
           <label class="ms-group-hdr"><input type="checkbox" data-group="1" checked>Commercial</label>
           <div class="ms-group-children">
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Layer" checked><span class="ms-dot" style="background:#dc2626"></span>Table Egg Layer</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Meat Bird" checked><span class="ms-dot" style="background:#ca8a04"></span>Turkey Meat Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Production" checked><span class="ms-dot" style="background:#ea580c"></span>Broiler Production</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Pullets" checked><span class="ms-dot" style="background:#f87171"></span>Table Egg Pullets</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Duck Meat Bird" checked><span class="ms-dot" style="background:#16a34a"></span>Duck Meat Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Upland Gamebird Producer" checked><span class="ms-dot" style="background:#2dd4bf"></span>Upland Gamebird Producer</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder" checked><span class="ms-dot" style="background:#fb923c"></span>Broiler Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Hens" checked><span class="ms-dot" style="background:#facc15"></span>Turkey Breeder Hens</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Duck Breeder" checked><span class="ms-dot" style="background:#4ade80"></span>Duck Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Upland Game Bird" checked><span class="ms-dot" style="background:#5eead4"></span>Raised for Release Upland Game Bird</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder Pullets" checked><span class="ms-dot" style="background:#fdba74"></span>Broiler Breeder Pullets</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Replacement Hens" checked><span class="ms-dot" style="background:#fde047"></span>Turkey Breeder Replacement Hens</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Breeder Operation" checked><span class="ms-dot" style="background:#0ea5e9"></span>Breeder Operation</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Breeder" checked><span class="ms-dot" style="background:#fca5a5"></span>Table Egg Breeder</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Breeder (Multiple Bird Species)" checked><span class="ms-dot" style="background:#38bdf8"></span>Breeder (Multiple Bird Species)</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Waterfowl" checked><span class="ms-dot" style="background:#99f6e4"></span>Raised for Release Waterfowl</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Toms" checked><span class="ms-dot" style="background:#fef08a"></span>Turkey Breeder Toms</label>
-            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Poult Supplier" checked><span class="ms-dot" style="background:#fef9c3"></span>Turkey Poult Supplier</label>
-            <label class="ms-item"><input type="checkbox" value="Primary Broiler Breeder Pedigree Farm" checked><span class="ms-dot" style="background:#7dd3fc"></span>Primary Broiler Breeder Pedigree Farm</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Layer" checked><span class="ms-dot" style="background:#F6851F"></span>Table Egg Layer</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Meat Bird" checked><span class="ms-dot" style="background:#1F9EBC"></span>Turkey Meat Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Production" checked><span class="ms-dot" style="background:#013046"></span>Broiler Production</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Pullets" checked><span class="ms-dot" style="background:#F9A54E"></span>Table Egg Pullets</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Duck Meat Bird" checked><span class="ms-dot" style="background:#FDB714"></span>Duck Meat Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Upland Gamebird Producer" checked><span class="ms-dot" style="background:#8FCAE6"></span>Upland Gamebird Producer</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder" checked><span class="ms-dot" style="background:#0A4A6B"></span>Broiler Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Hens" checked><span class="ms-dot" style="background:#3DB3CF"></span>Turkey Breeder Hens</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Duck Breeder" checked><span class="ms-dot" style="background:#FDCB56"></span>Duck Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Upland Game Bird" checked><span class="ms-dot" style="background:#B0D9ED"></span>Raised for Release Upland Game Bird</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Broiler Breeder Pullets" checked><span class="ms-dot" style="background:#0F3D5C"></span>Broiler Breeder Pullets</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Replacement Hens" checked><span class="ms-dot" style="background:#5DB8D4"></span>Turkey Breeder Replacement Hens</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Breeder Operation" checked><span class="ms-dot" style="background:#165E7A"></span>Breeder Operation</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Table Egg Breeder" checked><span class="ms-dot" style="background:#FAB87B"></span>Table Egg Breeder</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Breeder (Multiple Bird Species)" checked><span class="ms-dot" style="background:#2B7D9E"></span>Breeder (Multiple Bird Species)</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Raised for Release Waterfowl" checked><span class="ms-dot" style="background:#D0E8F4"></span>Raised for Release Waterfowl</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Breeder Toms" checked><span class="ms-dot" style="background:#78C4DC"></span>Turkey Breeder Toms</label>
+            <label class="ms-item"><input type="checkbox" value="Commercial Turkey Poult Supplier" checked><span class="ms-dot" style="background:#A3D5E8"></span>Turkey Poult Supplier</label>
+            <label class="ms-item"><input type="checkbox" value="Primary Broiler Breeder Pedigree Farm" checked><span class="ms-dot" style="background:#4AADCA"></span>Primary Broiler Breeder Pedigree Farm</label>
           </div>
         </div>
         <div class="ms-group">
           <label class="ms-group-hdr"><input type="checkbox" data-group="1" checked>Backyard</label>
           <div class="ms-group-children">
-            <label class="ms-item"><input type="checkbox" value="WOAH Poultry" checked><span class="ms-dot" style="background:#6366f1"></span>WOAH Poultry</label>
-            <label class="ms-item"><input type="checkbox" value="WOAH Non-Poultry" checked><span class="ms-dot" style="background:#818cf8"></span>WOAH Non-Poultry</label>
-            <label class="ms-item"><input type="checkbox" value="Live Bird Market" checked><span class="ms-dot" style="background:#9333ea"></span>Live Bird Market</label>
-            <label class="ms-item"><input type="checkbox" value="Live Bird Sales  (non-slaughter)" checked><span class="ms-dot" style="background:#a78bfa"></span>Live Bird Sales  (non-slaughter)</label>
+            <label class="ms-item"><input type="checkbox" value="WOAH Poultry" checked><span class="ms-dot" style="background:#939598"></span>WOAH Poultry</label>
+            <label class="ms-item"><input type="checkbox" value="WOAH Non-Poultry" checked><span class="ms-dot" style="background:#A7A9AC"></span>WOAH Non-Poultry</label>
+            <label class="ms-item"><input type="checkbox" value="Live Bird Market" checked><span class="ms-dot" style="background:#E5700A"></span>Live Bird Market</label>
+            <label class="ms-item"><input type="checkbox" value="Live Bird Sales  (non-slaughter)" checked><span class="ms-dot" style="background:#D4920E"></span>Live Bird Sales  (non-slaughter)</label>
           </div>
         </div>
         </div>
@@ -437,12 +448,12 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
           <div class="ms-actions">
             <a onclick="msAll('mmTbl')">Select All</a> · <a onclick="msNone('mmTbl')">Clear</a>
           </div>
-          <label class="ms-item"><input type="checkbox" value="Captive/Zoo" checked><span class="ms-dot" style="background:#9333ea"></span>Captive/Zoo</label>
-        <label class="ms-item"><input type="checkbox" value="Domestic/Companion" checked><span class="ms-dot" style="background:#dc2626"></span>Domestic/Companion</label>
-        <label class="ms-item"><input type="checkbox" value="Marine Mammals" checked><span class="ms-dot" style="background:#0ea5e9"></span>Marine Mammals</label>
-        <label class="ms-item"><input type="checkbox" value="Other" checked><span class="ms-dot" style="background:#6b7280"></span>Other</label>
-        <label class="ms-item"><input type="checkbox" value="Rodents/Small Mammals" checked><span class="ms-dot" style="background:#ca8a04"></span>Rodents/Small Mammals</label>
-        <label class="ms-item"><input type="checkbox" value="Wild Carnivores" checked><span class="ms-dot" style="background:#ea580c"></span>Wild Carnivores</label>
+          <label class="ms-item"><input type="checkbox" value="Captive/Zoo" checked><span class="ms-dot" style="background:#8FCAE6"></span>Captive/Zoo</label>
+        <label class="ms-item"><input type="checkbox" value="Domestic/Companion" checked><span class="ms-dot" style="background:#F6851F"></span>Domestic/Companion</label>
+        <label class="ms-item"><input type="checkbox" value="Marine Mammals" checked><span class="ms-dot" style="background:#1F9EBC"></span>Marine Mammals</label>
+        <label class="ms-item"><input type="checkbox" value="Other" checked><span class="ms-dot" style="background:#939598"></span>Other</label>
+        <label class="ms-item"><input type="checkbox" value="Rodents/Small Mammals" checked><span class="ms-dot" style="background:#FDB714"></span>Rodents/Small Mammals</label>
+        <label class="ms-item"><input type="checkbox" value="Wild Carnivores" checked><span class="ms-dot" style="background:#013046"></span>Wild Carnivores</label>
         </div>
       </div>
     </div>
@@ -469,14 +480,18 @@ let mapRange='30d',sourceFilter='both';
 let mapSvg,mapPath,mapTooltip,countyPaths;
 let eggRange='all',birdsRange='all',infRange='all',tblRange='all';
 let lsRange='all',wbRange='all',mmRange='all',mmTblRange='all';
+let kpiRange='30d';
 const panelMap={birds:'birdsMSPanel',inf:'infMSPanel',tbl:'tblMSPanel'};
 const btnMap={birds:'birdsMSBtn',inf:'infMSBtn',tbl:'tblMSBtn'};
-const MM_COLORS={'Domestic/Companion':'#dc2626','Wild Carnivores':'#ea580c','Rodents/Small Mammals':'#ca8a04','Marine Mammals':'#0ea5e9','Captive/Zoo':'#9333ea','Other':'#6b7280'};
+const MM_COLORS={'Domestic/Companion':'#F6851F','Wild Carnivores':'#013046','Rodents/Small Mammals':'#FDB714','Marine Mammals':'#1F9EBC','Captive/Zoo':'#8FCAE6','Other':'#939598'};
+
+/* ── Chart.js global font ── */
+Chart.defaults.font.family="'Lexend',sans-serif";
 
 /* ── Loading UI ── */
 function hideLoading(){document.getElementById('loadingOverlay').style.display='none';}
 function showError(msg){
-  document.getElementById('loadingOverlay').innerHTML='<div style="text-align:center;color:#dc2626"><div style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Failed to load data</div><div style="font-size:.85rem;color:#64748b">'+msg+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer">Retry</button></div>';
+  document.getElementById('loadingOverlay').innerHTML='<div style="text-align:center;color:#F6851F"><div style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Failed to load data</div><div style="font-size:.85rem;color:#939598">'+msg+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#013046;cursor:pointer">Retry</button></div>';
 }
 
 /* ── Heatmap helpers ── */
@@ -559,7 +574,7 @@ function onMapHover(event,d){
     html+='</div>';
     if(info&&info.ld)html+='<div class="tt-date">Latest (all time): '+info.ld+'</div>';
   } else {
-    html+='<div class="tt-row" style="color:#94a3b8">No detections in this period</div>';
+    html+='<div class="tt-row" style="color:#A7A9AC">No detections in this period</div>';
   }
   mapTooltip.html(html).classed('visible',true);
 }
@@ -638,14 +653,14 @@ function panelToChart(panel){
 function updateEgg(){const idx=eggIndices(eggRange);eggChart.data.labels=sliceByIdx(D.egg_dates,idx);eggChart.data.datasets[0].data=sliceByIdx(D.caged_prices,idx);eggChart.update();}
 function updateBirds(){
   const sel=getSelected('birdsMSPanel');
-  if(isDaily(birdsRange)){const idx=dailyIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.daily_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_birds[D.daily_dates[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#6b7280'}));}
-  else{const idx=monthIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.month_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.birds_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#6b7280'}));}
+  if(isDaily(birdsRange)){const idx=dailyIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.daily_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_birds[D.daily_dates[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
+  else{const idx=monthIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.month_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.birds_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
   birdsChart.update();document.getElementById('birdsTitle').textContent='Birds Impacted by '+(isDaily(birdsRange)?'Day':'Month');
 }
 function updateInf(){
   const sel=getSelected('infMSPanel');
-  if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#6b7280'}));}
-  else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#6b7280'}));}
+  if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
+  else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
   infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
 }
 function updateTable(){
@@ -661,7 +676,7 @@ function initTab(tab){
 }
 function initLivestock(){
   const LS=D.livestock;
-  lsChart=new Chart(document.getElementById('cLivestock'),{type:'bar',data:{labels:LS.month_labels,datasets:[{label:'Herds Affected',data:LS.monthly_counts,backgroundColor:'#0ea5e9'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' herds'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Herds Affected'},grid:{color:'#f1f5f9'}}}}});
+  lsChart=new Chart(document.getElementById('cLivestock'),{type:'bar',data:{labels:LS.month_labels,datasets:[{label:'Herds Affected',data:LS.monthly_counts,backgroundColor:'#013046'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' herds'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Herds Affected'},grid:{color:'#f1f5f9'}}}}});
   updateLsTable();
 }
 function updateLivestock(){
@@ -677,7 +692,7 @@ function updateLsTable(){
 }
 function initWildBirds(){
   const WB=D.wild_birds;
-  wbChart=new Chart(document.getElementById('cWildBirds'),{type:'bar',data:{labels:WB.month_labels,datasets:[{label:'Detections',data:WB.monthly_counts,backgroundColor:'#16a34a'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' detections'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
+  wbChart=new Chart(document.getElementById('cWildBirds'),{type:'bar',data:{labels:WB.month_labels,datasets:[{label:'Detections',data:WB.monthly_counts,backgroundColor:'#1F9EBC'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' detections'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
   updateWbTable();
 }
 function wbDailyIndices(range){const cutoff=cutoffDate(range);const idx=[];D.wild_birds.daily_dates.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
@@ -697,14 +712,14 @@ function updateWbTable(){
 }
 function initMammals(){
   const MM=D.mammals;
-  mmChart=new Chart(document.getElementById('cMammals'),{type:'bar',data:{labels:MM.month_labels,datasets:MM.groups.map(g=>({label:g,data:MM.months.map(m=>(MM.monthly_by_group[m]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#6b7280'}))},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'}}}}});
+  mmChart=new Chart(document.getElementById('cMammals'),{type:'bar',data:{labels:MM.month_labels,datasets:MM.groups.map(g=>({label:g,data:MM.months.map(m=>(MM.monthly_by_group[m]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#939598'}))},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'}}}}});
   updateMmTable();
 }
 function updateMammals(){
   if(!mmChart||!D.mammals)return;const MM=D.mammals;const cutM=cutoffMonth(mmRange);
   const idx=[];MM.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});
   mmChart.data.labels=sliceByIdx(MM.month_labels,idx);
-  mmChart.data.datasets=MM.groups.map(g=>({label:g,data:idx.map(i=>(MM.monthly_by_group[MM.months[i]]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#6b7280'}));
+  mmChart.data.datasets=MM.groups.map(g=>({label:g,data:idx.map(i=>(MM.monthly_by_group[MM.months[i]]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#939598'}));
   mmChart.update();updateMmTable();
 }
 function updateMmTable(){
@@ -713,6 +728,36 @@ function updateMmTable(){
   const filtered=D.mammals.events.filter(e=>e.d>=cutoff&&(!sel||sel.has(e.g)));
   document.getElementById('mmTblBody').innerHTML=filtered.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.g+'</td><td>'+e.st+'</td></tr>').join('');
   document.getElementById('mmTblSummary').textContent='Showing '+filtered.length.toLocaleString()+' of '+D.mammals.total.toLocaleString()+' detections';
+}
+
+/* ── KPI update ── */
+function updateKPIs(){
+  const cut=cutoffISO(kpiRange);
+  const labels={'30d':'Last 30 Days','3m':'Last 3 Months','6m':'Last 6 Months','1y':'Last 12 Months','ytd':'Year to Date','all':'All Time'};
+  document.getElementById('kpiPeriodLabel').textContent=labels[kpiRange]||kpiRange;
+  const layerBirds=D.events.filter(e=>e.d>=cut&&e.p==='Commercial Table Egg Layer').reduce((s,e)=>s+e.f,0);
+  document.getElementById('kpiLayers').textContent=fmtBirds(layerBirds);
+  const pSites=D.events.filter(e=>e.d>=cut).length;
+  document.getElementById('kpiSites').textContent=pSites.toLocaleString();
+  const wbDet=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut).length:0;
+  document.getElementById('kpiWB').textContent=wbDet.toLocaleString();
+  /* M/M change always uses 30-day windows */
+  const now=new Date();
+  const d30=new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);
+  const d60=new Date(now.getFullYear(),now.getMonth(),now.getDate()-60);
+  function isoD(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  const cut30=isoD(d30),cut60=isoD(d60);
+  const curP=D.events.filter(e=>e.d>=cut30).length;
+  const curW=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut30).length:0;
+  const cur=curP+curW;
+  const prevP=D.events.filter(e=>e.d>=cut60&&e.d<cut30).length;
+  const prevW=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut60&&e.d<cut30).length:0;
+  const prev=prevP+prevW;
+  const chgEl=document.getElementById('kpiChg');
+  if(prev>0){const pct=((cur-prev)/prev*100).toFixed(1);chgEl.textContent=(pct>0?'+':'')+pct+'%';chgEl.className='val '+(pct>0?'up':pct<0?'dn':'');}
+  else{chgEl.textContent=cur>0?'New':'0';}
+  if(D.caged_prices&&D.caged_prices.length>0){document.getElementById('kpiPrice').textContent='$'+D.caged_prices[D.caged_prices.length-1].toFixed(2);}
+  else{document.getElementById('kpiPrice').textContent='N/A';}
 }
 
 /* ── Boot: fetch data and initialize ── */
@@ -736,7 +781,7 @@ function initDashboard(){
 
   /* Create charts */
   eggChart=new Chart(document.getElementById('cEgg'),{type:'line',
-    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.06)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:2}]},
+    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#F6851F',backgroundColor:'rgba(246,133,31,.08)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:2}]},
     options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?'$'+c.parsed.y.toFixed(2)+'/dz':''}}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{title:{display:true,text:'$ / Dozen'},grid:{color:'#f1f5f9'},ticks:{callback:v=>'$'+v.toFixed(2)}}}}});
 
   birdsChart=new Chart(document.getElementById('cBirds'),{type:'bar',
@@ -744,7 +789,7 @@ function initDashboard(){
     options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return c.dataset.label+': '+(v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)+' birds';}}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
 
   infChart=new Chart(document.getElementById('cInf'),{type:'bar',
-    data:{labels:D.month_labels,datasets:D.production_types.map(p=>({label:p,data:D.months.map(m=>(D.infections_by_month[m]||{})[p]||0),backgroundColor:D.category_colors[p]||'#6b7280'}))},
+    data:{labels:D.month_labels,datasets:D.production_types.map(p=>({label:p,data:D.months.map(m=>(D.infections_by_month[m]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}))},
     options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'}}}}});
 
   /* Heatmap */
@@ -784,33 +829,13 @@ function initDashboard(){
     if(chart==='ls'){lsRange=r;updateLivestock();}
     if(chart==='wb'){wbRange=r;updateWildBirds();}
     if(chart==='mm'){mmRange=r;updateMammals();}
+    if(chart==='kpi'){kpiRange=r;updateKPIs();}
     if(chart==='mmTbl'){mmTblRange=r;updateMmTable();}
   });});});
 
   /* Initial data population */
   updateTable();
-
-  /* KPI cards (last 30 days) */
-  const now=new Date();
-  const d30=new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);
-  const d60=new Date(now.getFullYear(),now.getMonth(),now.getDate()-60);
-  function isoD(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-  const cut30=isoD(d30),cut60=isoD(d60);
-  const layerBirds=D.events.filter(e=>e.d>=cut30&&e.p==='Commercial Table Egg Layer').reduce((s,e)=>s+e.f,0);
-  document.getElementById('kpiLayers').textContent=fmtBirds(layerBirds);
-  const pSites=D.events.filter(e=>e.d>=cut30).length;
-  document.getElementById('kpiSites').textContent=pSites.toLocaleString();
-  const wbDet=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut30).length:0;
-  document.getElementById('kpiWB').textContent=wbDet.toLocaleString();
-  const cur=pSites+wbDet;
-  const prevP=D.events.filter(e=>e.d>=cut60&&e.d<cut30).length;
-  const prevW=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut60&&e.d<cut30).length:0;
-  const prev=prevP+prevW;
-  const chgEl=document.getElementById('kpiChg');
-  if(prev>0){const pct=((cur-prev)/prev*100).toFixed(1);chgEl.textContent=(pct>0?'+':'')+pct+'%';chgEl.className='val '+(pct>0?'up':pct<0?'dn':'');}
-  else{chgEl.textContent=cur>0?'New':'0';}
-  if(D.caged_prices&&D.caged_prices.length>0){document.getElementById('kpiPrice').textContent='$'+D.caged_prices[D.caged_prices.length-1].toFixed(2);}
-  else{document.getElementById('kpiPrice').textContent='N/A';}
+  updateKPIs();
 
   /* MS label init */
   updateMSLabel('birds');updateMSLabel('inf');updateMSLabel('tbl');
