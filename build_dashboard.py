@@ -702,7 +702,7 @@ header .sub{color:#939598;font-size:.8rem;margin-top:2px}
 .card{background:#fff;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
 .card h2{font-size:1rem;font-weight:600;margin-bottom:2px;color:#013046}
 .card .sub{font-size:.78rem;color:#939598;margin-bottom:12px}
-.card-source{font-size:.68rem;color:#A7A9AC;margin-top:10px}
+.card-source{font-size:.68rem;color:#939598;margin-top:10px}
 .card-source a{color:#939598;text-decoration:none}
 .card-source a:hover{text-decoration:underline}
 footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
