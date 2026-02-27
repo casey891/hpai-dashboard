@@ -4,87 +4,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HPAI Impact Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.5}
+body{font-family:'Lexend',sans-serif;background:#0f1117;color:#e2e8f0;line-height:1.5}
 .wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
 header{text-align:center;margin-bottom:20px}
-header h1{font-size:1.6rem;font-weight:700;color:#0f172a}
-header .sub{color:#64748b;font-size:.8rem;margin-top:2px}
+header h1{font-size:1.6rem;font-weight:700;color:#f1f5f9}
+header .sub{color:#8892a4;font-size:.8rem;margin-top:2px}
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px}
-.kpi{background:#fff;border-radius:10px;padding:14px 18px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.kpi .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#64748b;font-weight:600}
+.kpi{background:#1a1d27;border-radius:10px;padding:14px 18px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.kpi .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#8892a4;font-weight:600}
 .kpi .val{font-size:1.4rem;font-weight:700;margin-top:2px}
-.kpi .note{font-size:.7rem;color:#94a3b8;margin-top:1px}
-.card{background:#fff;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.card h2{font-size:1rem;font-weight:600;margin-bottom:2px}
-.card .sub{font-size:.78rem;color:#64748b;margin-bottom:12px}
-footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
-.up{color:#dc2626}.dn{color:#16a34a}
+.kpi .note{font-size:.7rem;color:#64748b;margin-top:1px}
+.card{background:#1a1d27;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.card h2{font-size:1rem;font-weight:600;margin-bottom:2px;color:#f1f5f9}
+.card .sub{font-size:.78rem;color:#8892a4;margin-bottom:12px}
+footer{text-align:center;padding:14px;color:#64748b;font-size:.7rem}
+.up{color:#ef4444}.dn{color:#22c55e}
 /* range buttons */
 .controls{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .range-row{display:flex;gap:3px;flex-wrap:wrap}
-.rbtn{padding:3px 10px;border:1px solid #e2e8f0;border-radius:16px;background:#f8fafc;font-size:.72rem;cursor:pointer;color:#475569;transition:all .15s}
-.rbtn:hover{background:#e2e8f0}
-.rbtn.active{background:#1e3a5f;color:#fff;border-color:#1e3a5f}
+.rbtn{padding:3px 10px;border:1px solid #2d3344;border-radius:16px;background:#252833;font-size:.72rem;cursor:pointer;color:#94a3b8;transition:all .15s}
+.rbtn:hover{background:#2d3344}
+.rbtn.active{background:#2563eb;color:#fff;border-color:#2563eb}
 /* multi-select */
 .ms-wrap{position:relative;display:inline-block}
-.ms-btn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;font-size:.8rem;cursor:pointer;color:#334155;min-width:160px;text-align:left}
-.ms-btn::after{content:'▾';float:right;margin-left:8px;color:#94a3b8}
-.ms-panel{display:none;position:absolute;right:0;z-index:20;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;max-height:320px;overflow-y:auto;min-width:290px;box-shadow:0 4px 16px rgba(0,0,0,.12);margin-top:4px}
+.ms-btn{padding:5px 12px;border:1px solid #2d3344;border-radius:6px;background:#252833;font-size:.8rem;cursor:pointer;color:#cbd5e1;min-width:160px;text-align:left}
+.ms-btn::after{content:'▾';float:right;margin-left:8px;color:#64748b}
+.ms-panel{display:none;position:absolute;right:0;z-index:20;background:#1a1d27;border:1px solid #2d3344;border-radius:8px;padding:8px 10px;max-height:320px;overflow-y:auto;min-width:290px;box-shadow:0 4px 16px rgba(0,0,0,.4);margin-top:4px}
 .ms-panel.open{display:block}
-.ms-actions{padding:2px 0 6px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;font-size:.75rem}
+.ms-actions{padding:2px 0 6px;border-bottom:1px solid #1e2130;margin-bottom:6px;font-size:.75rem}
 .ms-actions a{color:#3b82f6;text-decoration:none;cursor:pointer}
 .ms-actions a:hover{text-decoration:underline}
-.ms-item{display:flex;align-items:center;padding:3px 0;cursor:pointer;font-size:.8rem;gap:6px}
+.ms-item{display:flex;align-items:center;padding:3px 0;cursor:pointer;font-size:.8rem;gap:6px;color:#cbd5e1}
 .ms-item input{margin:0;cursor:pointer}
 .ms-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 /* data table */
-.tbl-wrap{max-height:400px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:6px;margin-top:8px}
+.tbl-wrap{max-height:400px;overflow-y:auto;border:1px solid #2d3344;border-radius:6px;margin-top:8px}
 .tbl-wrap table{width:100%;border-collapse:collapse;font-size:.78rem}
 .tbl-wrap thead{position:sticky;top:0;z-index:2}
-.tbl-wrap th{background:#f8fafc;padding:7px 10px;text-align:left;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;white-space:nowrap}
-.tbl-wrap td{padding:5px 10px;border-bottom:1px solid #f1f5f9;color:#334155}
-.tbl-wrap tr:nth-child(even) td{background:#f8fafc}
+.tbl-wrap th{background:#252833;padding:7px 10px;text-align:left;font-weight:600;color:#94a3b8;border-bottom:2px solid #2d3344;white-space:nowrap}
+.tbl-wrap td{padding:5px 10px;border-bottom:1px solid #1e2130;color:#cbd5e1}
+.tbl-wrap tr:nth-child(even) td{background:#252833}
 .tbl-wrap .num{text-align:right;font-variant-numeric:tabular-nums}
-.tbl-summary{font-size:.75rem;color:#64748b;margin-top:6px}
+.tbl-summary{font-size:.75rem;color:#8892a4;margin-top:6px}
 .ms-group{margin-bottom:2px}
-.ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#1e293b}
+.ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#e2e8f0}
 .ms-group-hdr input{margin:0;cursor:pointer}
 .ms-group-children{padding-left:20px}
 /* tabs */
-.tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e2e8f0;overflow-x:auto}
-.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s}
-.tab-btn:hover{color:#1e293b}
-.tab-btn.active{color:#1e3a5f;border-bottom-color:#1e3a5f}
+.tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #2d3344;overflow-x:auto}
+.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;font-family:'Lexend',sans-serif}
+.tab-btn:hover{color:#e2e8f0}
+.tab-btn.active{color:#2563eb;border-bottom-color:#2563eb}
 .tab-content{display:none}
 .tab-content.active{display:block}
 /* heatmap */
 #mapContainer{width:100%;position:relative}
 #mapContainer svg{width:100%;height:auto;display:block}
-.county{stroke:#fff;stroke-width:.25px;transition:opacity .12s}
-.county:hover{opacity:.8;stroke:#1e293b;stroke-width:1px}
-.state-border{fill:none;stroke:#94a3b8;stroke-width:.7px;pointer-events:none}
-.map-tooltip{position:absolute;pointer-events:none;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;box-shadow:0 4px 12px rgba(0,0,0,.12);font-size:.8rem;max-width:280px;z-index:30;opacity:0;transition:opacity .12s}
+.county{stroke:#2d3344;stroke-width:.25px;transition:opacity .12s}
+.county:hover{opacity:.8;stroke:#f1f5f9;stroke-width:1px}
+.state-border{fill:none;stroke:#4a5568;stroke-width:.7px;pointer-events:none}
+.map-tooltip{position:absolute;pointer-events:none;background:#1a1d27;border:1px solid #2d3344;border-radius:8px;padding:10px 14px;box-shadow:0 4px 12px rgba(0,0,0,.4);font-size:.8rem;max-width:280px;z-index:30;opacity:0;transition:opacity .12s}
 .map-tooltip.visible{opacity:1}
-.tt-county{font-weight:700;font-size:.9rem;color:#0f172a}
-.tt-total{font-size:1.1rem;font-weight:700;margin:4px 0;color:#dc2626}
-.tt-row{font-size:.75rem;color:#475569;line-height:1.6}
-.tt-date{font-size:.7rem;color:#94a3b8;margin-top:4px}
-.legend-wrap{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#64748b}
+.tt-county{font-weight:700;font-size:.9rem;color:#f1f5f9}
+.tt-total{font-size:1.1rem;font-weight:700;margin:4px 0;color:#ef4444}
+.tt-row{font-size:.75rem;color:#94a3b8;line-height:1.6}
+.tt-date{font-size:.7rem;color:#64748b;margin-top:4px}
+.legend-wrap{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#8892a4}
 .legend-bar{width:200px;height:12px;border-radius:3px}
 @keyframes spin{to{transform:rotate(360deg)}}
-#loadingOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(240,244,248,.95);z-index:1000;display:flex;align-items:center;justify-content:center}
+#loadingOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,17,23,.95);z-index:1000;display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
 <div id="loadingOverlay">
   <div style="text-align:center">
-    <div style="width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:#1e3a5f;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px"></div>
-    <div style="font-size:.9rem;color:#475569;font-weight:600">Loading dashboard data&hellip;</div>
+    <div style="width:40px;height:40px;border:3px solid #2d3344;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px"></div>
+    <div style="font-size:.9rem;color:#94a3b8;font-weight:600">Loading dashboard data&hellip;</div>
   </div>
 </div>
 <div id="dashboardContent" class="wrap">
@@ -472,10 +473,19 @@ const panelMap={birds:'birdsMSPanel',inf:'infMSPanel',tbl:'tblMSPanel'};
 const btnMap={birds:'birdsMSBtn',inf:'infMSBtn',tbl:'tblMSBtn'};
 const MM_COLORS={'Domestic/Companion':'#dc2626','Wild Carnivores':'#ea580c','Rodents/Small Mammals':'#ca8a04','Marine Mammals':'#0ea5e9','Captive/Zoo':'#9333ea','Other':'#6b7280'};
 
+/* ── Chart.js dark defaults ── */
+Chart.defaults.color='#94a3b8';
+Chart.defaults.borderColor='#2d3344';
+Chart.defaults.plugins.tooltip.backgroundColor='#252833';
+Chart.defaults.plugins.tooltip.titleColor='#f1f5f9';
+Chart.defaults.plugins.tooltip.bodyColor='#cbd5e1';
+Chart.defaults.plugins.tooltip.borderColor='#2d3344';
+Chart.defaults.plugins.tooltip.borderWidth=1;
+
 /* ── Loading UI ── */
 function hideLoading(){document.getElementById('loadingOverlay').style.display='none';}
 function showError(msg){
-  document.getElementById('loadingOverlay').innerHTML='<div style="text-align:center;color:#dc2626"><div style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Failed to load data</div><div style="font-size:.85rem;color:#64748b">'+msg+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer">Retry</button></div>';
+  document.getElementById('loadingOverlay').innerHTML='<div style="text-align:center;color:#ef4444"><div style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Failed to load data</div><div style="font-size:.85rem;color:#8892a4">'+msg+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border:1px solid #2d3344;border-radius:6px;background:#1a1d27;color:#e2e8f0;cursor:pointer">Retry</button></div>';
 }
 
 /* ── Heatmap helpers ── */
@@ -535,7 +545,7 @@ function updateMapColors(){
   const positives=totals.filter(c=>c>0);
   const maxCount=positives.length?Math.max(...positives):1;
   const scale=buildColorScale(maxCount);
-  countyPaths.attr('fill',function(){const fips=this.getAttribute('data-fips');const count=getFilteredCounts(fips).total;return count>0?scale(count):'#f1f5f9';});
+  countyPaths.attr('fill',function(){const fips=this.getAttribute('data-fips');const count=getFilteredCounts(fips).total;return count>0?scale(count):'#1e2130';});
   paintLegend(maxCount);
   const activeCounties=positives.length;
   const totalDet=positives.reduce((a,b)=>a+b,0);
@@ -558,7 +568,7 @@ function onMapHover(event,d){
     html+='</div>';
     if(info&&info.ld)html+='<div class="tt-date">Latest (all time): '+info.ld+'</div>';
   } else {
-    html+='<div class="tt-row" style="color:#94a3b8">No detections in this period</div>';
+    html+='<div class="tt-row" style="color:#64748b">No detections in this period</div>';
   }
   mapTooltip.html(html).classed('visible',true);
 }
@@ -660,7 +670,7 @@ function initTab(tab){
 }
 function initLivestock(){
   const LS=D.livestock;
-  lsChart=new Chart(document.getElementById('cLivestock'),{type:'bar',data:{labels:LS.month_labels,datasets:[{label:'Herds Affected',data:LS.monthly_counts,backgroundColor:'#0ea5e9'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' herds'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Herds Affected'},grid:{color:'#f1f5f9'}}}}});
+  lsChart=new Chart(document.getElementById('cLivestock'),{type:'bar',data:{labels:LS.month_labels,datasets:[{label:'Herds Affected',data:LS.monthly_counts,backgroundColor:'#0ea5e9'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' herds'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Herds Affected'},grid:{color:'#2d3344'}}}}});
   updateLsTable();
 }
 function updateLivestock(){
@@ -676,7 +686,7 @@ function updateLsTable(){
 }
 function initWildBirds(){
   const WB=D.wild_birds;
-  wbChart=new Chart(document.getElementById('cWildBirds'),{type:'bar',data:{labels:WB.month_labels,datasets:[{label:'Detections',data:WB.monthly_counts,backgroundColor:'#16a34a'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' detections'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
+  wbChart=new Chart(document.getElementById('cWildBirds'),{type:'bar',data:{labels:WB.month_labels,datasets:[{label:'Detections',data:WB.monthly_counts,backgroundColor:'#16a34a'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' detections'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Detections'},grid:{color:'#2d3344'},ticks:{callback:fmtBirds}}}}});
   updateWbTable();
 }
 function wbDailyIndices(range){const cutoff=cutoffDate(range);const idx=[];D.wild_birds.daily_dates.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
@@ -696,7 +706,7 @@ function updateWbTable(){
 }
 function initMammals(){
   const MM=D.mammals;
-  mmChart=new Chart(document.getElementById('cMammals'),{type:'bar',data:{labels:MM.month_labels,datasets:MM.groups.map(g=>({label:g,data:MM.months.map(m=>(MM.monthly_by_group[m]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#6b7280'}))},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'}}}}});
+  mmChart=new Chart(document.getElementById('cMammals'),{type:'bar',data:{labels:MM.month_labels,datasets:MM.groups.map(g=>({label:g,data:MM.months.map(m=>(MM.monthly_by_group[m]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#6b7280'}))},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11},color:'#94a3b8'}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Detections'},grid:{color:'#2d3344'}}}}});
   updateMmTable();
 }
 function updateMammals(){
@@ -735,16 +745,16 @@ function initDashboard(){
 
   /* Create charts */
   eggChart=new Chart(document.getElementById('cEgg'),{type:'line',
-    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.06)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:2}]},
-    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?'$'+c.parsed.y.toFixed(2)+'/dz':''}}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{title:{display:true,text:'$ / Dozen'},grid:{color:'#f1f5f9'},ticks:{callback:v=>'$'+v.toFixed(2)}}}}});
+    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.15)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:2}]},
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?'$'+c.parsed.y.toFixed(2)+'/dz':''}}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{title:{display:true,text:'$ / Dozen'},grid:{color:'#2d3344'},ticks:{callback:v=>'$'+v.toFixed(2)}}}}});
 
   birdsChart=new Chart(document.getElementById('cBirds'),{type:'bar',
     data:{labels:D.month_labels,datasets:[{label:'Commercial Table Egg Layer',data:D.months.map(m=>(D.birds_by_month[m]||{})['Commercial Table Egg Layer']||0),backgroundColor:D.category_colors['Commercial Table Egg Layer']||'#dc2626'}]},
-    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return c.dataset.label+': '+(v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)+' birds';}}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return c.dataset.label+': '+(v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)+' birds';}}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#2d3344'},ticks:{callback:fmtBirds}}}}});
 
   infChart=new Chart(document.getElementById('cInf'),{type:'bar',
     data:{labels:D.month_labels,datasets:D.production_types.map(p=>({label:p,data:D.months.map(m=>(D.infections_by_month[m]||{})[p]||0),backgroundColor:D.category_colors[p]||'#6b7280'}))},
-    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'}}}}});
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#2d3344'}}}}});
 
   /* Heatmap */
   initMap();
