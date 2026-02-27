@@ -681,12 +681,13 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HPAI Impact Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.5}
+body{font-family:'Lexend',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.5}
 .wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
 header{text-align:center;margin-bottom:20px}
 header h1{font-size:1.6rem;font-weight:700;color:#0f172a}
@@ -733,8 +734,8 @@ footer{text-align:center;padding:14px;color:#94a3b8;font-size:.7rem}
 .ms-group-hdr input{margin:0;cursor:pointer}
 .ms-group-children{padding-left:20px}
 /* tabs */
-.tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e2e8f0;overflow-x:auto}
-.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s}
+.tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e2e8f0}
+.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;font-family:'Lexend',sans-serif}
 .tab-btn:hover{color:#1e293b}
 .tab-btn.active{color:#1e3a5f;border-bottom-color:#1e3a5f}
 .tab-content{display:none}
