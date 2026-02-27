@@ -299,6 +299,10 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
         </div>
       </div>
     </div>
+    <div class="range-row" id="infViewToggle" style="margin-bottom:8px">
+      <button class="rbtn active" data-v="combined" onclick="infGrouped=false;updateInf();">Combined</button>
+      <button class="rbtn" data-v="category" onclick="infGrouped=true;updateInf();">By Category</button>
+    </div>
     <canvas id="cInf"></canvas>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
   </div>
@@ -511,6 +515,7 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 /* ── Global state ── */
 let D = null;
 let eggChart, birdsChart, infChart;
+let infGrouped=false;
 let lsChart=null, wbChart=null, mmChart=null;
 const TOPO_URL='https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json';
 let mapRange='30d',sourceFilter='both';
@@ -704,9 +709,19 @@ function updateBirds(){
 function updateInf(){
   const sel=getSelected('infMSPanel');
   const allSel=sel.length===D.production_types.length;
-  const clr=p=>allSel?'#013046':(D.category_colors[p]||'#939598');
-  if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:clr(p)}));}
-  else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:clr(p)}));}
+  const combined=allSel&&!infGrouped;
+  /* Toggle visibility & active state */
+  const tog=document.getElementById('infViewToggle');
+  tog.style.display=allSel?'flex':'none';
+  tog.querySelectorAll('.rbtn').forEach(b=>{b.classList.toggle('active',combined?b.dataset.v==='combined':b.dataset.v==='category');});
+  if(combined){
+    if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.daily_infections[D.daily_dates[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
+    else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.infections_by_month[D.months[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
+  }else{
+    const clr=p=>D.category_colors[p]||'#939598';
+    if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:clr(p)}));}
+    else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:clr(p)}));}
+  }
   infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
 }
 function renderPager(id,page,total){
