@@ -769,7 +769,7 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 </div>
 <div id="dashboardContent" class="wrap">
 <header>
-  <h1>HPAI Impact Dashboard</h1>
+  <h1>HPAI Dashboard</h1>
   <div class="sub">Updated __UPDATED__</div>
 </header>
 
@@ -786,12 +786,12 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 </div>
 <div class="kpi-row">
   <div class="kpi">
-    <div class="lbl">Egg-Layer Birds Affected</div>
+    <div class="lbl">Hens Depopulated</div>
     <div class="val" style="color:#F6851F" id="kpiLayers">&mdash;</div>
     <div class="note" id="kpiLayersNote">Commercial egg layers</div>
   </div>
   <div class="kpi">
-    <div class="lbl">Poultry Infection Sites</div>
+    <div class="lbl">Number of Poultry Operations Infected</div>
     <div class="val" style="color:#FDB714" id="kpiSites">&mdash;</div>
     <div class="note" id="kpiSitesNote">All flock types</div>
   </div>
@@ -803,12 +803,12 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
   <div class="kpi">
     <div class="lbl">Detection Change (M/M)</div>
     <div class="val" id="kpiChg">&mdash;</div>
-    <div class="note">Wild bird + poultry vs prior 30 days</div>
+    <div class="note">Wild Bird Detections and Poultry Operation Infection vs prior 30 days</div>
   </div>
   <div class="kpi">
-    <div class="lbl">Egg Price (Caged Lg)</div>
+    <div class="lbl">Wholesale Egg Price</div>
     <div class="val" style="color:#013046" id="kpiPrice">&mdash;</div>
-    <div class="note">National FOB, vol-weighted, $/dz</div>
+    <div class="note">National FOB, Caged, $ per Dozen</div>
   </div>
 </div>
 
@@ -1218,8 +1218,15 @@ function updateKPIs(){
   const chgEl=document.getElementById('kpiChg');
   if(prev>0){const pct=((cur-prev)/prev*100).toFixed(1);chgEl.textContent=(pct>0?'+':'')+pct+'%';chgEl.className='val '+(pct>0?'up':pct<0?'dn':'');}
   else{chgEl.textContent=cur>0?'New':'0';}
-  if(D.caged_prices&&D.caged_prices.length>0){document.getElementById('kpiPrice').textContent='$'+D.caged_prices[D.caged_prices.length-1].toFixed(2);}
-  else{document.getElementById('kpiPrice').textContent='N/A';}
+  /* Egg price: average over selected period */
+  if(D.caged_prices&&D.caged_prices.length>0&&D.egg_dates_iso){
+    const priceDates=D.egg_dates_iso;
+    const prices=D.caged_prices;
+    const inRange=[];
+    for(let i=0;i<priceDates.length;i++){if(priceDates[i]>=cut&&prices[i]!=null)inRange.push(prices[i]);}
+    if(inRange.length>0){const avg=inRange.reduce((a,b)=>a+b,0)/inRange.length;document.getElementById('kpiPrice').textContent='$'+avg.toFixed(2);}
+    else{document.getElementById('kpiPrice').textContent='N/A';}
+  }else{document.getElementById('kpiPrice').textContent='N/A';}
 }
 
 /* ── Boot: fetch data and initialize ── */
@@ -1243,7 +1250,7 @@ function initDashboard(){
 
   /* Create charts */
   eggChart=new Chart(document.getElementById('cEgg'),{type:'line',
-    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#F6851F',backgroundColor:'rgba(246,133,31,.08)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:2}]},
+    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#F6851F',backgroundColor:'rgba(246,133,31,.08)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:3}]},
     options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?'$'+c.parsed.y.toFixed(2)+'/dz':''}}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{title:{display:true,text:'$ / Dozen'},grid:{color:'#f1f5f9'},ticks:{callback:v=>'$'+v.toFixed(2)}}}}});
 
   birdsChart=new Chart(document.getElementById('cBirds'),{type:'bar',
@@ -1432,7 +1439,7 @@ def generate_html(data):
     if "map_data" in data:
         heatmap_card = '''<div class="card">
   <h2>HPAI Detection Heatmap by County</h2>
-  <div class="sub">Hover over any county to see detection details. Color intensity reflects total confirmed HPAI detections.</div>
+  <div class="sub">Hover over any county to see detection details.</div>
   <div class="controls">
     <div class="range-row" data-chart="map">
       <button class="rbtn" data-r="14d">14D</button>
@@ -1444,10 +1451,13 @@ def generate_html(data):
       <button class="rbtn" data-r="wild_birds">Wild Birds</button>
       <button class="rbtn" data-r="poultry">Poultry</button>
     </div>
-    <div class="legend-wrap" id="legendWrap">
-      <span>0</span>
-      <canvas id="legendBar" class="legend-bar" width="200" height="12"></canvas>
-      <span id="legendMax">&mdash;</span>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <div class="legend-wrap" id="legendWrap">
+        <span>0</span>
+        <canvas id="legendBar" class="legend-bar" width="200" height="12"></canvas>
+        <span id="legendMax">&mdash;</span>
+      </div>
+      <div class="sub" style="margin:0;font-size:.68rem">Color intensity reflects total confirmed HPAI detections.</div>
     </div>
   </div>
   <div id="mapContainer"></div>
