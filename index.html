@@ -152,9 +152,12 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
   <div class="sub">Hover over any county to see detection details.</div>
   <div class="controls">
     <div class="range-row" data-chart="map">
+      <button class="rbtn" data-r="7d">7D</button>
       <button class="rbtn" data-r="14d">14D</button>
       <button class="rbtn active" data-r="30d">30D</button>
       <button class="rbtn" data-r="60d">60D</button>
+      <button class="rbtn" data-r="3m">3M</button>
+      <button class="rbtn" data-r="1y">1Y</button>
     </div>
     <div class="range-row" data-chart="source">
       <button class="rbtn active" data-r="both">Both</button>
@@ -534,9 +537,12 @@ function showError(msg){
 function cutoffYM(range){
   const now=new Date();let c;
   switch(range){
+    case '7d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-7);break;
     case '14d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-14);break;
     case '30d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);break;
     case '60d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-60);break;
+    case '3m':c=new Date(now.getFullYear(),now.getMonth()-3,now.getDate());break;
+    case '1y':c=new Date(now.getFullYear()-1,now.getMonth(),now.getDate());break;
     default:c=new Date(2000,0,1);
   }
   return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0');
@@ -591,8 +597,10 @@ function updateMapColors(){
   paintLegend(maxCount);
   const activeCounties=positives.length;
   const totalDet=positives.reduce((a,b)=>a+b,0);
-  const unk=D.unknown_count||0;
-  const rangeLabel={14:'14-day',30:'30-day',60:'60-day'}[parseInt(mapRange)]||mapRange;
+  const cutM=cutoffYM(mapRange);
+  let unk=0;
+  if(D.unknown_by_month){for(const[m,v]of Object.entries(D.unknown_by_month)){if(m>=cutM){if(sourceFilter==='wild_birds')unk+=v.wb||0;else if(sourceFilter==='poultry')unk+=v.p||0;else unk+=(v.wb||0)+(v.p||0);}}}
+  const rangeLabel={'7d':'7-day','14d':'14-day','30d':'30-day','60d':'60-day','3m':'3-month','1y':'1-year'}[mapRange]||mapRange;
   const srcLabel=sourceFilter==='both'?'':(sourceFilter==='wild_birds'?' (wild birds only)':' (poultry only)');
   let summary=activeCounties.toLocaleString()+' counties with '+totalDet.toLocaleString()+' detections in '+rangeLabel+' window'+srcLabel;
   if(unk>0)summary+=' \u00b7 '+unk.toLocaleString()+' excluded (county unknown)';

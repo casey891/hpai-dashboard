@@ -416,6 +416,7 @@ def aggregate_county_detections(all_events, fips_lookup):
     county_data = {}
     unmapped_set = set()
     unknown_count = 0
+    unknown_events = []
 
     for event in all_events:
         state = event["state"]
@@ -425,6 +426,7 @@ def aggregate_county_detections(all_events, fips_lookup):
 
         if not county or county.lower() == "unknown":
             unknown_count += 1
+            unknown_events.append({"date": date, "source": source})
             continue
 
         fips = fips_lookup(state, county)
@@ -452,7 +454,7 @@ def aggregate_county_detections(all_events, fips_lookup):
         for s, c in sorted(unmapped_set)[:25]:
             print(f"    {s} / {c}")
 
-    return county_data, unknown_count
+    return county_data, unknown_count, unknown_events
 
 
 def compress_map_data(county_data):
@@ -980,9 +982,12 @@ function showError(msg){
 function cutoffYM(range){
   const now=new Date();let c;
   switch(range){
+    case '7d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-7);break;
     case '14d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-14);break;
     case '30d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);break;
     case '60d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-60);break;
+    case '3m':c=new Date(now.getFullYear(),now.getMonth()-3,now.getDate());break;
+    case '1y':c=new Date(now.getFullYear()-1,now.getMonth(),now.getDate());break;
     default:c=new Date(2000,0,1);
   }
   return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0');
@@ -1037,8 +1042,10 @@ function updateMapColors(){
   paintLegend(maxCount);
   const activeCounties=positives.length;
   const totalDet=positives.reduce((a,b)=>a+b,0);
-  const unk=D.unknown_count||0;
-  const rangeLabel={14:'14-day',30:'30-day',60:'60-day'}[parseInt(mapRange)]||mapRange;
+  const cutM=cutoffYM(mapRange);
+  let unk=0;
+  if(D.unknown_by_month){for(const[m,v]of Object.entries(D.unknown_by_month)){if(m>=cutM){if(sourceFilter==='wild_birds')unk+=v.wb||0;else if(sourceFilter==='poultry')unk+=v.p||0;else unk+=(v.wb||0)+(v.p||0);}}}
+  const rangeLabel={'7d':'7-day','14d':'14-day','30d':'30-day','60d':'60-day','3m':'3-month','1y':'1-year'}[mapRange]||mapRange;
   const srcLabel=sourceFilter==='both'?'':(sourceFilter==='wild_birds'?' (wild birds only)':' (poultry only)');
   let summary=activeCounties.toLocaleString()+' counties with '+totalDet.toLocaleString()+' detections in '+rangeLabel+' window'+srcLabel;
   if(unk>0)summary+=' \u00b7 '+unk.toLocaleString()+' excluded (county unknown)';
@@ -1491,9 +1498,12 @@ def generate_html(data):
   <div class="sub">Hover over any county to see detection details.</div>
   <div class="controls">
     <div class="range-row" data-chart="map">
+      <button class="rbtn" data-r="7d">7D</button>
       <button class="rbtn" data-r="14d">14D</button>
       <button class="rbtn active" data-r="30d">30D</button>
       <button class="rbtn" data-r="60d">60D</button>
+      <button class="rbtn" data-r="3m">3M</button>
+      <button class="rbtn" data-r="1y">1Y</button>
     </div>
     <div class="range-row" data-chart="source">
       <button class="rbtn active" data-r="both">Both</button>
@@ -1719,19 +1729,28 @@ def main():
                 for e in wild_birds
             ]
         fips_lookup = build_fips_lookup()
-        county_data, unknown_count = aggregate_county_detections(heatmap_events, fips_lookup)
+        county_data, unknown_count, unknown_events = aggregate_county_detections(heatmap_events, fips_lookup)
         map_compressed = compress_map_data(county_data)
+        # Compress unknown events by year-month and source
+        unk_by_month = defaultdict(lambda: {"wb": 0, "p": 0})
+        for ue in unknown_events:
+            ym = ue["date"].strftime("%Y-%m")
+            if ue["source"] == "wild_birds":
+                unk_by_month[ym]["wb"] += 1
+            else:
+                unk_by_month[ym]["p"] += 1
+        unk_compressed = {ym: dict(v) for ym, v in unk_by_month.items()}
         print(f"  {len(map_compressed)} counties mapped, {unknown_count} excluded (county unknown)")
     else:
         print("  WARNING: addfips not installed, skipping heatmap")
         map_compressed = None
-        unknown_count = 0
+        unk_compressed = {}
 
     # 5. Build data & HTML
     data = build_data(events, caged_prices, livestock=livestock, mammals=mammals, wild_birds=wild_birds)
     if map_compressed:
         data["map_data"] = map_compressed
-        data["unknown_count"] = unknown_count
+        data["unknown_by_month"] = unk_compressed
     html, data_json = generate_html(data)
 
     # 5. Write output
