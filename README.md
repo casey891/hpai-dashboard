@@ -28,13 +28,12 @@ A self-contained interactive dashboard for tracking Highly Pathogenic Avian Infl
 ## Requirements
 
 - Python 3.8+
+- [`requests`](https://docs.python-requests.org/) — for downloading APHIS data
 - [`addfips`](https://github.com/fitnr/addfips) — for county heatmap FIPS mapping (optional but recommended)
 
 ```bash
-pip install addfips
+pip install requests addfips
 ```
-
-All other dependencies are Python standard library.
 
 ### Egg prices (MARS API)
 
@@ -48,29 +47,32 @@ If `MARS_API_KEY` is not set, egg prices will be skipped automatically. You can 
 
 ## Usage
 
-Download the CSV files from the APHIS links above, then run:
+The build script automatically downloads 3 of 4 datasets (flocks, wild birds, mammals) and builds the dashboard:
 
 ```bash
-# Minimal — poultry data only
-python3 build_dashboard.py "A Table by Confirmation Date.csv"
+# Download fresh data + build dashboard
+python3 build_dashboard.py
 
-# Full — all data sources
-python3 build_dashboard.py "A Table by Confirmation Date.csv" \
-  --livestock "Table Details by Date.csv" \
-  --mammals "HPAI Detections in Mammals.csv" \
-  --wild-birds "HPAI Detections in Wild Birds.csv"
-
-# Custom output path
-python3 build_dashboard.py "A Table by Confirmation Date.csv" -o docs/index.html
+# Build from existing CSVs (skip download)
+python3 build_dashboard.py --no-download
 
 # Skip egg price fetch (offline mode)
-python3 build_dashboard.py "A Table by Confirmation Date.csv" --no-prices
+python3 build_dashboard.py --no-prices
 
-# Custom egg price start date
-python3 build_dashboard.py "A Table by Confirmation Date.csv" --egg-start 2024-01-01
+# Custom output path
+python3 build_dashboard.py -o docs/index.html
 ```
 
 Output is written to `index.html` and `data.json` in the current directory by default.
+
+**Livestock data** must be downloaded manually from the [APHIS livestock page](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock) — the Tableau view doesn't expose an automated endpoint. Place it as `Table Details by Date.csv` in the project directory.
+
+You can also download datasets independently:
+
+```bash
+python3 download_data.py                # download all 3 to current directory
+python3 download_data.py -o data/       # specify output directory
+```
 
 ### Preview locally
 
@@ -82,7 +84,8 @@ python3 -m http.server 8000 -d .
 ## Project Structure
 
 ```
-build_dashboard.py   — CLI entry point, data aggregation, HTML generation
+build_dashboard.py   — CLI entry point: downloads data, aggregates, generates HTML
+download_data.py     — APHIS dataset downloader (3 of 4 datasets automated)
 parsers.py           — CSV parsers, species classifiers, MARS API egg price fetcher
 geo.py               — FIPS county lookup, detection aggregation, map data compression
 template.py          — HTML/CSS/JS template, color constants, checkbox builders
