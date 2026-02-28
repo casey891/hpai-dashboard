@@ -9,6 +9,7 @@ Usage:
 """
 
 import argparse
+import csv
 import json
 import sys
 from collections import defaultdict
@@ -192,6 +193,56 @@ def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=No
     return result
 
 
+# ── CSV export ──────────────────────────────────────────────────────────────
+
+def export_clean_csvs(data_dir, events, livestock=None, mammals=None, wild_birds=None):
+    """Export clean, readable CSVs matching the dashboard table columns."""
+    data_dir.mkdir(parents=True, exist_ok=True)
+
+    # Poultry detections
+    poultry_path = data_dir / "poultry_detections.csv"
+    with open(poultry_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["Date", "State", "County", "Operation Type", "Birds Impacted"])
+        for e in sorted(events, key=lambda e: e["date"], reverse=True):
+            w.writerow([e["date"].strftime("%m/%d/%Y"), e["state"], e["county"],
+                        e["production"], e["flock"]])
+    print(f"  {poultry_path} ({len(events)} rows)")
+
+    # Livestock detections
+    if livestock:
+        ls_path = data_dir / "livestock_detections.csv"
+        with open(ls_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["Date", "State", "Special Id", "Production", "Species"])
+            for e in sorted(livestock, key=lambda e: e["date"], reverse=True):
+                w.writerow([e["date"].strftime("%m/%d/%Y"), e["state"],
+                            e["special_id"], e["production"], e["species"]])
+        print(f"  {ls_path} ({len(livestock)} rows)")
+
+    # Wild bird detections
+    if wild_birds:
+        wb_path = data_dir / "wild_bird_detections.csv"
+        with open(wb_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["Date", "State", "County", "Species", "Strain"])
+            for e in sorted(wild_birds, key=lambda e: e["date"], reverse=True):
+                w.writerow([e["date"].strftime("%m/%d/%Y"), e["state"], e["county"],
+                            e["species"], e["strain"]])
+        print(f"  {wb_path} ({len(wild_birds)} rows)")
+
+    # Mammal detections
+    if mammals:
+        mm_path = data_dir / "mammal_detections.csv"
+        with open(mm_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["Date", "State", "County", "Species", "Group", "Strain"])
+            for e in sorted(mammals, key=lambda e: e["date"], reverse=True):
+                w.writerow([e["date"].strftime("%m/%d/%Y"), e["state"], e["county"],
+                            e["species"], e["group"], e["strain"]])
+        print(f"  {mm_path} ({len(mammals)} rows)")
+
+
 # ── HTML generation ─────────────────────────────────────────────────────────
 
 def _fmt_big(n):
@@ -202,7 +253,7 @@ def _fmt_big(n):
     return str(n)
 
 
-def generate_html(data):
+def generate_html(data, data_url="data"):
     # Birds checkboxes: default only "Commercial Table Egg Layer"
     birds_cbs = build_grouped_checkboxes(
         data["production_types"], data["category_colors"],
@@ -224,10 +275,14 @@ def generate_html(data):
     html = html.replace("__BIRDS_CHECKBOXES__", birds_cbs)
     html = html.replace("__INF_CHECKBOXES__", inf_cbs)
     html = html.replace("__TBL_CHECKBOXES__", tbl_cbs)
+    html = html.replace("__DATA_URL__", data_url)
 
     # ── Heatmap card ──
     if "map_data" in data:
-        heatmap_card = '''<div class="card">
+        map_dl = f' · <a href="{data_url}/poultry_detections.csv" download>Download Poultry Data</a>'
+        if "wild_birds" in data:
+            map_dl += f' · <a href="{data_url}/wild_bird_detections.csv" download>Download Wild Bird Data</a>'
+        heatmap_card = f'''<div class="card">
   <h2>HPAI Detection Heatmap by County</h2>
   <div class="sub">Hover over any county to see detection details.</div>
   <div class="controls">
@@ -255,7 +310,7 @@ def generate_html(data):
   </div>
   <div id="mapContainer"></div>
   <div class="tbl-summary" id="mapSummary"></div>
-  <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+  <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a>{map_dl}</div>
 </div>'''
         html = html.replace("__HEATMAP_CARD__", heatmap_card)
     else:
@@ -288,7 +343,7 @@ def generate_html(data):
     <div class="sub">Confirmed HPAI-affected herds</div>
     <div class="controls">{RANGE_BUTTONS.format(chart="ls")}</div>
     <canvas id="cLivestock"></canvas>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock" target="_blank">USDA APHIS</a> · <a href="{data_url}/livestock_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2>Livestock/Dairy Detection Details</h2>
@@ -302,7 +357,7 @@ def generate_html(data):
     </div>
     <div class="tbl-summary" id="lsTblSummary"></div>
     <div class="tbl-pager" id="lsPager"><button onclick="pageTable('ls',-1)">\u2190 Prev</button><span id="lsPageInfo"></span><button onclick="pageTable('ls',1)">Next \u2192</button></div>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock" target="_blank">USDA APHIS</a> · <a href="{data_url}/livestock_detections.csv" download>Download Data</a></div>
   </div>
 </div>'''
         html = html.replace("__TAB_LIVESTOCK_HTML__", ls_html)
@@ -317,7 +372,7 @@ def generate_html(data):
     <div class="sub">Confirmed detections in wild bird populations</div>
     <div class="controls">{RANGE_BUTTONS.format(chart="wb")}</div>
     <canvas id="cWildBirds"></canvas>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1" target="_blank">USDA APHIS</a> · <a href="{data_url}/wild_bird_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2>Wild Bird Detection Details</h2>
@@ -331,7 +386,7 @@ def generate_html(data):
     </div>
     <div class="tbl-summary" id="wbTblSummary"></div>
     <div class="tbl-pager" id="wbPager"><button onclick="pageTable('wb',-1)">\u2190 Prev</button><span id="wbPageInfo"></span><button onclick="pageTable('wb',1)">Next \u2192</button></div>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1" target="_blank">USDA APHIS</a> · <a href="{data_url}/wild_bird_detections.csv" download>Download Data</a></div>
   </div>
 </div>'''
         html = html.replace("__TAB_WILDBIRDS_HTML__", wb_html)
@@ -351,7 +406,7 @@ def generate_html(data):
     <div class="sub">Confirmed detections by species group by date of sample collection</div>
     <div class="controls">{RANGE_BUTTONS.format(chart="mm")}</div>
     <canvas id="cMammals"></canvas>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a> · <a href="{data_url}/mammal_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2>Mammal Detection Details</h2>
@@ -377,7 +432,7 @@ def generate_html(data):
     </div>
     <div class="tbl-summary" id="mmTblSummary"></div>
     <div class="tbl-pager" id="mmPager"><button onclick="pageTable('mm',-1)">\u2190 Prev</button><span id="mmPageInfo"></span><button onclick="pageTable('mm',1)">Next \u2192</button></div>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a> · <a href="{data_url}/mammal_detections.csv" download>Download Data</a></div>
   </div>
 </div>'''
         html = html.replace("__TAB_MAMMALS_HTML__", mm_html)
@@ -404,6 +459,8 @@ def main():
                     help="Path to 'HPAI Detections in Mammals' CSV")
     ap.add_argument("--wild-birds", default=None,
                     help="Path to 'HPAI Detections in Wild Birds' CSV")
+    ap.add_argument("--data-url", default="data",
+                    help="Base URL for download links (default: data)")
     args = ap.parse_args()
 
     csv_path = Path(args.csv)
@@ -437,6 +494,12 @@ def main():
             print(f"Parsing wild bird data: {wp}")
             wild_birds = parse_wild_birds_csv(str(wp))
             print(f"  {len(wild_birds)} wild bird detections loaded")
+
+    # Export clean CSVs
+    out_dir = Path(args.output).parent
+    data_dir = out_dir / args.data_url
+    print("Exporting clean CSVs...")
+    export_clean_csvs(data_dir, events, livestock=livestock, mammals=mammals, wild_birds=wild_birds)
 
     # 3. Fetch egg prices
     caged_prices = {}
@@ -485,7 +548,7 @@ def main():
     if map_compressed:
         data["map_data"] = map_compressed
         data["unknown_by_month"] = unk_compressed
-    html, data_json = generate_html(data)
+    html, data_json = generate_html(data, data_url=args.data_url)
 
     # 6. Write output
     out = Path(args.output)

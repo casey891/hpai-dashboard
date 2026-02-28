@@ -215,7 +215,7 @@ __HEATMAP_CARD__
       </div>
     </div>
     <canvas id="cBirds"></canvas>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a> · <a href="__DATA_URL__/poultry_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2 id="infTitle">Confirmed HPAI Detections by Month</h2>
@@ -244,7 +244,7 @@ __HEATMAP_CARD__
       <button class="rbtn" data-v="category" onclick="infGrouped=true;updateInf();">By Category</button>
     </div>
     <canvas id="cInf"></canvas>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a> · <a href="__DATA_URL__/poultry_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2>Wholesale Caged Egg Prices</h2>
@@ -293,7 +293,7 @@ __HEATMAP_CARD__
     </div>
     <div class="tbl-summary" id="tblSummary"></div>
     <div class="tbl-pager" id="tblPager"><button onclick="pageTable('tbl',-1)">← Prev</button><span id="tblPageInfo"></span><button onclick="pageTable('tbl',1)">Next →</button></div>
-    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a> · <a href="__DATA_URL__/poultry_detections.csv" download>Download Data</a></div>
   </div>
 </div>
 
