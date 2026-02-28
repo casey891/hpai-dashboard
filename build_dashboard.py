@@ -974,8 +974,9 @@ const panelMap={birds:'birdsMSPanel',inf:'infMSPanel',tbl:'tblMSPanel'};
 const btnMap={birds:'birdsMSBtn',inf:'infMSBtn',tbl:'tblMSBtn'};
 const MM_COLORS={'Domestic/Companion':'#F6851F','Wild Carnivores':'#013046','Rodents/Small Mammals':'#FDB714','Marine Mammals':'#1F9EBC','Captive/Zoo':'#8FCAE6','Other':'#939598'};
 
-/* ── Chart.js global font ── */
+/* ── Chart.js global defaults ── */
 Chart.defaults.font.family="'Lexend',sans-serif";
+Chart.defaults.color='#013046';
 
 /* ── Loading UI ── */
 function hideLoading(){document.getElementById('loadingOverlay').style.display='none';}
