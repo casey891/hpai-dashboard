@@ -1165,6 +1165,9 @@ function updateInf(){
     if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:clr(p)}));}
     else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:clr(p)}));}
   }
+  infChart.options.plugins.tooltip.callbacks.label=combined?
+    (c=>c.parsed.y+' sites'):
+    (c=>c.dataset.label+': '+c.parsed.y+' sites');
   infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
 }
 function renderPager(id,page,total){
@@ -1328,8 +1331,8 @@ function initDashboard(){
     options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return c.dataset.label+': '+(v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)+' birds';}}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
 
   infChart=new Chart(document.getElementById('cInf'),{type:'bar',
-    data:{labels:D.month_labels,datasets:D.production_types.map(p=>({label:p,data:D.months.map(m=>(D.infections_by_month[m]||{})[p]||0),backgroundColor:'#013046'}))},
-    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'}}}}});
+    data:{labels:D.month_labels,datasets:[{label:'All Categories',data:D.months.map(m=>{let t=0;D.production_types.forEach(p=>t+=(D.infections_by_month[m]||{})[p]||0);return t;}),backgroundColor:'#013046'}]},
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:c=>c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'}}}}});
 
   /* Heatmap */
   initMap();
