@@ -1641,14 +1641,14 @@ def generate_html(data):
         mm_html = f'''<div class="tab-content" id="tab-mammals">
   <div class="card">
     <h2>Mammal HPAI Detections by Month</h2>
-    <div class="sub">Confirmed detections by species group</div>
+    <div class="sub">Confirmed detections by species group by date of sample collection</div>
     <div class="controls">{_RANGE_BUTTONS.format(chart="mm")}</div>
     <canvas id="cMammals"></canvas>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
     <h2>Mammal Detection Details</h2>
-    <div class="sub">Individual confirmed detections</div>
+    <div class="sub">Individual confirmed detections by date of sample collection</div>
     <div class="controls">
       {_RANGE_BUTTONS.format(chart="mmTbl")}
       <div class="ms-wrap" id="mmTblMS">
