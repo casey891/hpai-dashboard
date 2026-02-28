@@ -17,7 +17,7 @@ from urllib.error import HTTPError, URLError
 
 def _parse_date(s):
     """Try multiple date formats and return a datetime, or None."""
-    for fmt in ("%d-%b-%y", "%m/%d/%Y", "%Y-%m-%d"):
+    for fmt in ("%d-%b-%y", "%m/%d/%Y", "%Y-%m-%d", "%m/%d/%Y %I:%M:%S %p"):
         try:
             return datetime.strptime(s, fmt)
         except ValueError:
@@ -82,8 +82,47 @@ def fetch_egg_prices(start, end):
 
 # ── HPAI CSV parser ────────────────────────────────────────────────────────
 
-def parse_hpai_csv(path):
-    """Parse APHIS 'A Table by Confirmation Date' CSV (UTF-16 tab-delimited)."""
+def _detect_csv_format(path):
+    """Detect whether a CSV is UTF-16 tab-delimited (Tableau crosstab) or UTF-8 comma-delimited (Tableau .csv endpoint)."""
+    raw = open(path, "rb").read(4)
+    if raw[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        return "crosstab"
+    return "flat"
+
+
+def _parse_hpai_flat(path):
+    """Parse flat CSV from Tableau .csv endpoint (UTF-8 comma-delimited)."""
+    events = []
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            confirmed = row.get("Confirmed", "").strip()
+            if not confirmed:
+                continue
+            dt = _parse_date(confirmed)
+            if dt is None:
+                continue
+            birds_str = row.get("Birds Affected", "").strip().replace(",", "")
+            if not birds_str:
+                continue
+            try:
+                flock = int(float(birds_str))
+            except ValueError:
+                continue
+            if not flock:
+                continue
+            events.append({
+                "date": dt,
+                "state": row.get("State", "").strip(),
+                "county": row.get("County Name", "").strip(),
+                "production": row.get("Production", "").strip(),
+                "flock": flock,
+            })
+    return events
+
+
+def _parse_hpai_crosstab(path):
+    """Parse crosstab CSV from Tableau 'Download Data' (UTF-16 tab-delimited)."""
     with open(path, encoding="utf-16") as f:
         lines = f.read().strip().replace("\r\n", "\n").replace("\r", "\n").split("\n")
 
@@ -148,10 +187,61 @@ def parse_hpai_csv(path):
     return events
 
 
+def parse_hpai_csv(path):
+    """Parse APHIS 'A Table by Confirmation Date' CSV.
+
+    Supports both formats:
+    - UTF-16 tab-delimited crosstab (from Tableau 'Download Data' dialog)
+    - UTF-8 comma-delimited flat CSV (from Tableau .csv endpoint)
+    """
+    fmt = _detect_csv_format(path)
+    if fmt == "flat":
+        return _parse_hpai_flat(path)
+    return _parse_hpai_crosstab(path)
+
+
 # ── Livestock CSV parser ───────────────────────────────────────────────────
 
 def parse_livestock_csv(path):
-    """Parse APHIS 'Table Details by Date' CSV (UTF-16 tab-delimited)."""
+    """Parse APHIS 'Table Details by Date' CSV.
+
+    Supports both formats:
+    - UTF-16 tab-delimited crosstab (from Tableau 'Download Data' dialog)
+    - UTF-8 comma-delimited flat CSV (from Tableau .csv endpoint)
+    """
+    fmt = _detect_csv_format(path)
+    if fmt == "flat":
+        return _parse_livestock_flat(path)
+    return _parse_livestock_crosstab(path)
+
+
+def _parse_livestock_flat(path):
+    """Parse flat CSV from Tableau .csv endpoint (UTF-8 comma-delimited)."""
+    events = []
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            confirmed = row.get("Confirmed", "").strip()
+            if not confirmed:
+                continue
+            dt = _parse_date(confirmed)
+            if dt is None:
+                continue
+            state = row.get("State", "").strip()
+            if not state:
+                continue
+            events.append({
+                "date": dt,
+                "state": state,
+                "special_id": row.get("Special Id", "").strip(),
+                "production": row.get("Production", "").strip(),
+                "species": row.get("Species", "").strip(),
+            })
+    return events
+
+
+def _parse_livestock_crosstab(path):
+    """Parse crosstab CSV from Tableau 'Download Data' (UTF-16 tab-delimited)."""
     with open(path, encoding="utf-16") as f:
         lines = f.read().strip().replace("\r\n", "\n").replace("\r", "\n").split("\n")
 

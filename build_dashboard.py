@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
-build_dashboard.py — Generate a self-contained HPAI dashboard from APHIS CSV + MARS API egg prices.
+build_dashboard.py — Download APHIS data and generate the HPAI dashboard.
+
+Downloads 3 datasets automatically (flocks, wild birds, mammals), then builds
+the dashboard HTML + data.json. Livestock must be downloaded manually.
 
 Usage:
-    python build_dashboard.py "A Table by Confirmation Date.csv"
-    python build_dashboard.py "A Table by Confirmation Date.csv" --output docs/index.html
-    python build_dashboard.py "A Table by Confirmation Date.csv" --egg-start 2024-01-01
+    python build_dashboard.py                     # download data + build
+    python build_dashboard.py --no-download        # build from existing CSVs
+    python build_dashboard.py --no-prices          # skip egg price fetch
+    python build_dashboard.py -o docs/index.html   # custom output path
 """
 
 import argparse
@@ -448,22 +452,34 @@ def generate_html(data, data_url="data"):
 
 def main():
     ap = argparse.ArgumentParser(description="Build HPAI dashboard HTML")
-    ap.add_argument("csv", help="Path to APHIS 'A Table by Confirmation Date' CSV")
     ap.add_argument("-o", "--output", default="index.html", help="Output HTML path")
     ap.add_argument("--egg-start", default=None,
                     help="Start date for egg prices (YYYY-MM-DD). Default: 1 year ago")
     ap.add_argument("--no-prices", action="store_true", help="Skip egg price fetch")
-    ap.add_argument("--livestock", default=None,
-                    help="Path to 'Table Details by Date' CSV (livestock/dairy)")
-    ap.add_argument("--mammals", default=None,
-                    help="Path to 'HPAI Detections in Mammals' CSV")
-    ap.add_argument("--wild-birds", default=None,
-                    help="Path to 'HPAI Detections in Wild Birds' CSV")
+    ap.add_argument("--no-download", action="store_true",
+                    help="Skip downloading fresh data (use existing CSVs)")
+    ap.add_argument("--livestock", default="Table Details by Date.csv",
+                    help="Path to livestock CSV (default: Table Details by Date.csv)")
     ap.add_argument("--data-url", default="data",
                     help="Base URL for download links (default: data)")
     args = ap.parse_args()
 
-    csv_path = Path(args.csv)
+    base_dir = Path(args.output).parent or Path(".")
+
+    # ── Download fresh data ──
+    if not args.no_download:
+        from download_data import DOWNLOADS, download_one
+        print("Downloading fresh APHIS data...\n")
+        for name, config in DOWNLOADS.items():
+            download_one(name, config, base_dir)
+            print()
+
+    # ── CSV file paths (3 automated + 1 manual) ──
+    csv_path = base_dir / "A Table by Confirmation Date.csv"
+    wild_birds_path = base_dir / "HPAI Detections in Wild Birds.csv"
+    mammals_path = base_dir / "HPAI Detections in Mammals.csv"
+    livestock_path = Path(args.livestock)
+
     if not csv_path.exists():
         sys.exit(f"ERROR: File not found: {csv_path}")
 
@@ -472,28 +488,22 @@ def main():
     events = parse_hpai_csv(str(csv_path))
     print(f"  {len(events)} flock detections loaded")
 
-    # 2. Parse optional CSVs
+    # 2. Parse additional CSVs
     livestock = mammals = wild_birds = None
-    if args.livestock:
-        lp = Path(args.livestock)
-        if lp.exists():
-            print(f"Parsing livestock data: {lp}")
-            livestock = parse_livestock_csv(str(lp))
-            print(f"  {len(livestock)} herd detections loaded")
+    if livestock_path.exists():
+        print(f"Parsing livestock data: {livestock_path}")
+        livestock = parse_livestock_csv(str(livestock_path))
+        print(f"  {len(livestock)} herd detections loaded")
 
-    if args.mammals:
-        mp = Path(args.mammals)
-        if mp.exists():
-            print(f"Parsing mammal data: {mp}")
-            mammals = parse_mammals_csv(str(mp))
-            print(f"  {len(mammals)} mammal detections loaded")
+    if mammals_path.exists():
+        print(f"Parsing mammal data: {mammals_path}")
+        mammals = parse_mammals_csv(str(mammals_path))
+        print(f"  {len(mammals)} mammal detections loaded")
 
-    if args.wild_birds:
-        wp = Path(args.wild_birds)
-        if wp.exists():
-            print(f"Parsing wild bird data: {wp}")
-            wild_birds = parse_wild_birds_csv(str(wp))
-            print(f"  {len(wild_birds)} wild bird detections loaded")
+    if wild_birds_path.exists():
+        print(f"Parsing wild bird data: {wild_birds_path}")
+        wild_birds = parse_wild_birds_csv(str(wild_birds_path))
+        print(f"  {len(wild_birds)} wild bird detections loaded")
 
     # Export clean CSVs
     out_dir = Path(args.output).parent
