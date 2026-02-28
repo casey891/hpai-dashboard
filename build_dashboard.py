@@ -37,7 +37,7 @@ def _parse_mars_date(d):
     return datetime.strptime(d, "%m/%d/%Y")
 
 
-def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=None):
+def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=None, livestock_updated=None):
     # Monthly HPAI aggregates
     birds_m = defaultdict(lambda: defaultdict(int))
     inf_m = defaultdict(lambda: defaultdict(int))
@@ -136,6 +136,7 @@ def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=No
             "monthly_counts": [ls_monthly[m] for m in ls_months],
             "events": ls_rows,
             "total": len(livestock),
+            "data_updated": livestock_updated,
         }
         result["kpi"]["dairy_herds"] = len(livestock)
 
@@ -341,17 +342,19 @@ def generate_html(data, data_url="data"):
 
     # ── Tab content: Livestock ──
     if "livestock" in data:
+        ls_updated = data["livestock"].get("data_updated") or ""
+        ls_updated_note = f" · Data last updated: {ls_updated}" if ls_updated else ""
         ls_html = f'''<div class="tab-content" id="tab-livestock">
   <div class="card">
     <h2>Livestock/Dairy Detections by Month</h2>
-    <div class="sub">Confirmed HPAI-affected herds</div>
+    <div class="sub">Confirmed HPAI-affected herds{ls_updated_note}</div>
     <div class="controls">{RANGE_BUTTONS.format(chart="ls")}</div>
     <canvas id="cLivestock"></canvas>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock" target="_blank">USDA APHIS</a> · <a href="{data_url}/livestock_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2>Livestock/Dairy Detection Details</h2>
-    <div class="sub">Individual confirmed herd detections</div>
+    <div class="sub">Individual confirmed herd detections{ls_updated_note}</div>
     <input type="text" class="tbl-search" id="lsSearch" placeholder="Filter by state, production, species..." oninput="updateLsTable()">
     <div class="tbl-wrap">
       <table>
@@ -490,10 +493,12 @@ def main():
 
     # 2. Parse additional CSVs
     livestock = mammals = wild_birds = None
+    livestock_updated = None
     if livestock_path.exists():
         print(f"Parsing livestock data: {livestock_path}")
         livestock = parse_livestock_csv(str(livestock_path))
-        print(f"  {len(livestock)} herd detections loaded")
+        livestock_updated = datetime.fromtimestamp(livestock_path.stat().st_mtime).strftime("%B %d, %Y")
+        print(f"  {len(livestock)} herd detections loaded (file updated {livestock_updated})")
 
     if mammals_path.exists():
         print(f"Parsing mammal data: {mammals_path}")
@@ -554,7 +559,7 @@ def main():
         unk_compressed = {}
 
     # 5. Build data & HTML
-    data = build_data(events, caged_prices, livestock=livestock, mammals=mammals, wild_birds=wild_birds)
+    data = build_data(events, caged_prices, livestock=livestock, mammals=mammals, wild_birds=wild_birds, livestock_updated=livestock_updated)
     if map_compressed:
         data["map_data"] = map_compressed
         data["unknown_by_month"] = unk_compressed
