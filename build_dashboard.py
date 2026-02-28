@@ -1165,9 +1165,14 @@ function updateInf(){
     if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:clr(p)}));}
     else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:clr(p)}));}
   }
+  infChart.options.plugins.tooltip.mode=combined?'index':'point';
+  infChart.options.plugins.tooltip.intersect=!combined;
   infChart.options.plugins.tooltip.callbacks.label=combined?
     (c=>c.parsed.y+' sites'):
-    (c=>c.dataset.label+': '+c.parsed.y+' sites');
+    (c=>c.parsed.y?c.dataset.label+': '+c.parsed.y+' sites':null);
+  infChart.options.plugins.tooltip.callbacks.title=combined?
+    (items=>items[0]?.label||''):
+    (items=>items.length?items[0].label:'');
   infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
 }
 function renderPager(id,page,total){
@@ -1332,7 +1337,7 @@ function initDashboard(){
 
   infChart=new Chart(document.getElementById('cInf'),{type:'bar',
     data:{labels:D.month_labels,datasets:[{label:'All Categories',data:D.months.map(m=>{let t=0;D.production_types.forEach(p=>t+=(D.infections_by_month[m]||{})[p]||0);return t;}),backgroundColor:'#013046'}]},
-    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:c=>c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'}}}}});
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:c=>c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'},beginAtZero:true}}}});
 
   /* Heatmap */
   initMap();
