@@ -708,8 +708,7 @@ header .sub{color:#939598;font-size:.8rem;margin-top:2px}
 .card h2{font-size:1rem;font-weight:600;margin-bottom:2px;color:#013046}
 .card .sub{font-size:.78rem;color:#939598;margin-bottom:12px}
 .card-source{font-size:.68rem;color:#939598;margin-top:10px}
-.card-source a{color:#939598;text-decoration:none}
-.card-source a:hover{text-decoration:underline}
+.card-source a{color:#939598;text-decoration:underline}
 footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 .up{color:#F6851F}.dn{color:#1F9EBC}
 /* range buttons */
