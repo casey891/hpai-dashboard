@@ -1,0 +1,842 @@
+"""
+template.py — HTML template, color constants, and checkbox builders for the HPAI dashboard.
+"""
+
+
+COLORS = {
+    # Commercial — navy/teal family (#013046 → #1F9EBC → #8FCAE6)
+    "Commercial Table Egg Layer": "#F6851F",
+    "Commercial Table Egg Pullets": "#F9A54E",
+    "Commercial Broiler Production": "#013046",
+    "Commercial Broiler Breeder": "#0A4A6B",
+    "Commercial Turkey Meat Bird": "#1F9EBC",
+    "Commercial Turkey Breeder Hens": "#3DB3CF",
+    "Commercial Duck Meat Bird": "#FDB714",
+    "Commercial Duck Breeder": "#FDCB56",
+    "Commercial Upland Gamebird Producer": "#8FCAE6",
+    "Commercial Raised for Release Upland Game Bird": "#B0D9ED",
+    "Commercial Raised for Release Waterfowl": "#D0E8F4",
+    "Commercial Breeder Operation": "#165E7A",
+    "Commercial Breeder (Multiple Bird Species)": "#2B7D9E",
+    "Commercial Turkey Breeder Replacement Hens": "#5DB8D4",
+    "Commercial Turkey Breeder Toms": "#78C4DC",
+    "Commercial Turkey Poult Supplier": "#A3D5E8",
+    "Commercial Table Egg Breeder": "#FAB87B",
+    "Commercial Broiler Breeder Pullets": "#0F3D5C",
+    "Primary Broiler Breeder Pedigree Farm": "#4AADCA",
+    # Backyard/Other — orange/gold family
+    "Live Bird Market": "#E5700A",
+    "Live Bird Sales  (non-slaughter)": "#D4920E",
+    "WOAH Poultry": "#939598",
+    "WOAH Non-Poultry": "#A7A9AC",
+}
+
+
+HTML_TEMPLATE = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>HPAI Impact Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lexend',sans-serif;background:#f0f4f8;color:#013046;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
+header{text-align:center;margin-bottom:20px}
+header h1{font-size:1.6rem;font-weight:700;color:#013046}
+header .sub{color:#939598;font-size:.8rem;margin-top:2px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px}
+.kpi{background:#fff;border-radius:10px;padding:14px 18px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.kpi .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#939598;font-weight:600}
+.kpi .val{font-size:1.4rem;font-weight:700;margin-top:2px}
+.kpi .note{font-size:.7rem;color:#A7A9AC;margin-top:1px}
+.card{background:#fff;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.card h2{font-size:1rem;font-weight:600;margin-bottom:2px;color:#013046}
+.card .sub{font-size:.78rem;color:#939598;margin-bottom:12px}
+.card-source{font-size:.68rem;color:#939598;margin-top:10px}
+.card-source a{color:#939598;text-decoration:underline}
+footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
+.up{color:#F6851F}.dn{color:#1F9EBC}
+/* range buttons */
+.controls{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.range-row{display:flex;gap:3px;flex-wrap:wrap}
+.rbtn{padding:3px 10px;border:1px solid #e2e8f0;border-radius:16px;background:#f8fafc;font-size:.72rem;cursor:pointer;color:#939598;transition:all .15s}
+.rbtn:hover{background:#e2e8f0}
+.rbtn.active{background:#013046;color:#fff;border-color:#013046}
+/* multi-select */
+.ms-wrap{position:relative;display:inline-block}
+.ms-btn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;font-size:.8rem;cursor:pointer;color:#013046;min-width:160px;text-align:left}
+.ms-btn::after{content:'▾';float:right;margin-left:8px;color:#A7A9AC}
+.ms-panel{display:none;position:absolute;right:0;z-index:20;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;max-height:320px;overflow-y:auto;min-width:290px;box-shadow:0 4px 16px rgba(0,0,0,.12);margin-top:4px}
+.ms-panel.open{display:block}
+.ms-actions{padding:2px 0 6px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;font-size:.75rem}
+.ms-actions a{color:#1F9EBC;text-decoration:none;cursor:pointer}
+.ms-actions a:hover{text-decoration:underline}
+.ms-item{display:flex;align-items:center;padding:3px 0;cursor:pointer;font-size:.8rem;gap:6px}
+.ms-item input{margin:0;cursor:pointer}
+.ms-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+/* data table */
+.tbl-wrap{max-height:400px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:6px;margin-top:8px}
+.tbl-wrap table{width:100%;border-collapse:collapse;font-size:.78rem}
+.tbl-wrap thead{position:sticky;top:0;z-index:2}
+.tbl-wrap th{background:#f8fafc;padding:7px 10px;text-align:left;font-weight:600;color:#939598;border-bottom:2px solid #e2e8f0;white-space:nowrap}
+.tbl-wrap td{padding:5px 10px;border-bottom:1px solid #f1f5f9;color:#013046}
+.tbl-wrap tr:nth-child(even) td{background:#f8fafc}
+.tbl-wrap .num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl-search{width:100%;padding:7px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:.8rem;font-family:'Lexend',sans-serif;color:#013046;margin-top:8px;box-sizing:border-box}
+.tbl-search::placeholder{color:#A7A9AC}
+.tbl-search:focus{outline:none;border-color:#1F9EBC}
+.tbl-summary{font-size:.75rem;color:#939598;margin-top:6px}
+.tbl-pager{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:.75rem;color:#939598}
+.tbl-pager button{padding:3px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;font-size:.72rem;cursor:pointer;color:#013046;font-family:'Lexend',sans-serif}
+.tbl-pager button:hover:not(:disabled){background:#e2e8f0}
+.tbl-pager button:disabled{opacity:.4;cursor:default}
+.ms-group{margin-bottom:2px}
+.ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#013046}
+.ms-group-hdr input{margin:0;cursor:pointer}
+.ms-group-children{padding-left:20px}
+/* tabs */
+.tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e2e8f0}
+.tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#939598;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;font-family:'Lexend',sans-serif}
+.tab-btn:hover{color:#013046}
+.tab-btn.active{color:#1F9EBC;border-bottom-color:#1F9EBC}
+.tab-content{display:none}
+.tab-content.active{display:block}
+/* heatmap */
+#mapContainer{width:100%;position:relative}
+#mapContainer svg{width:100%;height:auto;display:block}
+.county{stroke:#fff;stroke-width:.25px;transition:opacity .12s}
+.county:hover{opacity:.8;stroke:#013046;stroke-width:1px}
+.state-border{fill:none;stroke:#A7A9AC;stroke-width:.7px;pointer-events:none}
+.map-tooltip{position:absolute;pointer-events:none;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;box-shadow:0 4px 12px rgba(0,0,0,.12);font-size:.8rem;max-width:280px;z-index:30;opacity:0;transition:opacity .12s}
+.map-tooltip.visible{opacity:1}
+.tt-county{font-weight:700;font-size:.9rem;color:#013046}
+.tt-total{font-size:1.1rem;font-weight:700;margin:4px 0;color:#F6851F}
+.tt-row{font-size:.75rem;color:#939598;line-height:1.6}
+.tt-date{font-size:.7rem;color:#A7A9AC;margin-top:4px}
+.legend-wrap{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#939598}
+.legend-bar{width:200px;height:12px;border-radius:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loadingOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(240,244,248,.95);z-index:1000;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div id="loadingOverlay">
+  <div style="text-align:center">
+    <div style="width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:#1F9EBC;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px"></div>
+    <div style="font-size:.9rem;color:#939598;font-weight:600">Loading dashboard data&hellip;</div>
+  </div>
+</div>
+<div id="dashboardContent" class="wrap">
+<header>
+  <h1>HPAI Dashboard</h1>
+  <div class="sub">Updated __UPDATED__</div>
+</header>
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+  <div class="sub" id="kpiPeriodLabel" style="margin:0;font-weight:600;font-size:.8rem">Last 30 Days</div>
+  <div class="range-row" data-chart="kpi">
+    <button class="rbtn active" data-r="30d">30D</button>
+    <button class="rbtn" data-r="3m">3M</button>
+    <button class="rbtn" data-r="6m">6M</button>
+    <button class="rbtn" data-r="1y">1Y</button>
+    <button class="rbtn" data-r="ytd">YTD</button>
+    <button class="rbtn" data-r="all">All</button>
+  </div>
+</div>
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="lbl">Hens Depopulated</div>
+    <div class="val" style="color:#F6851F" id="kpiLayers">&mdash;</div>
+    <div class="note" id="kpiLayersNote">Commercial egg layers</div>
+  </div>
+  <div class="kpi">
+    <div class="lbl">Number of Poultry Operations Infected</div>
+    <div class="val" style="color:#FDB714" id="kpiSites">&mdash;</div>
+    <div class="note" id="kpiSitesNote">All flock types</div>
+  </div>
+  <div class="kpi">
+    <div class="lbl">Wild Bird Detections</div>
+    <div class="val" style="color:#1F9EBC" id="kpiWB">&mdash;</div>
+    <div class="note" id="kpiWBNote">Confirmed cases</div>
+  </div>
+  <div class="kpi">
+    <div class="lbl">Detection Change (M/M)</div>
+    <div class="val" id="kpiChg">&mdash;</div>
+    <div class="note">Wild Bird Detections and Poultry Operation Infection vs prior 30 days</div>
+  </div>
+  <div class="kpi">
+    <div class="lbl">Wholesale Egg Price</div>
+    <div class="val" style="color:#013046" id="kpiPrice">&mdash;</div>
+    <div class="note">National FOB, Caged, $ per Dozen</div>
+  </div>
+</div>
+
+<!-- Heatmap (always visible) -->
+__HEATMAP_CARD__
+
+<!-- Tab bar -->
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="poultry">Poultry</button>
+  __TAB_WILDBIRDS_BTN__
+  __TAB_LIVESTOCK_BTN__
+  __TAB_MAMMALS_BTN__
+</div>
+
+<!-- Tab: Commercial Poultry -->
+<div class="tab-content active" id="tab-poultry">
+  <div class="card">
+    <h2 id="birdsTitle">Birds Impacted by Month</h2>
+    <div class="sub">Total flock size of confirmed HPAI detections</div>
+    <div class="controls">
+      <div class="range-row" data-chart="birds">
+        <button class="rbtn" data-r="30d">30D</button>
+        <button class="rbtn" data-r="3m">3M</button>
+        <button class="rbtn" data-r="6m">6M</button>
+        <button class="rbtn" data-r="1y">1Y</button>
+        <button class="rbtn" data-r="ytd">YTD</button>
+        <button class="rbtn active" data-r="all">All</button>
+      </div>
+      <div class="ms-wrap" id="birdsMS">
+        <button class="ms-btn" id="birdsMSBtn">1 category</button>
+        <div class="ms-panel" id="birdsMSPanel">
+          <div class="ms-actions">
+            <a onclick="msAll('birds')">Select All</a> · <a onclick="msNone('birds')">Clear</a>
+          </div>
+          __BIRDS_CHECKBOXES__
+        </div>
+      </div>
+    </div>
+    <canvas id="cBirds"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+  </div>
+  <div class="card">
+    <h2 id="infTitle">Confirmed HPAI Detections by Month</h2>
+    <div class="sub">Number of confirmed sites</div>
+    <div class="controls">
+      <div class="range-row" data-chart="inf">
+        <button class="rbtn" data-r="30d">30D</button>
+        <button class="rbtn" data-r="3m">3M</button>
+        <button class="rbtn" data-r="6m">6M</button>
+        <button class="rbtn" data-r="1y">1Y</button>
+        <button class="rbtn" data-r="ytd">YTD</button>
+        <button class="rbtn active" data-r="all">All</button>
+      </div>
+      <div class="ms-wrap" id="infMS">
+        <button class="ms-btn" id="infMSBtn">All categories</button>
+        <div class="ms-panel" id="infMSPanel">
+          <div class="ms-actions">
+            <a onclick="msAll('inf')">Select All</a> · <a onclick="msNone('inf')">Clear</a>
+          </div>
+          __INF_CHECKBOXES__
+        </div>
+      </div>
+    </div>
+    <div class="range-row" id="infViewToggle" style="margin-bottom:8px">
+      <button class="rbtn active" data-v="combined" onclick="infGrouped=false;updateInf();">Combined</button>
+      <button class="rbtn" data-v="category" onclick="infGrouped=true;updateInf();">By Category</button>
+    </div>
+    <canvas id="cInf"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+  </div>
+  <div class="card">
+    <h2>Wholesale Caged Egg Prices</h2>
+    <div class="sub">Large, National Wholesale, Volume-Weighted ($ per dozen)</div>
+    <div class="controls">
+      <div class="range-row" data-chart="egg">
+        <button class="rbtn" data-r="30d">30D</button>
+        <button class="rbtn" data-r="3m">3M</button>
+        <button class="rbtn" data-r="6m">6M</button>
+        <button class="rbtn" data-r="1y">1Y</button>
+        <button class="rbtn" data-r="ytd">YTD</button>
+        <button class="rbtn active" data-r="all">All</button>
+      </div>
+    </div>
+    <canvas id="cEgg"></canvas>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://mymarketnews.ams.usda.gov/viewReport/2843" target="_blank">USDA AMS</a></div>
+  </div>
+  <div class="card">
+    <h2>Poultry Detection Details</h2>
+    <div class="sub">Individual confirmed flock detections</div>
+    <div class="controls">
+      <div class="range-row" data-chart="tbl">
+        <button class="rbtn" data-r="30d">30D</button>
+        <button class="rbtn" data-r="3m">3M</button>
+        <button class="rbtn" data-r="6m">6M</button>
+        <button class="rbtn" data-r="1y">1Y</button>
+        <button class="rbtn" data-r="ytd">YTD</button>
+        <button class="rbtn active" data-r="all">All</button>
+      </div>
+      <div class="ms-wrap" id="tblMS">
+        <button class="ms-btn" id="tblMSBtn">All categories</button>
+        <div class="ms-panel" id="tblMSPanel">
+          <div class="ms-actions">
+            <a onclick="msAll('tbl')">Select All</a> · <a onclick="msNone('tbl')">Clear</a>
+          </div>
+          __TBL_CHECKBOXES__
+        </div>
+      </div>
+    </div>
+    <input type="text" class="tbl-search" id="tblSearch" placeholder="Filter by state, county, type..." oninput="updateTable()">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>State</th><th>County</th><th>Operation Type</th><th class="num">Birds Impacted</th></tr></thead>
+        <tbody id="tblBody"></tbody>
+      </table>
+    </div>
+    <div class="tbl-summary" id="tblSummary"></div>
+    <div class="tbl-pager" id="tblPager"><button onclick="pageTable('tbl',-1)">← Prev</button><span id="tblPageInfo"></span><button onclick="pageTable('tbl',1)">Next →</button></div>
+    <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
+  </div>
+</div>
+
+<!-- Tab: Wild Birds -->
+__TAB_WILDBIRDS_HTML__
+
+<!-- Tab: Livestock -->
+__TAB_LIVESTOCK_HTML__
+
+<!-- Tab: Mammals -->
+__TAB_MAMMALS_HTML__
+
+</div>
+
+<script>
+/* ── Global state ── */
+let D = null;
+let eggChart, birdsChart, infChart;
+let infGrouped=false;
+let lsChart=null, wbChart=null, mmChart=null;
+const TOPO_URL='https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json';
+let mapRange='30d',sourceFilter='both';
+let mapSvg,mapPath,mapTooltip,countyPaths;
+let eggRange='all',birdsRange='all',infRange='all',tblRange='all';
+let lsRange='all',wbRange='all',mmRange='all',mmTblRange='all';
+let kpiRange='30d';
+const PAGE_SIZE=100;
+let tblPage=0,lsPage=0,wbPage=0,mmPage=0;
+const panelMap={birds:'birdsMSPanel',inf:'infMSPanel',tbl:'tblMSPanel'};
+const btnMap={birds:'birdsMSBtn',inf:'infMSBtn',tbl:'tblMSBtn'};
+const MM_COLORS={'Domestic/Companion':'#F6851F','Wild Carnivores':'#013046','Rodents/Small Mammals':'#FDB714','Marine Mammals':'#1F9EBC','Captive/Zoo':'#8FCAE6','Other':'#939598'};
+
+/* ── Chart.js global defaults ── */
+Chart.defaults.font.family="'Lexend',sans-serif";
+Chart.defaults.color='#013046';
+
+/* ── Loading UI ── */
+function hideLoading(){document.getElementById('loadingOverlay').style.display='none';}
+function showError(msg){
+  document.getElementById('loadingOverlay').innerHTML='<div style="text-align:center;color:#F6851F"><div style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Failed to load data</div><div style="font-size:.85rem;color:#939598">'+msg+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#013046;cursor:pointer">Retry</button></div>';
+}
+
+/* ── Heatmap helpers ── */
+function cutoffYM(range){
+  const now=new Date();let c;
+  switch(range){
+    case '7d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-7);break;
+    case '14d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-14);break;
+    case '30d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);break;
+    case '60d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-60);break;
+    case '3m':c=new Date(now.getFullYear(),now.getMonth()-3,now.getDate());break;
+    case '1y':c=new Date(now.getFullYear()-1,now.getMonth(),now.getDate());break;
+    default:c=new Date(2000,0,1);
+  }
+  return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0');
+}
+function sumMonths(moDict,cutM){let n=0;for(const[month,cnt]of Object.entries(moDict)){if(month>=cutM)n+=cnt;}return n;}
+function getFilteredCounts(fips){
+  const info=D.map_data[fips];
+  if(!info)return{total:0,wb:0,p:0};
+  const cutM=cutoffYM(mapRange);
+  const wb=sumMonths(info.mwb||{},cutM);
+  const p=sumMonths(info.mp||{},cutM);
+  let total;
+  if(sourceFilter==='wild_birds')total=wb;
+  else if(sourceFilter==='poultry')total=p;
+  else total=wb+p;
+  return{total,wb,p};
+}
+function buildColorScale(maxVal){if(maxVal<=0)maxVal=1;return d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1,maxVal]);}
+function paintLegend(maxVal){
+  const canvas=document.getElementById('legendBar');
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  const scale=buildColorScale(Math.max(maxVal,2));
+  for(let x=0;x<w;x++){const v=1+(x/(w-1))*(Math.max(maxVal,2)-1);ctx.fillStyle=scale(v);ctx.fillRect(x,0,1,h);}
+  document.getElementById('legendMax').textContent=maxVal.toLocaleString();
+}
+async function initMap(){
+  if(!D.map_data)return;
+  const res=await fetch(TOPO_URL);
+  const us=await res.json();
+  const counties=topojson.feature(us,us.objects.counties);
+  const stateMesh=topojson.mesh(us,us.objects.states,(a,b)=>a!==b);
+  const width=975,height=610;
+  const projection=d3.geoAlbersUsa().fitSize([width,height],counties);
+  mapPath=d3.geoPath().projection(projection);
+  mapSvg=d3.select('#mapContainer').append('svg').attr('viewBox','0 0 '+width+' '+height).attr('preserveAspectRatio','xMidYMid meet');
+  mapTooltip=d3.select('#mapContainer').append('div').attr('class','map-tooltip');
+  countyPaths=mapSvg.append('g').selectAll('path').data(counties.features).join('path')
+    .attr('class','county').attr('d',mapPath).attr('data-fips',d=>d.id)
+    .on('mouseenter',onMapHover).on('mousemove',onMapMove).on('mouseleave',onMapLeave);
+  mapSvg.append('path').datum(stateMesh).attr('class','state-border').attr('d',mapPath);
+  updateMapColors();
+}
+function updateMapColors(){
+  if(!countyPaths)return;
+  const allFips=Object.keys(D.map_data);
+  const totals=allFips.map(f=>getFilteredCounts(f).total);
+  const positives=totals.filter(c=>c>0);
+  const maxCount=positives.length?Math.max(...positives):1;
+  const scale=buildColorScale(maxCount);
+  countyPaths.attr('fill',function(){const fips=this.getAttribute('data-fips');const count=getFilteredCounts(fips).total;return count>0?scale(count):'#f1f5f9';});
+  paintLegend(maxCount);
+  const activeCounties=positives.length;
+  const totalDet=positives.reduce((a,b)=>a+b,0);
+  const cutM=cutoffYM(mapRange);
+  let unk=0;
+  if(D.unknown_by_month){for(const[m,v]of Object.entries(D.unknown_by_month)){if(m>=cutM){if(sourceFilter==='wild_birds')unk+=v.wb||0;else if(sourceFilter==='poultry')unk+=v.p||0;else unk+=(v.wb||0)+(v.p||0);}}}
+  const rangeLabel={'7d':'7-day','14d':'14-day','30d':'30-day','60d':'60-day','3m':'3-month','1y':'1-year'}[mapRange]||mapRange;
+  const srcLabel=sourceFilter==='both'?'':(sourceFilter==='wild_birds'?' (wild birds only)':' (poultry only)');
+  let summary=activeCounties.toLocaleString()+' counties with '+totalDet.toLocaleString()+' detections in '+rangeLabel+' window'+srcLabel;
+  if(unk>0)summary+=' \u00b7 '+unk.toLocaleString()+' excluded (county unknown)';
+  document.getElementById('mapSummary').textContent=summary;
+}
+function onMapHover(event,d){
+  const fips=d.id;const info=D.map_data[fips];const fc=getFilteredCounts(fips);
+  const name=info?(info.c+', '+info.s):(d.properties.name||'Unknown county');
+  let html='<div class="tt-county">'+name+'</div>';
+  if(fc.total>0){
+    html+='<div class="tt-total">'+fc.total.toLocaleString()+' detection'+(fc.total!==1?'s':'')+'</div>';
+    html+='<div class="tt-row">';
+    if(fc.wb>0)html+='Wild birds: '+fc.wb.toLocaleString()+'<br>';
+    if(fc.p>0)html+='Poultry flocks: '+fc.p.toLocaleString()+'<br>';
+    html+='</div>';
+    if(info&&info.ld)html+='<div class="tt-date">Latest (all time): '+info.ld+'</div>';
+  } else {
+    html+='<div class="tt-row" style="color:#A7A9AC">No detections in this period</div>';
+  }
+  mapTooltip.html(html).classed('visible',true);
+}
+function onMapMove(event){
+  const container=document.getElementById('mapContainer');
+  const rect=container.getBoundingClientRect();
+  const x=event.clientX-rect.left,y=event.clientY-rect.top;
+  const ttNode=mapTooltip.node();
+  const ttW=ttNode.offsetWidth,ttH=ttNode.offsetHeight;
+  const left=(x+ttW+20>rect.width)?x-ttW-10:x+14;
+  const top=(y+ttH+10>rect.height)?y-ttH-10:y+14;
+  mapTooltip.style('left',left+'px').style('top',top+'px');
+}
+function onMapLeave(){mapTooltip.classed('visible',false);}
+
+/* ── Date range helpers ── */
+function cutoffDate(range){
+  const now=new Date();
+  switch(range){
+    case '30d':return new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);
+    case '3m':return new Date(now.getFullYear(),now.getMonth()-3,now.getDate());
+    case '6m':return new Date(now.getFullYear(),now.getMonth()-6,now.getDate());
+    case '1y':return new Date(now.getFullYear()-1,now.getMonth(),now.getDate());
+    case 'ytd':return new Date(now.getFullYear(),0,1);
+    default:return new Date(2000,0,1);
+  }
+}
+function cutoffISO(range){const c=cutoffDate(range);return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0')+'-'+String(c.getDate()).padStart(2,'0');}
+function cutoffMonth(range){const c=cutoffDate(range);return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0');}
+function eggIndices(range){const cutoff=cutoffDate(range);const idx=[];D.egg_dates_iso.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
+function monthIndices(range){const cutM=cutoffMonth(range);const idx=[];D.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});return idx;}
+function dailyIndices(range){const cutoff=cutoffDate(range);const idx=[];D.daily_dates.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
+function sliceByIdx(arr,idx){return idx.map(i=>arr[i]);}
+function isDaily(range){return range==='30d'||range==='3m';}
+function fmtBirds(v){
+  if(v>=1e6){const m=v/1e6;return(m%1===0?m.toFixed(0):m.toFixed(1))+'M';}
+  if(v>=1e3){const k=v/1e3;return(k%1===0?k.toFixed(0):k.toFixed(1))+'K';}
+  return v;
+}
+function fmtDate(iso){const p=iso.split('-');return parseInt(p[1])+'/'+parseInt(p[2])+'/'+p[0];}
+
+/* ── Multi-select helpers ── */
+function getLeaves(panelId){return Array.from(document.querySelectorAll('#'+panelId+' input[type=checkbox][value]'));}
+function getSelected(panelId){return getLeaves(panelId).filter(cb=>cb.checked).map(cb=>cb.value);}
+function chartUpdate(chart){
+  if(chart==='birds')updateBirds();
+  else if(chart==='inf')updateInf();
+  else if(chart==='tbl')updateTable();
+  else if(chart==='mmTbl')updateMmTable();
+}
+function msAll(chart){document.querySelectorAll('#'+panelMap[chart]+' input[type=checkbox]').forEach(cb=>cb.checked=true);chartUpdate(chart);updateMSLabel(chart);}
+function msNone(chart){document.querySelectorAll('#'+panelMap[chart]+' input[type=checkbox]').forEach(cb=>cb.checked=false);chartUpdate(chart);updateMSLabel(chart);}
+function updateMSLabel(chart){
+  const leaves=getLeaves(panelMap[chart]);
+  const sel=leaves.filter(cb=>cb.checked);
+  const el=document.getElementById(btnMap[chart]);
+  if(sel.length===0)el.textContent='None selected';
+  else if(sel.length===leaves.length)el.textContent='All categories';
+  else if(sel.length===1){const n=sel[0].value;el.textContent=n.length>28?n.slice(0,26)+'\u2026':n;}
+  else el.textContent=sel.length+' categories';
+}
+function syncGroupHdr(hdr){
+  const children=hdr.closest('.ms-group').querySelectorAll('.ms-group-children input[type=checkbox]');
+  const checked=Array.from(children).filter(cb=>cb.checked).length;
+  hdr.checked=checked===children.length;
+  hdr.indeterminate=checked>0&&checked<children.length;
+}
+function panelToChart(panel){
+  if(panel.id==='birdsMSPanel')return 'birds';
+  if(panel.id==='infMSPanel')return 'inf';
+  if(panel.id==='mmTblMSPanel')return 'mmTbl';
+  return 'tbl';
+}
+
+/* ── Update functions ── */
+function updateEgg(){const idx=eggIndices(eggRange);eggChart.data.labels=sliceByIdx(D.egg_dates,idx);eggChart.data.datasets[0].data=sliceByIdx(D.caged_prices,idx);eggChart.update();}
+function updateBirds(){
+  const sel=getSelected('birdsMSPanel');
+  if(isDaily(birdsRange)){const idx=dailyIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.daily_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_birds[D.daily_dates[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
+  else{const idx=monthIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.month_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.birds_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
+  birdsChart.update();document.getElementById('birdsTitle').textContent='Birds Impacted by '+(isDaily(birdsRange)?'Day':'Month');
+}
+function updateInf(){
+  const sel=getSelected('infMSPanel');
+  const combined=!infGrouped;
+  /* Toggle active state */
+  const tog=document.getElementById('infViewToggle');
+  tog.querySelectorAll('.rbtn').forEach(b=>{b.classList.toggle('active',combined?b.dataset.v==='combined':b.dataset.v==='category');});
+  if(combined){
+    if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.daily_infections[D.daily_dates[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
+    else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.infections_by_month[D.months[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
+  }else{
+    const clr=p=>D.category_colors[p]||'#939598';
+    if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:clr(p)}));}
+    else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:clr(p)}));}
+  }
+  infChart.options.plugins.tooltip.mode=combined?'index':'point';
+  infChart.options.plugins.tooltip.intersect=!combined;
+  infChart.options.plugins.tooltip.callbacks.label=combined?
+    (c=>c.parsed.y+' sites'):
+    (c=>c.parsed.y?c.dataset.label+': '+c.parsed.y+' sites':null);
+  infChart.options.plugins.tooltip.callbacks.title=combined?
+    (items=>items[0]?.label||''):
+    (items=>items.length?items[0].label:'');
+  infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
+}
+function renderPager(id,page,total){
+  const pages=Math.ceil(total/PAGE_SIZE)||1;
+  const el=document.getElementById(id);if(!el)return;
+  const btns=el.querySelectorAll('button');
+  btns[0].disabled=page<=0;btns[1].disabled=page>=pages-1;
+  document.getElementById(id.replace('Pager','PageInfo')).textContent='Page '+(page+1)+' of '+pages;
+  el.style.display=total>PAGE_SIZE?'flex':'none';
+}
+function pageTable(tbl,dir){
+  if(tbl==='tbl'){tblPage+=dir;updateTable(false);}
+  if(tbl==='ls'){lsPage+=dir;updateLsTable(false);}
+  if(tbl==='wb'){wbPage+=dir;updateWbTable(false);}
+  if(tbl==='mm'){mmPage+=dir;updateMmTable(false);}
+}
+function updateTable(resetPage){
+  if(resetPage!==false)tblPage=0;
+  const cutoff=cutoffISO(tblRange);const sel=new Set(getSelected('tblMSPanel'));
+  const q=(document.getElementById('tblSearch').value||'').toLowerCase().trim();
+  const filtered=D.events.filter(e=>e.d>=cutoff&&sel.has(e.p)&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.p.toLowerCase().includes(q)));
+  const start=tblPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('tblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.p+'</td><td class="num">'+e.f.toLocaleString()+'</td></tr>').join('');
+  document.getElementById('tblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('tblPager',tblPage,filtered.length);
+}
+function initTab(tab){
+  if(tab==='livestock'&&D.livestock)initLivestock();
+  if(tab==='wildbirds'&&D.wild_birds)initWildBirds();
+  if(tab==='mammals'&&D.mammals)initMammals();
+}
+function initLivestock(){
+  const LS=D.livestock;
+  lsChart=new Chart(document.getElementById('cLivestock'),{type:'bar',data:{labels:LS.month_labels,datasets:[{label:'Herds Affected',data:LS.monthly_counts,backgroundColor:'#013046'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' herds'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Herds Affected'},grid:{color:'#f1f5f9'}}}}});
+  updateLsTable();
+}
+function updateLivestock(){
+  if(!lsChart||!D.livestock)return;const LS=D.livestock;const cutM=cutoffMonth(lsRange);
+  const idx=[];LS.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});
+  lsChart.data.labels=sliceByIdx(LS.month_labels,idx);lsChart.data.datasets[0].data=sliceByIdx(LS.monthly_counts,idx);lsChart.update();updateLsTable();
+}
+function updateLsTable(resetPage){
+  if(!D.livestock)return;if(resetPage!==false)lsPage=0;
+  const cutoff=cutoffISO(lsRange);
+  const q=(document.getElementById('lsSearch')?.value||'').toLowerCase().trim();
+  const filtered=D.livestock.events.filter(e=>e.d>=cutoff&&(!q||e.s.toLowerCase().includes(q)||e.p.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||(e.id||'').toLowerCase().includes(q)));
+  const start=lsPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('lsTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.id+'</td><td>'+e.p+'</td><td>'+e.sp+'</td></tr>').join('');
+  document.getElementById('lsTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('lsPager',lsPage,filtered.length);
+}
+function initWildBirds(){
+  const WB=D.wild_birds;
+  wbChart=new Chart(document.getElementById('cWildBirds'),{type:'bar',data:{labels:WB.month_labels,datasets:[{label:'Detections',data:WB.monthly_counts,backgroundColor:'#1F9EBC'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' detections'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
+  updateWbTable();
+}
+function wbDailyIndices(range){const cutoff=cutoffDate(range);const idx=[];D.wild_birds.daily_dates.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
+function updateWildBirds(){
+  if(!wbChart||!D.wild_birds)return;const WB=D.wild_birds;
+  if(isDaily(wbRange)){const idx=wbDailyIndices(wbRange);wbChart.data.labels=sliceByIdx(WB.daily_labels,idx);wbChart.data.datasets[0].data=sliceByIdx(WB.daily_counts,idx);}
+  else{const cutM=cutoffMonth(wbRange);const idx=[];WB.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});wbChart.data.labels=sliceByIdx(WB.month_labels,idx);wbChart.data.datasets[0].data=sliceByIdx(WB.monthly_counts,idx);}
+  wbChart.update();document.getElementById('wbTitle').textContent='Wild Bird HPAI Detections by '+(isDaily(wbRange)?'Day':'Month');updateWbTable();
+}
+function updateWbTable(resetPage){
+  if(!D.wild_birds)return;if(resetPage!==false)wbPage=0;
+  const cutoff=cutoffISO(wbRange);
+  const q=(document.getElementById('wbSearch')?.value||'').toLowerCase().trim();
+  const filtered=D.wild_birds.events.filter(e=>e.d>=cutoff&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.st.toLowerCase().includes(q)));
+  const start=wbPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('wbTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.st+'</td></tr>').join('');
+  document.getElementById('wbTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('wbPager',wbPage,filtered.length);
+}
+function initMammals(){
+  const MM=D.mammals;
+  mmChart=new Chart(document.getElementById('cMammals'),{type:'bar',data:{labels:MM.month_labels,datasets:MM.groups.map(g=>({label:g,data:MM.months.map(m=>(MM.monthly_by_group[m]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#939598'}))},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'}}}}});
+  updateMmTable();
+}
+function updateMammals(){
+  if(!mmChart||!D.mammals)return;const MM=D.mammals;const cutM=cutoffMonth(mmRange);
+  const idx=[];MM.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});
+  mmChart.data.labels=sliceByIdx(MM.month_labels,idx);
+  mmChart.data.datasets=MM.groups.map(g=>({label:g,data:idx.map(i=>(MM.monthly_by_group[MM.months[i]]||{})[g]||0),backgroundColor:MM_COLORS[g]||'#939598'}));
+  mmChart.update();updateMmTable();
+}
+function updateMmTable(resetPage){
+  if(!D.mammals)return;if(resetPage!==false)mmPage=0;
+  const cutoff=cutoffISO(mmTblRange);
+  const sel=D.mammals.groups?new Set(getSelected('mmTblMSPanel')):null;
+  const q=(document.getElementById('mmSearch')?.value||'').toLowerCase().trim();
+  const filtered=D.mammals.events.filter(e=>e.d>=cutoff&&(!sel||sel.has(e.g))&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.g.toLowerCase().includes(q)||e.st.toLowerCase().includes(q)));
+  const start=mmPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('mmTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.g+'</td><td>'+e.st+'</td></tr>').join('');
+  document.getElementById('mmTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
+  renderPager('mmPager',mmPage,filtered.length);
+}
+
+/* ── KPI update ── */
+function updateKPIs(){
+  const cut=cutoffISO(kpiRange);
+  const labels={'30d':'Last 30 Days','3m':'Last 3 Months','6m':'Last 6 Months','1y':'Last 12 Months','ytd':'Year to Date','all':'All Time'};
+  document.getElementById('kpiPeriodLabel').textContent=labels[kpiRange]||kpiRange;
+  const layerBirds=D.events.filter(e=>e.d>=cut&&e.p==='Commercial Table Egg Layer').reduce((s,e)=>s+e.f,0);
+  document.getElementById('kpiLayers').textContent=fmtBirds(layerBirds);
+  const pSites=D.events.filter(e=>e.d>=cut).length;
+  document.getElementById('kpiSites').textContent=pSites.toLocaleString();
+  const wbDet=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut).length:0;
+  document.getElementById('kpiWB').textContent=wbDet.toLocaleString();
+  /* M/M change always uses 30-day windows */
+  const now=new Date();
+  const d30=new Date(now.getFullYear(),now.getMonth(),now.getDate()-30);
+  const d60=new Date(now.getFullYear(),now.getMonth(),now.getDate()-60);
+  function isoD(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  const cut30=isoD(d30),cut60=isoD(d60);
+  const curP=D.events.filter(e=>e.d>=cut30).length;
+  const curW=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut30).length:0;
+  const cur=curP+curW;
+  const prevP=D.events.filter(e=>e.d>=cut60&&e.d<cut30).length;
+  const prevW=D.wild_birds?D.wild_birds.events.filter(e=>e.d>=cut60&&e.d<cut30).length:0;
+  const prev=prevP+prevW;
+  const chgEl=document.getElementById('kpiChg');
+  if(prev>0){const pct=((cur-prev)/prev*100).toFixed(1);chgEl.textContent=(pct>0?'+':'')+pct+'%';chgEl.className='val '+(pct>0?'up':pct<0?'dn':'');}
+  else{chgEl.textContent=cur>0?'New':'0';}
+  /* Egg price: average over selected period */
+  if(D.caged_prices&&D.caged_prices.length>0&&D.egg_dates_iso){
+    const priceDates=D.egg_dates_iso;
+    const prices=D.caged_prices;
+    const inRange=[];
+    for(let i=0;i<priceDates.length;i++){if(priceDates[i]>=cut&&prices[i]!=null)inRange.push(prices[i]);}
+    if(inRange.length>0){const avg=inRange.reduce((a,b)=>a+b,0)/inRange.length;document.getElementById('kpiPrice').textContent='$'+avg.toFixed(2);}
+    else{document.getElementById('kpiPrice').textContent='N/A';}
+  }else{document.getElementById('kpiPrice').textContent='N/A';}
+}
+
+/* ── Boot: fetch data and initialize ── */
+async function boot(){
+  try{
+    const resp=await fetch('data.json?v='+Date.now());
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    D=await resp.json();
+  }catch(e){
+    if(location.protocol==='file:')showError('Cannot load data.json via file:// protocol.<br>Run: <code>python3 -m http.server 8000</code> in the output folder, then open localhost:8000');
+    else showError(e.message);
+    return;
+  }
+  hideLoading();
+  initDashboard();
+}
+
+function initDashboard(){
+  /* Mammal panel maps */
+  if(D.mammals){panelMap.mmTbl='mmTblMSPanel';btnMap.mmTbl='mmTblMSBtn';}
+
+  /* Create charts */
+  eggChart=new Chart(document.getElementById('cEgg'),{type:'line',
+    data:{labels:D.egg_dates,datasets:[{label:'Caged Large',data:D.caged_prices,borderColor:'#F6851F',backgroundColor:'rgba(246,133,31,.08)',fill:true,tension:.2,pointRadius:0,pointHitRadius:8,borderWidth:3}]},
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?'$'+c.parsed.y.toFixed(2)+'/dz':''}}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{title:{display:true,text:'$ / Dozen'},grid:{color:'#f1f5f9'},ticks:{callback:v=>'$'+v.toFixed(2)}}}}});
+
+  birdsChart=new Chart(document.getElementById('cBirds'),{type:'bar',
+    data:{labels:D.month_labels,datasets:[{label:'Commercial Table Egg Layer',data:D.months.map(m=>(D.birds_by_month[m]||{})['Commercial Table Egg Layer']||0),backgroundColor:D.category_colors['Commercial Table Egg Layer']||'#dc2626'}]},
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return c.dataset.label+': '+(v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)+' birds';}}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
+
+  infChart=new Chart(document.getElementById('cInf'),{type:'bar',
+    data:{labels:D.month_labels,datasets:[{label:'All Categories',data:D.months.map(m=>{let t=0;D.production_types.forEach(p=>t+=(D.infections_by_month[m]||{})[p]||0);return t;}),backgroundColor:'#013046'}]},
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:c=>c.parsed.y+' sites'}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Number of Sites'},grid:{color:'#f1f5f9'},beginAtZero:true}}}});
+
+  /* Heatmap */
+  initMap();
+
+  /* Tab switching */
+  const tabBtns=document.querySelectorAll('.tab-btn');
+  const tabPanes=document.querySelectorAll('.tab-content');
+  const tabInitialized={};
+  tabBtns.forEach(btn=>{btn.addEventListener('click',()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));tabPanes.forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');const t=btn.dataset.tab;document.getElementById('tab-'+t).classList.add('active');
+    if(!tabInitialized[t]){initTab(t);tabInitialized[t]=true;}
+    if(t==='poultry'){birdsChart.resize();infChart.resize();eggChart.resize();}
+    if(t==='livestock'&&lsChart)lsChart.resize();
+    if(t==='wildbirds'&&wbChart)wbChart.resize();
+    if(t==='mammals'&&mmChart)mmChart.resize();
+    if(window.reportHeight){setTimeout(window.reportHeight,50);}
+  });});
+
+  /* Multi-select panel wiring */
+  document.querySelectorAll('.ms-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();const panel=btn.nextElementSibling;document.querySelectorAll('.ms-panel.open').forEach(p=>{if(p!==panel)p.classList.remove('open');});panel.classList.toggle('open');});});
+  document.addEventListener('click',()=>{document.querySelectorAll('.ms-panel.open').forEach(p=>p.classList.remove('open'));});
+  document.querySelectorAll('.ms-panel').forEach(p=>p.addEventListener('click',e=>e.stopPropagation()));
+  document.querySelectorAll('input[data-group]').forEach(hdr=>{hdr.addEventListener('change',()=>{const children=hdr.closest('.ms-group').querySelectorAll('.ms-group-children input[type=checkbox]');children.forEach(cb=>cb.checked=hdr.checked);const chart=panelToChart(hdr.closest('.ms-panel'));chartUpdate(chart);updateMSLabel(chart);});});
+  document.querySelectorAll('.ms-group-children input[type=checkbox]').forEach(cb=>{cb.addEventListener('change',()=>{const hdr=cb.closest('.ms-group').querySelector('input[data-group]');syncGroupHdr(hdr);const chart=panelToChart(cb.closest('.ms-panel'));chartUpdate(chart);updateMSLabel(chart);});});
+  document.querySelectorAll('input[data-group]').forEach(hdr=>syncGroupHdr(hdr));
+
+  /* Range button wiring */
+  document.querySelectorAll('.range-row').forEach(row=>{const chart=row.dataset.chart;row.querySelectorAll('.rbtn').forEach(btn=>{btn.addEventListener('click',()=>{
+    row.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const r=btn.dataset.r;
+    if(chart==='map'){mapRange=r;updateMapColors();}
+    if(chart==='source'){sourceFilter=r;updateMapColors();}
+    if(chart==='egg'){eggRange=r;updateEgg();}
+    if(chart==='birds'){birdsRange=r;updateBirds();}
+    if(chart==='inf'){infRange=r;updateInf();}
+    if(chart==='tbl'){tblRange=r;updateTable();}
+    if(chart==='ls'){lsRange=r;updateLivestock();}
+    if(chart==='wb'){wbRange=r;updateWildBirds();}
+    if(chart==='mm'){mmRange=r;updateMammals();}
+    if(chart==='kpi'){kpiRange=r;updateKPIs();}
+    if(chart==='mmTbl'){mmTblRange=r;updateMmTable();}
+  });});});
+
+  /* Initial data population */
+  updateTable();
+  updateKPIs();
+
+  /* MS label init */
+  updateMSLabel('birds');updateMSLabel('inf');updateMSLabel('tbl');
+  if(D.mammals)updateMSLabel('mmTbl');
+
+  /* Iframe height reporter */
+  const wrapEl=document.querySelector('.wrap');
+  if(window.parent!==window){
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+    window.reportHeight=function(){
+      const h=wrapEl.getBoundingClientRect().height+40;
+      document.documentElement.style.height=h+'px';
+      document.body.style.height=h+'px';
+      window.parent.postMessage({type:'resize',height:h},'*');
+    };
+    reportHeight();window.addEventListener('resize',reportHeight);
+    new ResizeObserver(reportHeight).observe(wrapEl);
+  }
+}
+
+boot();
+</script>
+</body>
+</html>"""
+
+
+COMMERCIAL_TYPES = {
+    "Commercial Table Egg Layer", "Commercial Table Egg Pullets",
+    "Commercial Broiler Production", "Commercial Broiler Breeder",
+    "Commercial Turkey Meat Bird", "Commercial Turkey Breeder Hens",
+    "Commercial Duck Meat Bird", "Commercial Duck Breeder",
+    "Commercial Upland Gamebird Producer",
+    "Commercial Raised for Release Upland Game Bird",
+    "Commercial Raised for Release Waterfowl",
+    "Commercial Breeder Operation",
+    "Commercial Breeder (Multiple Bird Species)",
+    "Commercial Turkey Breeder Replacement Hens",
+    "Commercial Turkey Breeder Toms",
+    "Commercial Turkey Poult Supplier",
+    "Commercial Table Egg Breeder",
+    "Commercial Broiler Breeder Pullets",
+    "Primary Broiler Breeder Pedigree Farm",
+}
+
+
+def build_grouped_checkboxes(prod_types, colors, default_checked):
+    """Build grouped checkbox HTML: Commercial vs Backyard."""
+    commercial = [p for p in prod_types if p in COMMERCIAL_TYPES]
+    backyard = [p for p in prod_types if p not in COMMERCIAL_TYPES]
+
+    def _group(group_label, members):
+        # Are all members checked?
+        all_chk = all(m in default_checked for m in members)
+        some_chk = any(m in default_checked for m in members)
+        hdr_chk = "checked" if all_chk else ""
+        lines = [
+            f'<div class="ms-group">',
+            f'  <label class="ms-group-hdr"><input type="checkbox" data-group="1" {hdr_chk}>{group_label}</label>',
+            f'  <div class="ms-group-children">',
+        ]
+        for p in members:
+            chk = "checked" if p in default_checked else ""
+            color = colors.get(p, "#6b7280")
+            # Strip "Commercial " prefix for cleaner display
+            display = p.replace("Commercial ", "") if p.startswith("Commercial ") else p
+            lines.append(
+                f'    <label class="ms-item"><input type="checkbox" value="{p}" {chk}>'
+                f'<span class="ms-dot" style="background:{color}"></span>{display}</label>'
+            )
+        lines.append('  </div>')
+        lines.append('</div>')
+        return "\n        ".join(lines)
+
+    parts = []
+    if commercial:
+        parts.append(_group("Commercial", commercial))
+    if backyard:
+        parts.append(_group("Backyard", backyard))
+    return "\n        ".join(parts)
+
+
+def build_simple_checkboxes(groups, colors, default_checked):
+    """Build flat checkbox list for mammal groups."""
+    lines = []
+    for g in groups:
+        chk = "checked" if g in default_checked else ""
+        color = colors.get(g, "#6b7280")
+        lines.append(
+            f'<label class="ms-item"><input type="checkbox" value="{g}" {chk}>'
+            f'<span class="ms-dot" style="background:{color}"></span>{g}</label>'
+        )
+    return "\n        ".join(lines)
+
+
+RANGE_BUTTONS = """<div class="range-row" data-chart="{chart}">
+      <button class="rbtn" data-r="30d">30D</button>
+      <button class="rbtn" data-r="3m">3M</button>
+      <button class="rbtn" data-r="6m">6M</button>
+      <button class="rbtn" data-r="1y">1Y</button>
+      <button class="rbtn" data-r="ytd">YTD</button>
+      <button class="rbtn active" data-r="all">All</button>
+    </div>"""
