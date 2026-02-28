@@ -895,7 +895,7 @@ __HEATMAP_CARD__
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks" target="_blank">USDA APHIS</a></div>
   </div>
   <div class="card">
-    <h2>Wholesale Egg Prices</h2>
+    <h2>Wholesale Caged Egg Prices</h2>
     <div class="sub">Large, National Wholesale, Volume-Weighted ($ per dozen)</div>
     <div class="controls">
       <div class="range-row" data-chart="egg">
