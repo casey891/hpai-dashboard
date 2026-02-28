@@ -60,7 +60,7 @@ python3 build_dashboard.py "A Table by Confirmation Date.csv" --no-prices
 python3 build_dashboard.py "A Table by Confirmation Date.csv" --egg-start 2024-01-01
 ```
 
-Output is written to `dashboard/index.html` and `dashboard/data.json` by default. Use `-o index.html` to write to the current directory instead.
+Output is written to `index.html` and `data.json` in the current directory by default.
 
 ### Preview locally
 

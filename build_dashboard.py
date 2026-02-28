@@ -394,7 +394,7 @@ def generate_html(data):
 def main():
     ap = argparse.ArgumentParser(description="Build HPAI dashboard HTML")
     ap.add_argument("csv", help="Path to APHIS 'A Table by Confirmation Date' CSV")
-    ap.add_argument("-o", "--output", default="dashboard/index.html", help="Output HTML path")
+    ap.add_argument("-o", "--output", default="index.html", help="Output HTML path")
     ap.add_argument("--egg-start", default=None,
                     help="Start date for egg prices (YYYY-MM-DD). Default: 1 year ago")
     ap.add_argument("--no-prices", action="store_true", help="Skip egg price fetch")
