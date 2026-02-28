@@ -36,6 +36,16 @@ pip install addfips
 
 All other dependencies are Python standard library.
 
+### Egg prices (MARS API)
+
+Wholesale egg prices are fetched from the USDA MARS API at build time. Set your API key as an environment variable:
+
+```bash
+export MARS_API_KEY="your-key-here"
+```
+
+If `MARS_API_KEY` is not set, egg prices will be skipped automatically. You can also skip them explicitly with `--no-prices`.
+
 ## Usage
 
 Download the CSV files from the APHIS links above, then run:

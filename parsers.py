@@ -5,6 +5,7 @@ parsers.py — CSV parsers, species classifiers, and MARS API egg price fetcher.
 import base64
 import csv
 import json
+import os
 import sys
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -28,7 +29,7 @@ def _parse_date(s):
 
 MARS_BASE = "https://marsapi.ams.usda.gov/services/v1.2/reports"
 MARS_REPORT = "2843"
-MARS_KEY = "LIm1Mr7tz2NPJV9W/KJNe3aM/xyRvuWUzPdsu1S8k5E="
+MARS_KEY = os.environ.get("MARS_API_KEY", "")
 
 
 def _mars_get(url):
@@ -41,6 +42,9 @@ def _mars_get(url):
 
 def fetch_egg_prices(start, end):
     """Fetch daily VWAP for Caged Large (National) from MARS API. Returns dict date->$/dz."""
+    if not MARS_KEY:
+        print("  WARNING: MARS_API_KEY not set, skipping egg prices")
+        return {}
     caged = defaultdict(lambda: {"pv": 0.0, "v": 0})
     cur = start
     while cur < end:
