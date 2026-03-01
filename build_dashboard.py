@@ -457,7 +457,7 @@ def main():
     ap = argparse.ArgumentParser(description="Build HPAI dashboard HTML")
     ap.add_argument("-o", "--output", default="index.html", help="Output HTML path")
     ap.add_argument("--egg-start", default=None,
-                    help="Start date for egg prices (YYYY-MM-DD). Default: 1 year ago")
+                    help="Start date for egg prices (YYYY-MM-DD). Default: 2022-01-01")
     ap.add_argument("--no-prices", action="store_true", help="Skip egg price fetch")
     ap.add_argument("--no-download", action="store_true",
                     help="Skip downloading fresh data (use existing CSVs)")
@@ -520,7 +520,7 @@ def main():
     caged_prices = {}
     if not args.no_prices:
         today = datetime.today()
-        start = datetime.strptime(args.egg_start, "%Y-%m-%d") if args.egg_start else (today - timedelta(days=365))
+        start = datetime.strptime(args.egg_start, "%Y-%m-%d") if args.egg_start else datetime(2022, 1, 1)
         print("Fetching egg prices from MARS API...")
         try:
             caged_prices = fetch_egg_prices(start, today)
