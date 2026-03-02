@@ -3,7 +3,10 @@
 download_data.py — Download 3 of 4 USDA APHIS HPAI datasets.
 
 - Wild Birds & Mammals: direct CSV from APHIS static files
-- Flocks: Tableau Server .csv endpoint (flat CSV format)
+- Flocks: Tableau Server .csv endpoint (flat CSV format).
+  NOTE: The Tableau CSV endpoint often lags 1-2 days behind the actual
+  dashboard. If a manually-downloaded file already exists (UTF-16 crosstab
+  from the Tableau "Download Data" dialog), it is kept as-is.
 - Livestock: NOT automatable (Tableau view doesn't expose data table).
   Download manually via Claude in Chrome or the APHIS website.
 
@@ -34,6 +37,7 @@ DOWNLOADS = {
         "url": "https://publicdashboards.dl.usda.gov/t/MRP_PUB/views/VS_Avian_HPAIConfirmedDetections2022/HPAI2022ConfirmedDetections.csv",
         "type": "tableau_csv",
         "validate": lambda text: "Confirmed" in text.split("\n")[0],
+        "prefer_local": True,
     },
 }
 
@@ -41,7 +45,16 @@ DOWNLOADS = {
 def download_one(name, config, output_dir):
     """Download a single dataset. Returns True on success, False on failure."""
     url = config["url"]
+    out_path = output_dir / name
     print(f"  {name}")
+
+    # If prefer_local is set and a local file exists, keep it
+    if config.get("prefer_local") and out_path.exists():
+        size_kb = out_path.stat().st_size / 1024
+        print(f"    SKIPPED — local file exists ({size_kb:.0f} KB)")
+        print(f"    (Tableau CSV endpoint lags behind manual downloads; keeping local copy)")
+        return True
+
     print(f"    URL: {url}")
 
     try:
@@ -58,7 +71,6 @@ def download_one(name, config, output_dir):
         print(f"    Got: {resp.text[:100]!r}")
         return False
 
-    out_path = output_dir / name
     out_path.write_bytes(resp.content)
 
     # Count rows for reporting
