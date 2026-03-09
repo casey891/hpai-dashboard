@@ -26,7 +26,7 @@ from parsers import (
 )
 from geo import HAS_ADDFIPS, build_fips_lookup, aggregate_county_detections, compress_map_data
 from template import (
-    HTML_TEMPLATE, COLORS, COMMERCIAL_TYPES,
+    HTML_TEMPLATE, COLORS,
     build_grouped_checkboxes, build_simple_checkboxes, RANGE_BUTTONS,
 )
 
@@ -259,10 +259,10 @@ def _fmt_big(n):
 
 
 def generate_html(data, data_url="data"):
-    # Birds checkboxes: default only "Commercial Table Egg Layer"
+    # Birds checkboxes: default only Commercial Layers group selected
     birds_cbs = build_grouped_checkboxes(
         data["production_types"], data["category_colors"],
-        {"Commercial Table Egg Layer"},
+        {"Commercial Table Egg Layer", "Commercial Table Egg Pullets", "Commercial Table Egg Breeder"},
     )
     # Infections checkboxes: default ALL selected
     inf_cbs = build_grouped_checkboxes(

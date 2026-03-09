@@ -102,6 +102,9 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 .ms-group-hdr{display:flex;align-items:center;padding:5px 0 3px;cursor:pointer;font-size:.8rem;font-weight:600;gap:6px;color:#013046}
 .ms-group-hdr input{margin:0;cursor:pointer}
 .ms-group-children{padding-left:20px}
+.ms-group-children.collapsed{display:none}
+.ms-expand{background:none;border:none;cursor:pointer;font-size:.7rem;color:#A7A9AC;padding:0 4px;line-height:1;transition:transform .15s}
+.ms-expand.open{transform:rotate(90deg)}
 /* tabs */
 .tab-bar{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e2e8f0}
 .tab-btn{padding:10px 20px;border:none;background:none;font-size:.85rem;font-weight:600;color:#939598;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;font-family:'Lexend',sans-serif}
@@ -153,9 +156,9 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 </div>
 <div class="kpi-row">
   <div class="kpi">
-    <div class="lbl">Hens Depopulated</div>
+    <div class="lbl">Hens Impacted</div>
     <div class="val" style="color:#F6851F" id="kpiLayers">&mdash;</div>
-    <div class="note" id="kpiLayersNote">Commercial egg layers</div>
+    <div class="note" id="kpiLayersNote">Egg-Type Layers, Pullets, and Breeders</div>
   </div>
   <div class="kpi">
     <div class="lbl">Number of Poultry Operations Infected</div>
@@ -205,7 +208,7 @@ __HEATMAP_CARD__
         <button class="rbtn active" data-r="all">All</button>
       </div>
       <div class="ms-wrap" id="birdsMS">
-        <button class="ms-btn" id="birdsMSBtn">1 category</button>
+        <button class="ms-btn" id="birdsMSBtn">Commercial Layers</button>
         <div class="ms-panel" id="birdsMSPanel">
           <div class="ms-actions">
             <a onclick="msAll('birds')">Select All</a> · <a onclick="msNone('birds')">Clear</a>
@@ -325,6 +328,19 @@ let tblPage=0,lsPage=0,wbPage=0,mmPage=0;
 const panelMap={birds:'birdsMSPanel',inf:'infMSPanel',tbl:'tblMSPanel'};
 const btnMap={birds:'birdsMSBtn',inf:'infMSBtn',tbl:'tblMSBtn'};
 const MM_COLORS={'Domestic/Companion':'#F6851F','Wild Carnivores':'#013046','Rodents/Small Mammals':'#FDB714','Marine Mammals':'#1F9EBC','Captive/Zoo':'#8FCAE6','Other':'#939598'};
+
+/* ── Category groups ── */
+const CATEGORY_GROUPS={
+  'Commercial Layers':['Commercial Table Egg Layer','Commercial Table Egg Pullets','Commercial Table Egg Breeder'],
+  'Commercial Broiler':['Commercial Broiler Production','Commercial Broiler Breeder','Commercial Broiler Breeder Pullets','Primary Broiler Breeder Pedigree Farm','Commercial Breeder Operation'],
+  'Commercial Turkey':['Commercial Turkey Meat Bird','Commercial Turkey Breeder Hens','Commercial Turkey Breeder Replacement Hens','Commercial Turkey Breeder Toms','Commercial Turkey Poult Supplier'],
+  'Commercial Duck':['Commercial Duck Meat Bird','Commercial Duck Breeder'],
+  'Commercial Other':['Commercial Breeder (Multiple Bird Species)','Commercial Upland Gamebird Producer','Commercial Raised for Release Upland Game Bird','Commercial Raised for Release Waterfowl'],
+  'Other':['Live Bird Market','Live Bird Sales  (non-slaughter)','WOAH Poultry','WOAH Non-Poultry']
+};
+const GROUP_COLORS={'Commercial Layers':'#F6851F','Commercial Broiler':'#013046','Commercial Turkey':'#1F9EBC','Commercial Duck':'#FDB714','Commercial Other':'#8FCAE6','Other':'#E5700A'};
+/* Track which groups are expanded per panel */
+const expandedGroups={birdsMSPanel:new Set(),infMSPanel:new Set()};
 
 /* ── Chart.js global defaults ── */
 Chart.defaults.font.family="'Lexend',sans-serif";
@@ -481,7 +497,15 @@ function updateMSLabel(chart){
   if(sel.length===0)el.textContent='None selected';
   else if(sel.length===leaves.length)el.textContent='All categories';
   else if(sel.length===1){const n=sel[0].value;el.textContent=n.length>28?n.slice(0,26)+'\u2026':n;}
-  else el.textContent=sel.length+' categories';
+  else{
+    /* Check if selection exactly matches one group */
+    const selSet=new Set(sel.map(cb=>cb.value));
+    let matchedGroup=null;
+    for(const[gn,members]of Object.entries(CATEGORY_GROUPS)){
+      if(members.length===selSet.size&&members.every(m=>selSet.has(m))){matchedGroup=gn;break;}
+    }
+    el.textContent=matchedGroup||sel.length+' categories';
+  }
 }
 function syncGroupHdr(hdr){
   const children=hdr.closest('.ms-group').querySelectorAll('.ms-group-children input[type=checkbox]');
@@ -496,12 +520,45 @@ function panelToChart(panel){
   return 'tbl';
 }
 
+/* ── Group-aware dataset builder ── */
+function isGroupExpanded(panelId,groupName){return expandedGroups[panelId]&&expandedGroups[panelId].has(groupName);}
+function toggleGroupExpand(panelId,groupName,btn){
+  const set=expandedGroups[panelId]=expandedGroups[panelId]||new Set();
+  const container=btn.closest('.ms-group').querySelector('.ms-group-children');
+  if(set.has(groupName)){set.delete(groupName);container.classList.add('collapsed');btn.classList.remove('open');}
+  else{set.add(groupName);container.classList.remove('collapsed');btn.classList.add('open');}
+  const chart=panelToChart(document.getElementById(panelId));
+  chartUpdate(chart);
+}
+function getGroupedDatasets(panelId,dataByPeriod,periods,periodKeys){
+  const datasets=[];
+  const panel=document.getElementById(panelId);
+  panel.querySelectorAll('.ms-group').forEach(grpEl=>{
+    const groupName=grpEl.dataset.groupName;
+    const hdr=grpEl.querySelector('input[data-group]');
+    if(!hdr.checked&&!hdr.indeterminate)return;
+    const members=CATEGORY_GROUPS[groupName];if(!members)return;
+    const expanded=isGroupExpanded(panelId,groupName);
+    if(expanded){
+      /* Show individual checked members */
+      const checks=grpEl.querySelectorAll('.ms-group-children input[type=checkbox]:checked');
+      checks.forEach(cb=>{const p=cb.value;datasets.push({label:p,data:periods.map((_,i)=>(dataByPeriod[periodKeys[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'});});
+    }else{
+      /* Sum all checked members into one grouped dataset */
+      const checked=Array.from(grpEl.querySelectorAll('.ms-group-children input[type=checkbox]:checked')).map(cb=>cb.value);
+      if(checked.length===0)return;
+      const memberData=checked.map(p=>({label:p.replace('Commercial ',''),data:periods.map((_,i)=>(dataByPeriod[periodKeys[i]]||{})[p]||0)}));
+      datasets.push({label:groupName,data:periods.map((_,i)=>{let t=0;checked.forEach(p=>t+=(dataByPeriod[periodKeys[i]]||{})[p]||0);return t;}),backgroundColor:GROUP_COLORS[groupName]||'#939598',_members:memberData});
+    }
+  });
+  return datasets;
+}
+
 /* ── Update functions ── */
 function updateEgg(){const idx=eggIndices(eggRange);eggChart.data.labels=sliceByIdx(D.egg_dates,idx);eggChart.data.datasets[0].data=sliceByIdx(D.caged_prices,idx);eggChart.update();}
 function updateBirds(){
-  const sel=getSelected('birdsMSPanel');
-  if(isDaily(birdsRange)){const idx=dailyIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.daily_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_birds[D.daily_dates[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
-  else{const idx=monthIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.month_labels,idx);birdsChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.birds_by_month[D.months[i]]||{})[p]||0),backgroundColor:D.category_colors[p]||'#939598'}));}
+  if(isDaily(birdsRange)){const idx=dailyIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.daily_labels,idx);birdsChart.data.datasets=getGroupedDatasets('birdsMSPanel',D.daily_birds,idx,idx.map(i=>D.daily_dates[i]));}
+  else{const idx=monthIndices(birdsRange);birdsChart.data.labels=sliceByIdx(D.month_labels,idx);birdsChart.data.datasets=getGroupedDatasets('birdsMSPanel',D.birds_by_month,idx,idx.map(i=>D.months[i]));}
   birdsChart.update();document.getElementById('birdsTitle').textContent='Birds Impacted by '+(isDaily(birdsRange)?'Day':'Month');
 }
 function updateInf(){
@@ -514,18 +571,20 @@ function updateInf(){
     if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.daily_infections[D.daily_dates[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
     else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=[{label:'All Categories',data:idx.map(i=>{let t=0;sel.forEach(p=>t+=(D.infections_by_month[D.months[i]]||{})[p]||0);return t;}),backgroundColor:'#013046'}];}
   }else{
-    const clr=p=>D.category_colors[p]||'#939598';
-    if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.daily_infections[D.daily_dates[i]]||{})[p]||0),backgroundColor:clr(p)}));}
-    else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=sel.map(p=>({label:p,data:idx.map(i=>(D.infections_by_month[D.months[i]]||{})[p]||0),backgroundColor:clr(p)}));}
+    if(isDaily(infRange)){const idx=dailyIndices(infRange);infChart.data.labels=sliceByIdx(D.daily_labels,idx);infChart.data.datasets=getGroupedDatasets('infMSPanel',D.daily_infections,idx,idx.map(i=>D.daily_dates[i]));}
+    else{const idx=monthIndices(infRange);infChart.data.labels=sliceByIdx(D.month_labels,idx);infChart.data.datasets=getGroupedDatasets('infMSPanel',D.infections_by_month,idx,idx.map(i=>D.months[i]));}
   }
-  infChart.options.plugins.tooltip.mode=combined?'index':'point';
-  infChart.options.plugins.tooltip.intersect=!combined;
-  infChart.options.plugins.tooltip.callbacks.label=combined?
-    (c=>c.parsed.y+' sites'):
-    (c=>c.parsed.y?c.dataset.label+': '+c.parsed.y+' sites':null);
-  infChart.options.plugins.tooltip.callbacks.title=combined?
-    (items=>items[0]?.label||''):
-    (items=>items.length?items[0].label:'');
+  if(combined){
+    infChart.options.plugins.tooltip.mode='index';
+    infChart.options.plugins.tooltip.intersect=false;
+    infChart.options.plugins.tooltip.callbacks.title=function(items){return items[0]?.label||'';};
+    infChart.options.plugins.tooltip.callbacks.label=function(c){return c.parsed.y?c.parsed.y.toLocaleString()+' sites':null;};
+  }else{
+    infChart.options.plugins.tooltip.mode='nearest';
+    infChart.options.plugins.tooltip.intersect=true;
+    infChart.options.plugins.tooltip.callbacks.title=function(items){if(!items.length)return'';const c=items[0];const lbl=c.label;let total=0;c.chart.data.datasets.forEach(ds=>total+=(ds.data[c.dataIndex]||0));return[lbl,'— Total: '+total.toLocaleString()+' sites'];};
+    infChart.options.plugins.tooltip.callbacks.label=function(c){const ds=c.chart.data.datasets[c.datasetIndex];const v=c.parsed.y;if(!v)return null;const lines=[ds.label+': '+v.toLocaleString()+' sites'];if(ds._members){ds._members.forEach(m=>{const mv=m.data[c.dataIndex];if(mv)lines.push('  '+m.label+': '+mv.toLocaleString());});}return lines;};
+  }
   infChart.update();document.getElementById('infTitle').textContent='Confirmed HPAI Detections by '+(isDaily(infRange)?'Day':'Month');
 }
 function renderPager(id,page,total){
@@ -628,7 +687,8 @@ function updateKPIs(){
   const cut=cutoffISO(kpiRange);
   const labels={'30d':'Last 30 Days','3m':'Last 3 Months','6m':'Last 6 Months','1y':'Last 12 Months','ytd':'Year to Date','all':'All Time'};
   document.getElementById('kpiPeriodLabel').textContent=labels[kpiRange]||kpiRange;
-  const layerBirds=D.events.filter(e=>e.d>=cut&&e.p==='Commercial Table Egg Layer').reduce((s,e)=>s+e.f,0);
+  const henTypes=['Commercial Table Egg Layer','Commercial Table Egg Pullets','Commercial Table Egg Breeder'];
+  const layerBirds=D.events.filter(e=>e.d>=cut&&henTypes.includes(e.p)).reduce((s,e)=>s+e.f,0);
   document.getElementById('kpiLayers').textContent=fmtBirds(layerBirds);
   const pSites=D.events.filter(e=>e.d>=cut).length;
   document.getElementById('kpiSites').textContent=pSites.toLocaleString();
@@ -685,8 +745,11 @@ function initDashboard(){
     options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y!=null?'$'+c.parsed.y.toFixed(2)+'/dz':''}}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{title:{display:true,text:'$ / Dozen'},grid:{color:'#f1f5f9'},ticks:{callback:v=>'$'+v.toFixed(2)}}}}});
 
   birdsChart=new Chart(document.getElementById('cBirds'),{type:'bar',
-    data:{labels:D.month_labels,datasets:[{label:'Commercial Table Egg Layer',data:D.months.map(m=>(D.birds_by_month[m]||{})['Commercial Table Egg Layer']||0),backgroundColor:D.category_colors['Commercial Table Egg Layer']||'#dc2626'}]},
-    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return c.dataset.label+': '+(v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)+' birds';}}}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
+    data:{labels:D.month_labels,datasets:[]},
+    options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{mode:'nearest',intersect:true,callbacks:{
+      title:function(items){if(!items.length)return'';const c=items[0];const lbl=c.label;let total=0;c.chart.data.datasets.forEach(ds=>total+=(ds.data[c.dataIndex]||0));return[lbl,'— Total: '+fmtBirds(total)+' birds'];},
+      label:function(c){const ds=c.chart.data.datasets[c.datasetIndex];const v=c.parsed.y;if(!v)return null;const lines=[ds.label+': '+fmtBirds(v)+' birds'];if(ds._members){ds._members.forEach(m=>{const mv=m.data[c.dataIndex];if(mv)lines.push('  '+m.label+': '+fmtBirds(mv));});}return lines;}
+    }}},scales:{x:{stacked:true,ticks:{maxRotation:45},grid:{display:false}},y:{stacked:true,title:{display:true,text:'Total Birds'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
 
   infChart=new Chart(document.getElementById('cInf'),{type:'bar',
     data:{labels:D.month_labels,datasets:[{label:'All Categories',data:D.months.map(m=>{let t=0;D.production_types.forEach(p=>t+=(D.infections_by_month[m]||{})[p]||0);return t;}),backgroundColor:'#013046'}]},
@@ -717,6 +780,8 @@ function initDashboard(){
   document.querySelectorAll('input[data-group]').forEach(hdr=>{hdr.addEventListener('change',()=>{const children=hdr.closest('.ms-group').querySelectorAll('.ms-group-children input[type=checkbox]');children.forEach(cb=>cb.checked=hdr.checked);const chart=panelToChart(hdr.closest('.ms-panel'));chartUpdate(chart);updateMSLabel(chart);});});
   document.querySelectorAll('.ms-group-children input[type=checkbox]').forEach(cb=>{cb.addEventListener('change',()=>{const hdr=cb.closest('.ms-group').querySelector('input[data-group]');syncGroupHdr(hdr);const chart=panelToChart(cb.closest('.ms-panel'));chartUpdate(chart);updateMSLabel(chart);});});
   document.querySelectorAll('input[data-group]').forEach(hdr=>syncGroupHdr(hdr));
+  /* Expand/collapse arrows */
+  document.querySelectorAll('.ms-expand').forEach(btn=>{btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const grp=btn.closest('.ms-group');const panelId=grp.closest('.ms-panel').id;const groupName=grp.dataset.groupName;toggleGroupExpand(panelId,groupName,btn);});});
 
   /* Range button wiring */
   document.querySelectorAll('.range-row').forEach(row=>{const chart=row.dataset.chart;row.querySelectorAll('.rbtn').forEach(btn=>{btn.addEventListener('click',()=>{
@@ -735,6 +800,7 @@ function initDashboard(){
   });});});
 
   /* Initial data population */
+  updateBirds();
   updateTable();
   updateKPIs();
 
@@ -764,44 +830,74 @@ boot();
 </html>"""
 
 
-COMMERCIAL_TYPES = {
-    "Commercial Table Egg Layer", "Commercial Table Egg Pullets",
-    "Commercial Broiler Production", "Commercial Broiler Breeder",
-    "Commercial Turkey Meat Bird", "Commercial Turkey Breeder Hens",
-    "Commercial Duck Meat Bird", "Commercial Duck Breeder",
-    "Commercial Upland Gamebird Producer",
-    "Commercial Raised for Release Upland Game Bird",
-    "Commercial Raised for Release Waterfowl",
-    "Commercial Breeder Operation",
-    "Commercial Breeder (Multiple Bird Species)",
-    "Commercial Turkey Breeder Replacement Hens",
-    "Commercial Turkey Breeder Toms",
-    "Commercial Turkey Poult Supplier",
-    "Commercial Table Egg Breeder",
-    "Commercial Broiler Breeder Pullets",
-    "Primary Broiler Breeder Pedigree Farm",
+CATEGORY_GROUPS_PY = {
+    "Commercial Layers": [
+        "Commercial Table Egg Layer", "Commercial Table Egg Pullets",
+        "Commercial Table Egg Breeder",
+    ],
+    "Commercial Broiler": [
+        "Commercial Broiler Production", "Commercial Broiler Breeder",
+        "Commercial Broiler Breeder Pullets",
+        "Primary Broiler Breeder Pedigree Farm",
+        "Commercial Breeder Operation",
+    ],
+    "Commercial Turkey": [
+        "Commercial Turkey Meat Bird", "Commercial Turkey Breeder Hens",
+        "Commercial Turkey Breeder Replacement Hens",
+        "Commercial Turkey Breeder Toms", "Commercial Turkey Poult Supplier",
+    ],
+    "Commercial Duck": [
+        "Commercial Duck Meat Bird", "Commercial Duck Breeder",
+    ],
+    "Commercial Other": [
+        "Commercial Breeder (Multiple Bird Species)",
+        "Commercial Upland Gamebird Producer",
+        "Commercial Raised for Release Upland Game Bird",
+        "Commercial Raised for Release Waterfowl",
+    ],
+    "Other": [
+        "Live Bird Market", "Live Bird Sales  (non-slaughter)",
+        "WOAH Poultry", "WOAH Non-Poultry",
+    ],
+}
+
+GROUP_COLORS_PY = {
+    "Commercial Layers": "#F6851F",
+    "Commercial Broiler": "#013046",
+    "Commercial Turkey": "#1F9EBC",
+    "Commercial Duck": "#FDB714",
+    "Commercial Other": "#8FCAE6",
+    "Other": "#E5700A",
 }
 
 
 def build_grouped_checkboxes(prod_types, colors, default_checked):
-    """Build grouped checkbox HTML: Commercial vs Backyard."""
-    commercial = [p for p in prod_types if p in COMMERCIAL_TYPES]
-    backyard = [p for p in prod_types if p not in COMMERCIAL_TYPES]
+    """Build grouped checkbox HTML with 6 category groups, collapsed by default."""
+    # Build a set of types actually present in the data
+    present = set(prod_types)
 
-    def _group(group_label, members):
-        # Are all members checked?
-        all_chk = all(m in default_checked for m in members)
-        some_chk = any(m in default_checked for m in members)
+    parts = []
+    for group_name, members in CATEGORY_GROUPS_PY.items():
+        # Only include members present in the data
+        active = [m for m in members if m in present]
+        if not active:
+            continue
+        all_chk = all(m in default_checked for m in active)
         hdr_chk = "checked" if all_chk else ""
+        grp_color = GROUP_COLORS_PY.get(group_name, "#6b7280")
         lines = [
-            f'<div class="ms-group">',
-            f'  <label class="ms-group-hdr"><input type="checkbox" data-group="1" {hdr_chk}>{group_label}</label>',
-            f'  <div class="ms-group-children">',
+            f'<div class="ms-group" data-group-name="{group_name}">',
+            f'  <label class="ms-group-hdr">'
+            f'<input type="checkbox" data-group="1" {hdr_chk}>'
+            f'<span class="ms-dot" style="background:{grp_color}"></span>'
+            f'{group_name}'
+            f'<button type="button" class="ms-expand" title="Expand">&#9654;</button>'
+            f'</label>',
+            f'  <div class="ms-group-children collapsed">',
         ]
-        for p in members:
+        for p in active:
             chk = "checked" if p in default_checked else ""
             color = colors.get(p, "#6b7280")
-            # Strip "Commercial " prefix for cleaner display
             display = p.replace("Commercial ", "") if p.startswith("Commercial ") else p
             lines.append(
                 f'    <label class="ms-item"><input type="checkbox" value="{p}" {chk}>'
@@ -809,13 +905,7 @@ def build_grouped_checkboxes(prod_types, colors, default_checked):
             )
         lines.append('  </div>')
         lines.append('</div>')
-        return "\n        ".join(lines)
-
-    parts = []
-    if commercial:
-        parts.append(_group("Commercial", commercial))
-    if backyard:
-        parts.append(_group("Backyard", backyard))
+        parts.append("\n        ".join(lines))
     return "\n        ".join(parts)
 
 
