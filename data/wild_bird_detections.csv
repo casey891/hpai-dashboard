@@ -1,7 +1,25 @@
 Date,State,County,Species,Strain
+03/03/2026,Louisiana,Orleans,Crow (unidentified),EA H5
+03/02/2026,New York,Franklin,Mute swan,EA H5
+03/02/2026,New York,Bronx,Canada goose,EA H5
+03/02/2026,New York,Bronx,Canada goose,EA H5
+02/27/2026,Maryland,Talbot,Canada goose,EA H5
 02/26/2026,Ohio,Warren,Canada goose,EA H5
+02/26/2026,New York,Bronx,Canada goose,EA H5
+02/26/2026,New York,Bronx,Canada goose,EA H5
+02/25/2026,Maryland,Kent,Canada goose,EA H5
+02/25/2026,Maryland,Queen Anne's,Canada goose,EA H5
+02/25/2026,Maryland,Kent,Canada goose,EA H5
+02/25/2026,Ohio,Unknown,Canada goose,EA H5
+02/25/2026,Ohio,Unknown,Canada goose,EA H5
+02/25/2026,Ohio,Unknown,Canada goose,EA H5
+02/25/2026,Maine,Lincoln,American black duck,EA H5
+02/25/2026,Maine,Lincoln,American black duck,EA H5
+02/25/2026,Illinois,Kane,Canada goose,EA H5
 02/24/2026,Ohio,Knox,Canada goose,EA H5
 02/24/2026,Ohio,Champaign,Bald eagle,EA H5
+02/24/2026,Maine,Penobscot,Mallard,EA H5
+02/24/2026,Wyoming,Park,Great horned owl,EA H5
 02/23/2026,Ohio,Brown,Canada goose,EA H5
 02/23/2026,Ohio,Brown,Canada goose,EA H5
 02/23/2026,Ohio,Scioto,Canada goose,EA H5
@@ -10,14 +28,31 @@ Date,State,County,Species,Strain
 02/23/2026,Ohio,Washington,Canada goose,EA H5
 02/23/2026,Ohio,Pike,Canada goose,EA H5
 02/23/2026,Florida,Orange,Mute swan,EA H5
+02/23/2026,New Jersey,Ocean,Canada goose,EA H5
+02/23/2026,Maryland,Carroll,Canada goose,EA H5
+02/23/2026,Ohio,Morrow,Canada goose,EA H5
 02/22/2026,New York,Sullivan,American crow,EA H5
+02/22/2026,West Virginia,Putnam,Canada goose,EA H5
 02/21/2026,New York,Bronx,Trumpeter swan,EA H5
 02/20/2026,New York,Bronx,Canada goose,EA H5
+02/20/2026,New York,Suffolk,Red-tailed hawk,EA H5
+02/20/2026,New York,Suffolk,Red-tailed hawk,EA H5
+02/20/2026,New York,Ulster,Canada goose,EA H5
+02/20/2026,New York,Albany,Canada goose,EA H5
+02/20/2026,New York,Dutchess,Canada goose,EA H5
+02/20/2026,New York,Westchester,Red-shouldered hawk,EA H5
 02/19/2026,Colorado,Weld,Red-tailed hawk,EA H5
 02/19/2026,Indiana,Shelby,Bald eagle,EA H5
 02/19/2026,Ohio,Hardin,Red-tailed hawk,EA H5
 02/19/2026,Ohio,Hardin,Canada goose,EA H5
 02/19/2026,Ohio,Hardin,Canada goose,EA H5
+02/19/2026,Maine,Lincoln,American black duck,EA H5
+02/19/2026,Ohio,Wood,Canada goose,EA H5
+02/19/2026,Ohio,Wood,Canada goose,EA H5
+02/19/2026,Maine,Penobscot,Mallard,EA H5
+02/19/2026,Maine,Penobscot,Mallard,EA H5
+02/19/2026,Maine,Penobscot,Mallard,EA H5
+02/19/2026,New York,Nassau,Common raven,EA H5
 02/18/2026,Connecticut,Fairfield,Duck (unidentified),EA H5
 02/18/2026,New Jersey,Gloucester,Canada goose,EA H5
 02/18/2026,New Jersey,Gloucester,Canada goose,EA H5
@@ -28,6 +63,11 @@ Date,State,County,Species,Strain
 02/18/2026,Minnesota,Stearns,Hawk (unidentified),EA H5
 02/18/2026,California,Solano,Red-tailed hawk,EA H5
 02/18/2026,California,Imperial,Ring-billed gull,EA H5
+02/18/2026,Maine,Lincoln,American black duck,EA H5
+02/18/2026,West Virginia,Harrison,Canada goose,EA H5
+02/18/2026,Virginia,Fauquier,Canada goose,EA H5
+02/18/2026,Virginia,Fauquier,Canada goose,EA H5
+02/18/2026,Kansas,Marion,Bald eagle,EA H5
 02/17/2026,Iowa,Story,Canada goose,EA H5
 02/17/2026,Iowa,Story,American crow,EA H5
 02/17/2026,New Jersey,Middlesex,Canada goose,EA H5
@@ -61,28 +101,35 @@ Date,State,County,Species,Strain
 02/17/2026,New York,Greene,Canada goose,EA H5
 02/17/2026,Connecticut,Fairfield,Mallard,EA H5
 02/17/2026,Ohio,Madison,Tundra swan,EA H5
+02/17/2026,Colorado,Weld,Rock pigeon,EA H5
+02/17/2026,Connecticut,New Haven,Mallard,EA H5
+02/17/2026,Pennsylvania,Berks,Canada goose,EA H5
+02/17/2026,Pennsylvania,Lehigh,American crow,EA H5
+02/17/2026,Pennsylvania,Lehigh,American crow,EA H5
+02/17/2026,Alaska,Matanuska-Susitna,Mallard,EA H5N1
 02/16/2026,North Carolina,Bertie,Wood duck,EA H5
-02/16/2026,Kansas,Ottawa,Cackling goose,EA H5
-02/16/2026,Connecticut,New Haven,Red-tailed hawk,EA H5
-02/16/2026,Connecticut,New Haven,Red-tailed hawk,EA H5
+02/16/2026,Kansas,Ottawa,Cackling goose,EA/AM H5N1
+02/16/2026,Connecticut,New Haven,Red-tailed hawk,EA/AM H5N1
+02/16/2026,Connecticut,New Haven,Red-tailed hawk,EA/AM H5N1
 02/16/2026,New Mexico,Unknown,Goose (unidentified),EA H5
 02/16/2026,Missouri,Monroe,Snow goose,EA H5
 02/14/2026,Colorado,Weld,Red-tailed hawk,EA H5
 02/14/2026,Wyoming,Goshen,Owl (unidentified),EA H5
-02/13/2026,Iowa,Story,Canada goose,EA H5
-02/13/2026,Kentucky,Ballard,Snow goose,EA H5
+02/14/2026,Colorado,Weld,Rock pigeon,EA H5
+02/13/2026,Iowa,Story,Canada goose,EA/AM H5N1
+02/13/2026,Kentucky,Ballard,Snow goose,EA/AM H5N1
 02/13/2026,Tennessee,Coffee,Canada goose,EA H5
 02/13/2026,North Carolina,Beaufort,Tundra swan,EA H5
+02/13/2026,Tennessee,Coffee,Canada goose,EA H5
 02/13/2026,Georgia,Paulding,Canada goose,EA H5
 02/13/2026,Tennessee,Coffee,Canada goose,EA H5
 02/13/2026,West Virginia,Raleigh,Canada goose,EA H5
-02/13/2026,Tennessee,Coffee,Canada goose,EA H5
-02/13/2026,Tennessee,Washington,Black vulture,EA H5
-02/13/2026,Tennessee,Washington,Black vulture,EA H5
+02/13/2026,Tennessee,Washington,Black vulture,EA/AM H5N1
+02/13/2026,Tennessee,Washington,Black vulture,EA/AM H5N1
 02/13/2026,Kansas,Saline,Cackling goose,EA H5
-02/13/2026,Kentucky,Ballard,Snow goose,EA H5
-02/13/2026,Oklahoma,Payne,Canada goose,EA H5
-02/13/2026,Kentucky,McCracken,Canada goose,EA H5
+02/13/2026,Kentucky,Ballard,Snow goose,EA/AM H5N1
+02/13/2026,Oklahoma,Payne,Canada goose,EA/AM H5N1
+02/13/2026,Kentucky,McCracken,Canada goose,EA/AM H5N1
 02/13/2026,Kentucky,Mason,Black vulture,EA H5
 02/13/2026,Colorado,Larimer,Great horned owl,EA H5
 02/13/2026,Indiana,Jennings,American crow,EA H5
@@ -91,21 +138,39 @@ Date,State,County,Species,Strain
 02/13/2026,New York,Bronx,Mallard,EA H5
 02/13/2026,Kansas,Butler,Canada goose,EA H5
 02/13/2026,Kansas,Butler,Cackling goose,EA H5
-02/12/2026,Colorado,Weld,Goose (unidentified),EA H5
-02/12/2026,Indiana,Posey,American crow,EA H5
+02/13/2026,Oregon,Columbia,Mallard,EA H5
+02/13/2026,Oregon,Columbia,Mallard,EA H5
+02/13/2026,Oregon,Columbia,Mallard,EA H5
+02/13/2026,Oregon,Columbia,Mallard,EA H5
+02/13/2026,Oregon,Columbia,Mallard,EA H5
+02/13/2026,Colorado,Weld,Western meadowlark,EA H5
+02/13/2026,Colorado,Weld,House sparrow,EA H5
+02/13/2026,Colorado,Weld,Rock pigeon,EA H5
+02/13/2026,Pennsylvania,Lehigh,American crow,EA H5
+02/13/2026,Pennsylvania,Berks,Red-tailed hawk,EA H5
+02/13/2026,Pennsylvania,Berks,Canada goose,EA H5
+02/13/2026,Kentucky,Rockcastle,Canada goose,EA H5
+02/13/2026,Kentucky,Rockcastle,Canada goose,EA H5
+02/13/2026,Georgia,Clarke,Bald eagle,EA H5
+02/12/2026,Colorado,Weld,Goose (unidentified),EA/AM H5N1
+02/12/2026,Indiana,Posey,American crow,EA/AM H5N1
 02/12/2026,Maine,Lincoln,American black duck,EA H5
-02/11/2026,Georgia,Carroll,Black vulture,EA H5
-02/11/2026,Georgia,Carroll,Black vulture,EA H5
-02/11/2026,Nebraska,Butler,Cackling goose,EA H5
-02/11/2026,Nebraska,Saunders,Canada goose,EA H5
+02/12/2026,Oregon,Columbia,Mallard,EA H5
+02/12/2026,Colorado,Weld,Rock pigeon,EA H5
+02/12/2026,Kentucky,Ballard,Mallard,EA H5
+02/12/2026,Kentucky,Ballard,Wood duck,EA H5
+02/11/2026,Georgia,Carroll,Black vulture,EA/AM H5N1
+02/11/2026,Georgia,Carroll,Black vulture,EA/AM H5N1
+02/11/2026,Nebraska,Saunders,Canada goose,EA/AM H5N1
+02/11/2026,Nebraska,Butler,Cackling goose,EA/AM H5N1 mixed
 02/11/2026,New Hampshire,Grafton,Mallard,EA H5
-02/11/2026,Colorado,Weld,Owl (unidentified),EA H5
+02/11/2026,Colorado,Weld,Owl (unidentified),EA/AM H5N1
 02/11/2026,New York,Erie,American crow,EA H5
-02/11/2026,New York,Orange,Bald eagle,EA H5
-02/11/2026,New York,Putnam,Canada goose,EA H5
-02/11/2026,New York,Nassau,American crow,EA H5
+02/11/2026,New York,Orange,Bald eagle,EA/AM H5N1
+02/11/2026,New York,Putnam,Canada goose,EA/AM H5N1
+02/11/2026,New York,Nassau,American crow,EA/AM H5N1
 02/11/2026,Ohio,Crawford,Canada goose,EA H5
-02/11/2026,Ohio,Crawford,Canada goose,EA H5
+02/11/2026,Ohio,Crawford,Canada goose,EA/AM H5N1
 02/11/2026,Indiana,Jennings,Canada goose,EA H5
 02/11/2026,California,Yolo,Owl (unidentified),EA H5
 02/11/2026,New Jersey,Monmouth,Canada goose,EA H5
@@ -117,94 +182,118 @@ Date,State,County,Species,Strain
 02/11/2026,Missouri,Lewis,Trumpeter swan,EA H5
 02/11/2026,Missouri,Lewis,Canada goose,EA H5
 02/11/2026,New York,Albany,Canada goose,EA H5
-02/10/2026,Oklahoma,Payne,Canada goose,EA H5
-02/10/2026,Indiana,Vigo,Crow (unidentified),EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Oregon,Columbia,Mallard,EA H5
+02/11/2026,Colorado,Weld,Rock pigeon,EA H5
+02/11/2026,Colorado,Weld,House sparrow,EA H5
+02/11/2026,Colorado,Weld,Rock pigeon,EA H5
+02/11/2026,Colorado,Weld,Rock pigeon,EA H5
+02/11/2026,Pennsylvania,Huntington,American crow,EA H5
+02/11/2026,Pennsylvania,Westmoreland,Canada goose,EA H5
+02/11/2026,Pennsylvania,Allegheny,Canada goose,EA H5
+02/10/2026,Oklahoma,Payne,Canada goose,EA/AM H5N1
+02/10/2026,Indiana,Vigo,Crow (unidentified),EA/AM H5N1
 02/10/2026,Colorado,Larimer,Red-tailed hawk,EA H5
-02/10/2026,Ohio,Pickaway,Canada goose,EA H5
-02/10/2026,Ohio,Pickaway,Canada goose,EA H5
-02/10/2026,Florida,Polk,Vulture (unidentified),EA H5
+02/10/2026,Ohio,Pickaway,Canada goose,EA/AM H5N1
+02/10/2026,Ohio,Pickaway,Canada goose,EA/AM H5N1
+02/10/2026,Florida,Polk,Vulture (unidentified),EA/AM H5N1
 02/10/2026,New Hampshire,Grafton,Mallard,EA H5
-02/10/2026,New Hampshire,Grafton,Mallard,EA H5
+02/10/2026,New Hampshire,Grafton,Mallard,EA/AM H5N1
 02/10/2026,Oregon,Lake,Snow goose,EA H5
 02/10/2026,Colorado,Weld,Rock pigeon,EA H5
-02/09/2026,Oklahoma,Greer,Cackling goose,EA H5
-02/09/2026,Oklahoma,Greer,Ross's goose,EA H5
-02/09/2026,Oklahoma,Greer,Cackling goose,EA H5
+02/10/2026,Pennsylvania,Washington,Canada goose,EA H5
+02/10/2026,Pennsylvania,Montgomery,Canada goose,EA H5
+02/10/2026,Pennsylvania,Washington,Canada goose,EA H5
+02/09/2026,Oklahoma,Greer,Cackling goose,EA/AM H5N1
+02/09/2026,Oklahoma,Greer,Ross's goose,EA/AM H5N1
+02/09/2026,Oklahoma,Greer,Cackling goose,EA/AM H5N1
 02/09/2026,Oklahoma,Greer,Snow goose,EA H5
-02/09/2026,Illinois,Champaign,Great horned owl,EA H5
-02/09/2026,Florida,Orange,Turkey vulture,EA H5
-02/09/2026,Nebraska,Buffalo,Canada goose,EA H5
+02/09/2026,Illinois,Champaign,Great horned owl,EA/AM H5N1
+02/09/2026,Florida,Orange,Turkey vulture,EA/AM H5N1
+02/09/2026,Nebraska,Buffalo,Canada goose,EA/AM H5N1
 02/09/2026,Nebraska,Buffalo,Canada goose,EA H5
 02/09/2026,Oklahoma,Kiowa,Ross's goose,EA H5
-02/09/2026,Oklahoma,Kiowa,Canada goose,EA H5
-02/09/2026,Oklahoma,Kiowa,Canada goose,EA H5
+02/09/2026,Oklahoma,Kiowa,Canada goose,EA/AM H5N1
+02/09/2026,Oklahoma,Kiowa,Canada goose,EA/AM H5N1
 02/09/2026,Colorado,Weld,Horned lark,EA H5
 02/09/2026,Colorado,Weld,Rock pigeon,EA H5
 02/09/2026,Kentucky,Mason,Canada goose,EA H5
 02/09/2026,Kentucky,Mason,Canada goose,EA H5
-02/08/2026,Mississippi,Claiborne,Wood duck,EA H5
-02/08/2026,Mississippi,Claiborne,Owl (unidentified),EA H5
-02/08/2026,Mississippi,Claiborne,Wood duck,EA H5
-02/08/2026,Mississippi,Claiborne,Wood duck,EA H5
-02/08/2026,Iowa,Polk,Red-tailed hawk,EA H5
+02/09/2026,Pennsylvania,Union,Mallard,EA H5
+02/09/2026,Pennsylvania,Monroe,Red-shouldered hawk,EA H5
+02/08/2026,Mississippi,Claiborne,Wood duck,EA/AM H5N1 mixed
+02/08/2026,Mississippi,Claiborne,Owl (unidentified),EA/AM H5N1
+02/08/2026,Mississippi,Claiborne,Wood duck,EA/AM H5N1
+02/08/2026,Mississippi,Claiborne,Wood duck,EA/AM H5N1
+02/08/2026,Iowa,Polk,Red-tailed hawk,EA/AM H5N1
 02/08/2026,Colorado,Weld,Rock pigeon,EA H5
 02/08/2026,Colorado,Weld,Rock pigeon,EA H5
 02/08/2026,Colorado,Weld,Rock pigeon,EA H5
-02/07/2026,Mississippi,Amite,Black vulture,EA H5
-02/07/2026,Mississippi,Amite,Black vulture,EA H5
-02/07/2026,Mississippi,Amite,Black vulture,EA H5
+02/07/2026,Mississippi,Amite,Black vulture,EA/AM H5N1
+02/07/2026,Mississippi,Amite,Black vulture,EA/AM H5N1
+02/07/2026,Mississippi,Amite,Black vulture,EA/AM H5N1
 02/07/2026,Colorado,Weld,Horned lark,EA H5
-02/06/2026,New Jersey,Atlantic,Great black-backed gull,EA H5
-02/06/2026,Kansas,Sedgwick,Canada goose,EA H5
-02/06/2026,Kansas,Sedgwick,Canada goose,EA H5
+02/06/2026,New Jersey,Atlantic,Great black-backed gull,EA/AM H5N1
+02/06/2026,Kansas,Sedgwick,Canada goose,EA/AM H5N1
+02/06/2026,Kansas,Sedgwick,Canada goose,EA/AM H5N1
 02/06/2026,Maine,Lincoln,Mallard,EA H5
 02/06/2026,Maine,Kennebec,Mallard,EA H5
-02/06/2026,Indiana,Dearborn,Vulture (unidentified),EA H5
+02/06/2026,Indiana,Dearborn,Vulture (unidentified),EA/AM H5N1
 02/06/2026,Wyoming,Platte,Bald eagle,EA H5
-02/06/2026,Colorado,Broomfield,Great horned owl,EA H5
+02/06/2026,Colorado,Broomfield,Great horned owl,EA/AM H5N1
 02/06/2026,California,Sacramento,Canada goose,EA H5
-02/05/2026,Michigan,Oceana,Canada goose,EA H5
-02/05/2026,Michigan,Newaygo,Bald eagle,EA H5
-02/05/2026,Minnesota,Dakota,Canada goose,EA H5
+02/05/2026,Michigan,Oceana,Canada goose,EA/AM H5N1
+02/05/2026,Michigan,Newaygo,Bald eagle,EA/AM H5N1
+02/05/2026,Minnesota,Dakota,Canada goose,EA/AM H5N1
 02/05/2026,New Hampshire,Belknap,Mallard,EA H5
 02/05/2026,New Hampshire,Belknap,Mallard,EA H5
-02/05/2026,Michigan,Ingham,Mallard,EA H5
+02/05/2026,Michigan,Ingham,Mallard,EA/AM H5N1
 02/05/2026,Minnesota,Scott,Mallard,EA H5
 02/05/2026,California,Yolo,Snow goose,EA H5
 02/05/2026,Maine,Penobscot,Mallard,EA H5
 02/05/2026,Colorado,Larimer,Great horned owl,EA H5
-02/04/2026,Iowa,Polk,Red-tailed hawk,EA H5
-02/04/2026,Iowa,Polk,Canada goose,EA H5
-02/04/2026,Iowa,Story,American crow,EA H5
-02/04/2026,Iowa,Story,American crow,EA H5
-02/04/2026,Connecticut,Litchfield,Canada goose,EA H5
+02/04/2026,Iowa,Polk,Red-tailed hawk,EA/AM H5N1
+02/04/2026,Iowa,Polk,Canada goose,EA/AM H5N1
+02/04/2026,Iowa,Story,American crow,EA/AM H5N1
+02/04/2026,Iowa,Story,American crow,EA/AM H5N1
+02/04/2026,Connecticut,Litchfield,Canada goose,EA/AM H5N1
 02/04/2026,Arizona,Maricopa,Canada goose,EA H5
-02/04/2026,New York,Dutchess,Canada goose,EA H5
-02/04/2026,New York,Dutchess,Canada goose,EA H5
-02/04/2026,New York,Dutchess,Canada goose,EA H5
-02/04/2026,New York,Orange,Canada goose,EA H5
-02/04/2026,New York,Orange,Canada goose,EA H5
-02/04/2026,New York,Orange,Canada goose,EA H5
-02/04/2026,New York,Orange,American crow,EA H5
-02/04/2026,New York,Orange,American crow,EA H5
-02/04/2026,New York,Orange,American crow,EA H5
-02/04/2026,New York,Orange,American crow,EA H5
-02/04/2026,Ohio,Hancock,Canada goose,EA H5
-02/04/2026,Colorado,Adams,Goose (unidentified),EA H5
+02/04/2026,New York,Dutchess,Canada goose,EA/AM H5N1
+02/04/2026,New York,Dutchess,Canada goose,EA/AM H5N1
+02/04/2026,New York,Dutchess,Canada goose,EA/AM H5N1
+02/04/2026,New York,Orange,Canada goose,EA/AM H5N1
+02/04/2026,New York,Orange,Canada goose,EA/AM H5N1
+02/04/2026,New York,Orange,Canada goose,EA/AM H5N1
+02/04/2026,New York,Orange,American crow,EA/AM H5N1
+02/04/2026,New York,Orange,American crow,EA/AM H5N1
+02/04/2026,New York,Orange,American crow,EA/AM H5N1
+02/04/2026,New York,Orange,American crow,EA/AM H5N1
+02/04/2026,Ohio,Hancock,Canada goose,EA/AM H5N1
+02/04/2026,Colorado,Adams,Goose (unidentified),EA/AM H5N1
 02/04/2026,Nebraska,Buffalo,Goose (unidentified),EA H5
 02/04/2026,Nebraska,Buffalo,Goose (unidentified),EA H5
+02/04/2026,Alaska,Matanuska-Susitna,Mallard,EA H5N1
 02/04/2026,Alaska,Matanuska-Susitna,Mallard,EA H5
-02/04/2026,Alaska,Matanuska-Susitna,Mallard,EA H5
-02/04/2026,California,San Luis Obispo,Turkey vulture,EA H5
+02/04/2026,California,San Luis Obispo,Turkey vulture,EA H5N1
 02/04/2026,California,San Luis Obispo,American white pelican,EA H5
 02/04/2026,California,Los Angeles,Turkey vulture,EA H5N1
 02/04/2026,Pennsylvania,Bucks,Great blue heron,EA H5
 02/04/2026,Pennsylvania,Philadelphia,Cooper's hawk,EA H5
-02/03/2026,Texas,Randall,Goose (unidentified),EA H5
+02/03/2026,Texas,Randall,Goose (unidentified),EA/AM H5N1
 02/03/2026,Connecticut,Litchfield,Canada goose,EA H5
-02/03/2026,New York,Tompkins,Herring gull,EA H5
-02/03/2026,Colorado,Larimer,Goose (unidentified),EA H5
-02/03/2026,New York,Suffolk,Snowy owl,EA H5
+02/03/2026,New York,Tompkins,Herring gull,EA/AM H5N1
+02/03/2026,Colorado,Larimer,Goose (unidentified),EA/AM H5N1
+02/03/2026,New York,Suffolk,Snowy owl,EA/AM H5N1
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
@@ -223,6 +312,11 @@ Date,State,County,Species,Strain
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
+02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
+02/03/2026,New Hampshire,Strafford,Mallard,EA H5
+02/03/2026,New Hampshire,Strafford,Mallard,EA H5
+02/03/2026,New Hampshire,Strafford,Mallard,EA H5
+02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
@@ -231,29 +325,24 @@ Date,State,County,Species,Strain
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
+02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/02/2026,Kansas,Wichita,Cackling goose,EA H5
-02/02/2026,Ohio,Mahoning,Canada goose,EA H5
+02/02/2026,Kansas,Wichita,Cackling goose,EA/AM H5N1
+02/02/2026,Ohio,Mahoning,Canada goose,EA/AM H5N1
 02/02/2026,Idaho,Teton,Trumpeter swan,EA H5
-02/02/2026,Idaho,Teton,Trumpeter swan,EA H5
-02/02/2026,Idaho,Teton,Trumpeter swan,EA H5
+02/02/2026,Idaho,Teton,Trumpeter swan,EA/AM H5N1
+02/02/2026,Idaho,Teton,Trumpeter swan,EA/AM H5N1
 02/02/2026,Florida,Orange,Mute swan,EA H5
 02/02/2026,Florida,Orange,Mute swan,EA H5
 02/02/2026,New Mexico,Socorro,Common raven,EA H5
 02/02/2026,New Mexico,Socorro,Common raven,EA H5
 02/02/2026,New Mexico,Socorro,Common raven,EA H5
 02/01/2026,Arizona,La Paz,Mallard,EA H5
-01/30/2026,Michigan,Antrim,Canada goose,EA H5
+01/30/2026,Michigan,Antrim,Canada goose,EA/AM H5N1
 01/30/2026,Maine,Lincoln,Mallard,EA H5
 01/30/2026,Maine,Lincoln,Mallard,EA H5
 01/30/2026,New Hampshire,Rockingham,Mallard,EA H5
@@ -273,14 +362,27 @@ Date,State,County,Species,Strain
 01/30/2026,New Hampshire,Rockingham,Mallard/Black duck hybrid,EA H5
 01/30/2026,New Hampshire,Rockingham,Mallard,EA H5
 01/30/2026,New Hampshire,Rockingham,Mallard,EA H5
-01/30/2026,Indiana,Howard,Canada goose,EA H5
-01/30/2026,Pennsylvania,Jefferson,Eastern screech owl,EA H5
+01/30/2026,Indiana,Howard,Canada goose,EA/AM H5N1
+01/30/2026,Pennsylvania,Jefferson,Eastern screech owl,EA/AM H5N1
 01/30/2026,Colorado,Larimer,Great horned owl,EA H5
-01/29/2026,Texas,Randall,Duck (unidentified),EA H5
-01/29/2026,Florida,Brevard,Black vulture,EA H5
+01/29/2026,Texas,Randall,Duck (unidentified),EA/AM H5N1
+01/29/2026,Florida,Brevard,Black vulture,EA/AM H5N1
 01/29/2026,North Dakota,Oliver,Mallard,EA H5
 01/29/2026,Maine,Kennebec,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA/AM H5N1
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,American black duck,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA/AM H5N1
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
@@ -290,20 +392,7 @@ Date,State,County,Species,Strain
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,American black duck,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,American black duck,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA/AM H5N1
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
@@ -316,23 +405,23 @@ Date,State,County,Species,Strain
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
-01/29/2026,New Hampshire,Belknap,Mallard,EA H5
+01/29/2026,New Hampshire,Belknap,Mallard,EA/AM H5N1
+01/29/2026,New Hampshire,Belknap,Mallard,EA/AM H5N1
 01/29/2026,New Hampshire,Belknap,Mallard,EA H5
 01/29/2026,Massachusetts,Hampden,American black duck,EA H5
 01/29/2026,North Carolina,Person,Canvasback,EA H5
 01/29/2026,New Hampshire,Belknap,American black duck,EA H5
 01/28/2026,Pennsylvania,Bucks,Snow goose,EA H5
 01/28/2026,North Dakota,Oliver,Mallard,EA H5
-01/28/2026,California,Ventura,California gull,EA H5
+01/28/2026,California,Ventura,California gull,EA/AM H5N1
 01/27/2026,Colorado,Larimer,Bald eagle,EA H5
 01/27/2026,New York,Yates,Canada goose,EA H5
 01/27/2026,New York,Yates,Canada goose,EA H5
 01/27/2026,Nebraska,Adams,Cackling goose,EA H5
 01/27/2026,Minnesota,Ramsey,Canada goose,EA H5
 01/27/2026,New York,Tioga,Canada goose,EA/AM H5N1
-01/27/2026,New York,Suffolk,Red-tailed hawk,EA H5
-01/27/2026,New York,Suffolk,Canada goose,EA H5
+01/27/2026,New York,Suffolk,Red-tailed hawk,EA/AM H5N1
+01/27/2026,New York,Suffolk,Canada goose,EA/AM H5N1
 01/27/2026,Arizona,Mohave,American wigeon,EA H5
 01/27/2026,North Dakota,Oliver,Mallard,EA H5
 01/27/2026,North Dakota,Oliver,Mallard,EA H5
@@ -352,14 +441,14 @@ Date,State,County,Species,Strain
 01/24/2026,New Jersey,Unknown,Bald eagle,EA H5
 01/24/2026,New Jersey,Unknown,Peregrine falcon,EA H5
 01/24/2026,New Jersey,Unknown,Red-tailed hawk,EA H5
-01/24/2026,Florida,Brevard,Black vulture,EA H5
-01/24/2026,Mississippi,Amite,Bluebird (unidentified),EA H5
+01/24/2026,Florida,Brevard,Black vulture,EA/AM H5N1
+01/24/2026,Mississippi,Amite,Bluebird (unidentified),EA/AM H5N1
 01/24/2026,Tennessee,Obion,Gadwall,EA H5
 01/24/2026,Tennessee,Obion,Gadwall,EA H5
 01/24/2026,South Carolina,Clarendon,Ring-necked duck,EA H5
 01/24/2026,Colorado,Weld,Great horned owl,EA H5
 01/23/2026,Wyoming,Laramie,Canada goose,EA H5
-01/23/2026,Nebraska,Douglas,Canada goose,EA H5
+01/23/2026,Nebraska,Douglas,Canada goose,EA/AM H5N1
 01/23/2026,Louisiana,Orleans,Crow (unidentified),EA/AM H5N1
 01/23/2026,Texas,Bexar,Vulture (unidentified),EA/AM H5N1
 01/23/2026,New Jersey,Somerset,Bald eagle,EA H5
@@ -393,13 +482,13 @@ Date,State,County,Species,Strain
 01/23/2026,Minnesota,Scott,Mallard,EA/AM H5N1
 01/23/2026,Minnesota,Scott,Mallard,EA H5
 01/22/2026,Colorado,Denver,Red-tailed hawk,EA/AM H5N1
-01/22/2026,Minnesota,Hennepin,Cooper's hawk,EA H5
+01/22/2026,Minnesota,Hennepin,Cooper's hawk,EA/AM H5N1
 01/22/2026,Pennsylvania,Lycoming,Mallard,EA H5
 01/22/2026,Pennsylvania,Lycoming,Mallard,EA H5
 01/22/2026,Maine,York,Mallard,EA H5
 01/22/2026,Maine,York,Mallard,EA H5
-01/22/2026,Pennsylvania,Washington,Canada goose,EA H5
-01/22/2026,Pennsylvania,Allegheny,Canada goose,EA H5
+01/22/2026,Pennsylvania,Washington,Canada goose,EA/AM H5N1
+01/22/2026,Pennsylvania,Allegheny,Canada goose,EA/AM H5N1
 01/22/2026,Colorado,Larimer,Great horned owl,EA H5
 01/21/2026,Florida,Palm Beach,Muscovy duck,EA/AM H5N1
 01/21/2026,Florida,Palm Beach,Muscovy duck,EA/AM H5N1
@@ -435,14 +524,14 @@ Date,State,County,Species,Strain
 01/21/2026,Massachusetts,Worcester,Mallard,EA H5
 01/21/2026,Massachusetts,Worcester,Mallard,EA H5
 01/21/2026,New Mexico,Eddy,American wigeon,EA H5
-01/21/2026,New York,Onondaga,Snowy owl,EA H5
+01/21/2026,New York,Onondaga,Snowy owl,EA/AM H5N1
 01/20/2026,South Carolina,Horry,Mute swan,EA/AM H5N1
 01/20/2026,Alabama,Lee,Turkey vulture,EA/AM H5N1
 01/20/2026,New York,Rockland,Canada goose,EA H5
 01/20/2026,New York,Rockland,Canada goose,EA H5
 01/20/2026,New York,Rockland,Canada goose,EA H5
 01/20/2026,New York,Richmond,Canada goose,EA H5
-01/20/2026,New York,Rensselaer,Canada goose,EA H5
+01/20/2026,New York,Rensselaer,Canada goose,EA/AM H5N1
 01/20/2026,New York,Rensselaer,Canada goose,EA H5
 01/20/2026,New York,Albany,Red-tailed hawk,EA H5
 01/20/2026,South Carolina,Charleston,Hawk (unidentified),EA/AM H5N1
@@ -452,8 +541,8 @@ Date,State,County,Species,Strain
 01/20/2026,Virginia,Fairfax,Canada goose,EA H5
 01/20/2026,North Carolina,Wake,Black vulture,EA H5
 01/20/2026,Pennsylvania,Lehigh,Red-tailed hawk,EA H5
-01/20/2026,New Jersey,Essex,Canada goose,EA H5
-01/20/2026,New Jersey,Warren,Snow goose,EA H5
+01/20/2026,New Jersey,Essex,Canada goose,EA/AM H5N1
+01/20/2026,New Jersey,Warren,Snow goose,EA/AM H5N1
 01/20/2026,Massachusetts,Norfolk,Mallard,EA H5
 01/20/2026,Massachusetts,Middlesex,Mallard,EA H5
 01/20/2026,Massachusetts,Middlesex,Mallard,EA H5
@@ -463,7 +552,7 @@ Date,State,County,Species,Strain
 01/20/2026,Massachusetts,Middlesex,Mallard,EA H5
 01/20/2026,Massachusetts,Middlesex,Mallard,EA H5
 01/20/2026,Maine,York,Mallard,EA/AM H5N1
-01/20/2026,Pennsylvania,Fayette,Canada goose,EA H5
+01/20/2026,Pennsylvania,Fayette,Canada goose,EA/AM H5N1
 01/20/2026,Missouri,Pemiscot,Gadwall,EA H5
 01/20/2026,Missouri,Lincoln,Bald eagle,EA H5
 01/19/2026,Massachusetts,Essex,Canada goose,EA H5
@@ -471,7 +560,7 @@ Date,State,County,Species,Strain
 01/18/2026,Oregon,Umatilla,Great horned owl,EA H5
 01/18/2026,Nebraska,Douglas,Canada goose,EA H5
 01/17/2026,Indiana,Tipton,Canada goose,EA H5
-01/17/2026,Utah,Weber,American wigeon,EA H5
+01/17/2026,Utah,Weber,American wigeon,EA/AM H5N1
 01/17/2026,California,Butte,Northern shoveler,EA H5
 01/17/2026,Utah,Weber,American wigeon,EA H5
 01/17/2026,Missouri,Clay,Cackling goose,EA H5
@@ -495,11 +584,11 @@ Date,State,County,Species,Strain
 01/15/2026,New York,Orange,Canada goose,EA/AM H5N1
 01/15/2026,New York,Orange,Canada goose,EA/AM H5N1
 01/15/2026,South Carolina,Clarendon,Green-winged teal,EA H5
-01/15/2026,California,Colusa,Great horned owl,EA H5
+01/15/2026,California,Colusa,Great horned owl,EA/AM H5N1
 01/15/2026,Pennsylvania,Susquehanna,Canada goose,EA H5
 01/15/2026,Alaska,Matanuska-Susitna,Mallard,EA H5
 01/15/2026,Alaska,Matanuska-Susitna,Mallard,EA H5
-01/15/2026,Alaska,Matanuska-Susitna,Mallard,EA H5
+01/15/2026,Alaska,Matanuska-Susitna,Mallard,EA H5 mixed
 01/14/2026,Colorado,Jefferson,Common raven,EA H5
 01/14/2026,South Carolina,Colleton,Mallard,EA H5
 01/14/2026,Iowa,Polk,Red-tailed hawk,EA/AM H5N1
@@ -509,7 +598,7 @@ Date,State,County,Species,Strain
 01/14/2026,California,Inyo,Common raven,EA H5
 01/14/2026,California,Colusa,Snow goose,EA/AM H5N1
 01/14/2026,California,Colusa,Great horned owl,EA/AM H5N1
-01/14/2026,California,Colusa,Red-tailed hawk,EA H5
+01/14/2026,California,Colusa,Red-tailed hawk,EA/AM H5N1
 01/14/2026,California,Colusa,Red-tailed hawk,EA H5
 01/14/2026,California,Monterey,Glaucous gull,EA H5
 01/14/2026,Michigan,Houghton,Bald eagle,EA H5
@@ -524,12 +613,12 @@ Date,State,County,Species,Strain
 01/14/2026,Missouri,Adair,Canada goose,EA H5
 01/14/2026,Missouri,Adair,Canada goose,EA H5
 01/14/2026,Missouri,Putnam,Canada goose,EA/AM H5N1
-01/14/2026,Colorado,Adams,Red-tailed hawk,EA H5
+01/14/2026,Colorado,Adams,Red-tailed hawk,EA/AM H5N1
 01/14/2026,Utah,Davis,Eared grebe,EA/AM H5N1
 01/14/2026,Utah,Davis,Eared grebe,EA/AM H5N1
 01/14/2026,Utah,Davis,Eared grebe,EA/AM H5N1
 01/14/2026,Utah,Davis,Bonaparte's gull,EA/AM H5N1
-01/14/2026,Utah,Davis,Canada goose,EA H5
+01/14/2026,Utah,Davis,Canada goose,EA/AM H5N1
 01/14/2026,Georgia,Worth,Bald eagle,EA H5
 01/14/2026,Pennsylvania,Carbon,Red-tailed hawk,EA H5
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
@@ -539,10 +628,10 @@ Date,State,County,Species,Strain
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
-01/14/2026,Connecticut,Fairfield,Mallard,EA H5
+01/14/2026,Connecticut,Fairfield,Mallard,EA/AM H5N1
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
 01/14/2026,California,Kern,Green-winged teal,EA H5
-01/14/2026,Connecticut,Fairfield,Mallard,EA H5
+01/14/2026,Connecticut,Fairfield,Mallard,EA/AM H5N1
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
 01/14/2026,Connecticut,Fairfield,Mallard,EA H5
@@ -566,14 +655,15 @@ Date,State,County,Species,Strain
 01/12/2026,Nebraska,Washington,Greater white-fronted goose,EA/AM H5N1
 01/12/2026,Maryland,Dorchester,Wood duck,EA H5
 01/12/2026,Maryland,Dorchester,Wood duck,EA H5
-01/12/2026,Missouri,St. Charles,Red-tailed hawk,EA H5
-01/12/2026,Missouri,Stoddard,Snow goose,EA H5
+01/12/2026,Missouri,St. Charles,Red-tailed hawk,EA/AM H5N1
+01/12/2026,Missouri,Stoddard,Snow goose,EA/AM H5N1
 01/12/2026,Massachusetts,Barnstable,American crow,EA H5
 01/12/2026,North Carolina,Edgecombe,Bald eagle,EA H5
-01/12/2026,Pennsylvania,Northampton,Snow goose,EA H5
+01/12/2026,Pennsylvania,Northampton,Snow goose,EA/AM H5N1
 01/12/2026,New Mexico,Socorro,Common raven,EA H5
 01/12/2026,Colorado,Larimer,Cooper's hawk,EA H5
 01/11/2026,Wisconsin,St. Croix,Canada goose,EA/AM H5N1
+01/11/2026,Montana,Ravalli,Red-tailed hawk,EA H5
 01/10/2026,New York,Tompkins,Canada goose,EA/AM H5N1
 01/10/2026,Minnesota,Rice,Bald eagle,EA H5
 01/10/2026,Washington,Clark,Canvasback,EA H5
@@ -611,8 +701,8 @@ Date,State,County,Species,Strain
 01/08/2026,California,San Diego,Brown pelican,EA H5
 01/08/2026,Wyoming,Park,Canada goose,EA/AM H5N1
 01/08/2026,Washington,San Juan,Bald eagle,EA H5N1
-01/08/2026,Massachusetts,Middlesex,Canada goose,EA H5
-01/08/2026,Massachusetts,Middlesex,Canada goose,EA H5
+01/08/2026,Massachusetts,Middlesex,Canada goose,EA/AM H5N1
+01/08/2026,Massachusetts,Middlesex,Canada goose,EA/AM H5N1
 01/08/2026,North Carolina,Granville,Black vulture,EA H5
 01/08/2026,Pennsylvania,Columbia,Broad-winged hawk,EA H5
 01/07/2026,Colorado,Arapahoe,Cackling goose,EA H5
@@ -664,7 +754,7 @@ Date,State,County,Species,Strain
 01/06/2026,Connecticut,New London,Mallard,EA H5
 01/06/2026,Connecticut,New London,Mallard,EA/AM H5N1
 01/06/2026,Connecticut,New London,Mallard,EA H5
-01/06/2026,Missouri,St. Charles,Red-tailed hawk,EA H5
+01/06/2026,Missouri,St. Charles,Red-tailed hawk,EA/AM H5N1
 01/06/2026,Maryland,Montgomery,Bald eagle,EA H5
 01/06/2026,Wisconsin,Walworth,Canada goose,EA/AM H5N1
 01/06/2026,Wisconsin,Walworth,Canada goose,EA/AM H5N1
@@ -714,7 +804,7 @@ Date,State,County,Species,Strain
 01/05/2026,South Dakota,Potter,Golden eagle,EA H5
 01/05/2026,South Dakota,Stanley,Canada goose,EA H5
 01/05/2026,South Dakota,Gregory,Golden eagle,EA H5
-01/05/2026,Virginia,Culpeper,Red-tailed hawk,EA H5
+01/05/2026,Virginia,Culpeper,Red-tailed hawk,EA/AM H5N1
 01/05/2026,Massachusetts,Barnstable,Great black-backed gull,EA H5
 01/05/2026,Virginia,Rappahannock,Bald eagle,EA H5
 01/05/2026,Kansas,Shawnee,Bald eagle,EA H5
@@ -724,7 +814,7 @@ Date,State,County,Species,Strain
 01/05/2026,New Mexico,Socorro,Common raven,EA H5
 01/04/2026,Virginia,Westmoreland,Bald eagle,EA/AM H5N1
 01/04/2026,Montana,Big Horn,Mallard,EA/AM H5N1
-01/04/2026,Massachusetts,Barnstable,Great black-backed gull,EA H5
+01/04/2026,Massachusetts,Barnstable,Great black-backed gull,EA/AM H5N1
 01/04/2026,Massachusetts,Barnstable,Sanderling,EA H5
 01/04/2026,Massachusetts,Barnstable,Great black-backed gull,EA H5
 01/04/2026,Rhode Island,Kent,Canada goose,EA/AM H5N1
@@ -740,7 +830,7 @@ Date,State,County,Species,Strain
 01/03/2026,Nebraska,Sarpy,Canada goose,EA/AM H5N1
 01/03/2026,California,Solano,American wigeon,EA H5
 01/02/2026,Texas,Randall,Goose (unidentified),EA/AM H5N1
-01/02/2026,South Carolina,Charleston,Green-winged teal,EA H5
+01/02/2026,South Carolina,Charleston,Green-winged teal,EA H5 mixed
 01/02/2026,Illinois,Cook,Canada goose,EA/AM H5N1
 01/02/2026,Kansas,Finney,Hawk (unidentified),EA H5
 01/02/2026,Nebraska,Douglas,Canada goose,EA/AM H5N1
@@ -786,7 +876,7 @@ Date,State,County,Species,Strain
 12/31/2025,California,Butte,Northern shoveler,EA/AM H5N1
 12/31/2025,California,Butte,Gadwall,EA H5
 12/31/2025,California,Butte,Gadwall,EA H5
-12/31/2025,Utah,Washington,Canada goose,EA H5
+12/31/2025,Utah,Washington,Canada goose,EA/AM H5N1
 12/30/2025,Nebraska,Douglas,Canada goose,EA/AM H5N1
 12/30/2025,Iowa,Polk,Red-tailed hawk,EA/AM H5N1
 12/30/2025,Iowa,Wapello,Red-tailed hawk,EA/AM H5N1
@@ -804,14 +894,14 @@ Date,State,County,Species,Strain
 12/30/2025,Massachusetts,Barnstable,Great black-backed gull,EA H5
 12/30/2025,Rhode Island,Newport,Great black-backed gull,EA/AM H5N1
 12/30/2025,Virginia,Virginia Beach,Bald eagle,EA H5
-12/30/2025,Idaho,Butte,Great horned owl,EA H5
+12/30/2025,Idaho,Butte,Great horned owl,EA/AM H5N1
 12/29/2025,Colorado,Larimer,Red-tailed hawk,EA H5
 12/29/2025,Colorado,Larimer,Great horned owl,EA/AM H5N1
 12/29/2025,Colorado,Larimer,Great horned owl,EA/AM H5N1
 12/29/2025,Ohio,Union,Canada goose,EA H5
 12/29/2025,Ohio,Union,Canada goose,EA H5
 12/29/2025,Ohio,Union,Canada goose,EA H5
-12/29/2025,Pennsylvania,Lehigh,Snow goose,EA H5
+12/29/2025,Pennsylvania,Lehigh,Snow goose,EA/AM H5N1 mixed
 12/29/2025,Pennsylvania,Lehigh,Turkey vulture,EA/AM H5N1
 12/29/2025,Iowa,Dickinson,Canada goose,EA/AM H5N1
 12/29/2025,Iowa,Story,American crow,EA H5
@@ -822,7 +912,7 @@ Date,State,County,Species,Strain
 12/28/2025,Florida,Hernando,Bald eagle,EA H5
 12/28/2025,Pennsylvania,Northampton,Great horned owl,EA/AM H5N1
 12/28/2025,Pennsylvania,Lehigh,American crow,EA H5
-12/28/2025,Missouri,Cedar,Bald eagle,EA H5
+12/28/2025,Missouri,Cedar,Bald eagle,EA/AM H5N1
 12/27/2025,Oregon,Umatilla,Red-tailed hawk,EA H5
 12/27/2025,Nebraska,Douglas,Canada goose,EA H5
 12/27/2025,Colorado,Larimer,Great horned owl,EA/AM H5N1
@@ -843,7 +933,7 @@ Date,State,County,Species,Strain
 12/27/2025,Indiana,Carroll,Trumpeter swan,EA/AM H5N1
 12/27/2025,Alabama,Jackson,Gadwall,EA H5
 12/27/2025,Oregon,Umatilla,Red-tailed hawk,EA/AM H5N1
-12/27/2025,Massachusetts,Middlesex,Mallard,EA H5
+12/27/2025,Massachusetts,Middlesex,Mallard,EA/AM H5N1
 12/27/2025,Massachusetts,Barnstable,Great black-backed gull,EA H5
 12/26/2025,Colorado,Weld,Cackling goose,EA/AM H5N1
 12/26/2025,Florida,Broward,Cooper's hawk,EA H5
@@ -886,7 +976,7 @@ Date,State,County,Species,Strain
 12/26/2025,Iowa,Story,Canada goose,EA/AM H5N1
 12/26/2025,Iowa,Story,Trumpeter swan,EA H5
 12/26/2025,Iowa,Unknown,Canada goose,EA/AM H5N1
-12/26/2025,Missouri,Butler,Goose (unidentified),EA H5
+12/26/2025,Missouri,Butler,Goose (unidentified),EA/AM H5N1
 12/25/2025,California,San Diego,Canada goose,EA H5
 12/24/2025,California,Alameda,Great horned owl,EA H5
 12/24/2025,Nebraska,Douglas,Trumpeter swan,EA/AM H5N1
@@ -933,7 +1023,7 @@ Date,State,County,Species,Strain
 12/22/2025,Maine,Somerset,Mallard,EA/AM H5N1
 12/22/2025,Pennsylvania,Chester,Canada goose,EA/AM H5N1
 12/22/2025,Iowa,Wapello,Canada goose,EA H5
-12/22/2025,Iowa,Wapello,Canada goose,EA H5
+12/22/2025,Iowa,Wapello,Canada goose,EA/AM H5N1
 12/22/2025,California,San Diego,Canada goose,EA H5
 12/21/2025,Colorado,Larimer,Cooper's hawk,EA/AM H5N1
 12/21/2025,Colorado,Larimer,Great horned owl,EA/AM H5N1
@@ -948,7 +1038,7 @@ Date,State,County,Species,Strain
 12/20/2025,Nebraska,Cuming,Snow goose,EA/AM H5N1
 12/20/2025,Kansas,Barton,Northern shoveler,EA/AM H5N1
 12/20/2025,North Carolina,Hyde,American wigeon,EA/AM H5N1
-12/20/2025,North Carolina,Hyde,American wigeon,EA H5
+12/20/2025,North Carolina,Hyde,American wigeon,EA/AM H5N1
 12/20/2025,North Carolina,Hyde,American wigeon,EA H5
 12/20/2025,North Carolina,Hyde,American wigeon,EA/AM H5N1
 12/20/2025,North Carolina,Hyde,Wood duck,EA/AM H5N1
@@ -959,6 +1049,7 @@ Date,State,County,Species,Strain
 12/20/2025,Montana,Stillwater,Gadwall,EA H5
 12/20/2025,Virginia,Fauquier,Canada goose,EA H5
 12/20/2025,Massachusetts,Barnstable,Great black-backed gull,EA H5
+12/20/2025,North Carolina,Hyde,American wigeon,EA/AM H5N1
 12/19/2025,California,Solano,Sanderling,EA H5
 12/19/2025,California,Solano,Canada goose,EA H5
 12/19/2025,Nebraska,Hitchcock,Snow goose,EA/AM H5N1
@@ -982,15 +1073,15 @@ Date,State,County,Species,Strain
 12/19/2025,Pennsylvania,Lancaster,Snow goose,EA/AM H5N1
 12/19/2025,Massachusetts,Essex,Canada goose,EA/AM H5N1
 12/19/2025,California,San Francisco,Cormorant (unidentified),EA H5
+12/19/2025,California,San Francisco,Western gull,EA H5N1
 12/19/2025,California,San Francisco,Western gull,EA H5
-12/19/2025,California,San Francisco,Western gull,EA H5
-12/19/2025,California,San Francisco,Western gull,EA H5
-12/19/2025,California,San Francisco,Western gull,EA H5
+12/19/2025,California,San Francisco,Western gull,EA H5N1
+12/19/2025,California,San Francisco,Western gull,EA/AM H5N1
 12/19/2025,California,San Francisco,Western gull,EA H5
 12/19/2025,California,San Francisco,Western gull,EA H5
 12/19/2025,California,San Francisco,Western gull,EA H5
 12/19/2025,California,San Francisco,Herring gull,EA H5
-12/19/2025,California,San Francisco,Western gull,EA H5
+12/19/2025,California,San Francisco,Western gull,EA H5N1
 12/19/2025,California,San Francisco,Western gull,EA H5
 12/18/2025,California,Contra Costa,Glaucous-winged gull,EA/AM H5N1
 12/18/2025,Pennsylvania,York,Mallard,EA H5
@@ -1026,7 +1117,7 @@ Date,State,County,Species,Strain
 12/18/2025,California,Alameda,Great horned owl,EA/AM H5N1
 12/18/2025,California,Alameda,Red-tailed hawk,EA/AM H5N1
 12/18/2025,Washington,Jefferson,Wood duck,EA/AM H5N1
-12/18/2025,Florida,Brevard,Black skimmer,EA H5
+12/18/2025,Florida,Brevard,Black skimmer,EA/AM H5N1
 12/18/2025,Delaware,Kent,American black duck,EA/AM H5N1
 12/18/2025,Delaware,Kent,Gadwall,EA/AM H5N1
 12/18/2025,Colorado,Larimer,Mallard,EA H5
@@ -1095,6 +1186,7 @@ Date,State,County,Species,Strain
 12/17/2025,Florida,St. Johns,Canada goose,EA/AM H5N1
 12/17/2025,New York,Seneca,Canada goose,EA/AM H5N1
 12/17/2025,California,Butte,Ring-necked duck,EA H5
+12/17/2025,New York,Jefferson,Lesser scaup,EA H5
 12/16/2025,Nebraska,Unknown,Canada goose,EA/AM H5N1
 12/16/2025,Nebraska,Unknown,Cackling goose,EA/AM H5N1
 12/16/2025,Washington,King,Northern pintail,EA H5
@@ -1117,7 +1209,7 @@ Date,State,County,Species,Strain
 12/16/2025,Mississippi,Harrison,Black vulture,EA H5
 12/16/2025,Mississippi,Alcorn,Snow goose,EA/AM H5N1
 12/16/2025,Mississippi,Tate,Ross's goose,EA/AM H5N1
-12/16/2025,Wyoming,Platte,Goose (unidentified),EA H5
+12/16/2025,Wyoming,Platte,Goose (unidentified),EA/AM H5N1 mixed
 12/16/2025,Virginia,Louisa,Bald eagle,EA H5
 12/16/2025,Washington,Snohomish,Mallard,EA H5
 12/16/2025,Washington,King,Mallard,EA H5
@@ -1215,7 +1307,7 @@ Date,State,County,Species,Strain
 12/14/2025,Mississippi,Leflore,Green-winged teal,EA H5
 12/14/2025,Colorado,Arapahoe,Great horned owl,EA/AM H5N1
 12/14/2025,California,San Diego,Cooper's hawk,EA/AM H5N1
-12/14/2025,Minnesota,Itasca,Bald eagle,EA H5
+12/14/2025,Minnesota,Itasca,Bald eagle,EA/AM H5N1
 12/13/2025,Georgia,Putnam,Ring-necked duck,EA H5
 12/13/2025,Oregon,Columbia,Green-winged teal,EA H5
 12/13/2025,Colorado,Morgan,Red-tailed hawk,EA/AM H5N1
@@ -1248,7 +1340,7 @@ Date,State,County,Species,Strain
 12/13/2025,Florida,Broward,Black vulture,EA/AM H5N1
 12/13/2025,Texas,Orange,Northern shoveler,EA H5
 12/13/2025,Texas,Orange,Green-winged teal,EA H5
-12/13/2025,Texas,Orange,Gadwall,EAAM H5N1
+12/13/2025,Texas,Orange,Gadwall,EA/AM H5N1
 12/13/2025,Texas,Orange,Blue-winged teal,EA H5
 12/13/2025,Texas,Orange,Green-winged teal,EA H5
 12/13/2025,Texas,Orange,American wigeon,EA H5
@@ -1295,6 +1387,7 @@ Date,State,County,Species,Strain
 12/11/2025,Wyoming,Washakie,Northern harrier,EA/AM H5N1
 12/11/2025,Pennsylvania,Chester,Snow goose,EA/AM H5N1
 12/11/2025,Virginia,Alexandria,American crow,EA H5
+12/11/2025,New York,Ontario,American black duck,EA H5 mixed
 12/10/2025,New York,Suffolk,Bufflehead,EA/AM H5N1
 12/10/2025,New York,Chautauqua,Duck (unidentified),EA H5
 12/10/2025,Montana,Big Horn,Mallard,EA/AM H5N1
@@ -1316,7 +1409,7 @@ Date,State,County,Species,Strain
 12/10/2025,Mississippi,Tallahatchie,Snow goose,EA/AM H5N1
 12/10/2025,Mississippi,Tallahatchie,Ross's goose,EA/AM H5N1
 12/10/2025,Mississippi,Tallahatchie,Ross's goose,EA H5
-12/10/2025,Arkansas,Lonoke,Snow goose,EA H5
+12/10/2025,Arkansas,Lonoke,Snow goose,EA/AM H5N4
 12/10/2025,Arkansas,Lonoke,Snow goose,EA/AM H5N1
 12/10/2025,Arkansas,Lonoke,Snow goose,EA H5
 12/10/2025,Arkansas,Prairie,Mallard,EA H5
@@ -1402,7 +1495,7 @@ Date,State,County,Species,Strain
 12/08/2025,Texas,Deaf Smith,Goose (unidentified),EA/AM H5N1
 12/08/2025,Washington,Grant,Swainson's hawk,EA/AM H5N1
 12/08/2025,California,Yuba,Snow goose,EA/AM H5N1
-12/08/2025,Indiana,LaPorte,Mallard,EA H5
+12/08/2025,Indiana,LaPorte,Mallard,EA H5 mixed
 12/08/2025,Washington,Pierce,Cackling goose,EA/AM H5N1
 12/08/2025,Washington,Pierce,Cackling goose,EA/AM H5N1
 12/08/2025,Idaho,Canyon,Snow goose,EA/AM H5N1 mixed
@@ -1463,16 +1556,16 @@ Date,State,County,Species,Strain
 12/07/2025,Minnesota,Crow Wing,Tundra swan,EA H5
 12/06/2025,Indiana,LaPorte,Mallard,EA/AM H5N1
 12/06/2025,Indiana,LaPorte,Mallard,EA H5
-12/06/2025,Indiana,LaPorte,Mallard,EA H5
-12/06/2025,Indiana,LaPorte,Mallard,EA H5
+12/06/2025,Indiana,LaPorte,Mallard,EA H5 mixed
 12/06/2025,Indiana,LaPorte,Mallard,EA/AM H5N1
 12/06/2025,Indiana,LaPorte,Mallard,EA/AM H5N1
-12/06/2025,Indiana,LaPorte,Mallard,EA H5
-12/06/2025,Indiana,LaPorte,Mallard,EA H5
-12/06/2025,Indiana,LaPorte,Mallard,EA H5
-12/06/2025,Indiana,LaPorte,Mallard,EA H5
 12/06/2025,Indiana,LaPorte,Mallard,EA/AM H5N1
+12/06/2025,Indiana,LaPorte,Mallard,EA H5 mixed
 12/06/2025,Indiana,LaPorte,Mallard,EA H5
+12/06/2025,Indiana,LaPorte,Mallard,EA H5
+12/06/2025,Indiana,LaPorte,Mallard,EA H5 mixed
+12/06/2025,Indiana,LaPorte,Mallard,EA/AM H5N1
+12/06/2025,Indiana,LaPorte,Mallard,EA H5 mixed
 12/06/2025,Indiana,LaPorte,American black duck,EA H5
 12/06/2025,Wisconsin,Jefferson,Tundra swan,EA/AM H5N1
 12/06/2025,New York,Cayuga,Mallard,EA H5
@@ -1505,7 +1598,7 @@ Date,State,County,Species,Strain
 12/05/2025,Nevada,Churchill,Green-winged teal,EA H5
 12/05/2025,Tennessee,Lauderdale,Snow goose,EA/AM H5N1
 12/05/2025,Michigan,Ottawa,Mallard,EA H5
-12/05/2025,Minnesota,Aitkin,Trumpeter swan,EA H5
+12/05/2025,Minnesota,Aitkin,Trumpeter swan,EA/AM H5N1
 12/04/2025,Arkansas,Washington,Snow goose,EA H5
 12/04/2025,Arkansas,Washington,Snow goose,EA H5
 12/04/2025,Iowa,Jackson,Mallard,EA H5
@@ -1519,8 +1612,8 @@ Date,State,County,Species,Strain
 12/04/2025,Utah,Unknown,Tundra swan,EA H5
 12/04/2025,Utah,Weber,Tundra swan,EA H5
 12/04/2025,Kansas,Lyon,Greater scaup,EA/AM H5N1
-12/04/2025,Missouri,Saline,Mallard,EA H5
-12/04/2025,Missouri,Saline,Mallard,EA H5
+12/04/2025,Missouri,Saline,Mallard,EA/AM H5N1 mixed
+12/04/2025,Missouri,Saline,Mallard,EA/AM H5N1 mixed
 12/04/2025,Missouri,Saline,Mallard,EA H5
 12/04/2025,Missouri,Saline,Mallard,EA H5
 12/04/2025,Missouri,Saline,Mallard,EA H5
@@ -1528,16 +1621,16 @@ Date,State,County,Species,Strain
 12/04/2025,Missouri,Saline,Mallard,EA H5
 12/04/2025,Missouri,Saline,Mallard,EA/AM H5N1
 12/04/2025,Missouri,Saline,Mallard,EA H5
-12/04/2025,Missouri,Saline,Mallard,EA H5
+12/04/2025,Missouri,Saline,Mallard,EA/AM H5
 12/04/2025,Kansas,Saline,Cackling goose,EA/AM H5N1
 12/04/2025,Kansas,Leavenworth,Snow goose,EA/AM H5N1
 12/04/2025,Kentucky,Warren,Ross's goose,EA/AM H5N1
 12/04/2025,Kentucky,Henderson,Ross's goose,EA/AM H5N1
 12/04/2025,Louisiana,Vermilion,Snow goose,EA/AM H5N1
 12/04/2025,Louisiana,Ouachita,Snow goose,EA/AM H5N1
+12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N1 mixed
 12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N1
-12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N1
-12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N1
+12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N1 mixed
 12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N4
 12/04/2025,Louisiana,Jefferson Davis,Snow goose,EA/AM H5N1
 12/04/2025,Georgia,Bulloch,Canada goose,EA/AM H5N1
@@ -1619,6 +1712,7 @@ Date,State,County,Species,Strain
 12/01/2025,Massachusetts,Barnstable,American crow,EA H5
 12/01/2025,Rhode Island,Washington,Canada goose,EA/AM H5N1
 12/01/2025,Alaska,Sitka,Common raven,EA H5N1
+12/01/2025,Oregon,Benton,Red-tailed hawk,EA H5
 11/30/2025,Nebraska,York,Snow goose,EA/AM H5N1
 11/30/2025,Nebraska,Dodge,Snow goose,EA/AM H5N1
 11/30/2025,Oklahoma,Washington,Northern pintail,EA/AM H5N1
@@ -1643,7 +1737,7 @@ Date,State,County,Species,Strain
 11/29/2025,Alabama,Barbour,Green-winged teal,EA H5
 11/29/2025,Iowa,Marion,Green-winged teal,EA H5
 11/29/2025,Montana,Yellowstone,Snow goose,EA/AM H5N1
-11/29/2025,Washington,Clark,American wigeon,EA H5
+11/29/2025,Washington,Clark,American wigeon,EA H5 mixed
 11/29/2025,Washington,Clark,Northern shoveler,EA H5
 11/29/2025,Washington,Grant,Mallard,EA H5
 11/29/2025,Washington,Grant,Mallard,EA H5
@@ -1726,11 +1820,11 @@ Date,State,County,Species,Strain
 11/23/2025,Washington,Walla Walla,Mallard,EA H5
 11/23/2025,Washington,Snohomish,Trumpeter swan,EA H5
 11/22/2025,California,Yolo,Western gull,EA H5
-11/22/2025,Virginia,Henrico,Mallard,EA H5
+11/22/2025,Virginia,Henrico,Mallard,EA/AM H5N1
 11/22/2025,Virginia,Henrico,Green-winged teal,EA H5
 11/22/2025,Virginia,Henrico,Green-winged teal,EA H5
-11/22/2025,Virginia,Henrico,American black duck,EA H5
-11/22/2025,Virginia,Henrico,Ring-necked duck,EA H5
+11/22/2025,Virginia,Henrico,American black duck,EA H5 mixed
+11/22/2025,Virginia,Henrico,Ring-necked duck,EA H5 mixed
 11/22/2025,North Carolina,Hyde,American wigeon,EA H5
 11/22/2025,North Carolina,Hyde,Green-winged teal,EA/AM H5N1
 11/22/2025,Florida,Lake,Blue-winged teal,EA H5
@@ -2072,7 +2166,7 @@ Date,State,County,Species,Strain
 11/17/2025,Georgia,Meriwether,Goose (unidentified),EA/AM H5N1
 11/17/2025,Florida,Lee,Fish crow,EA/AM H5N1
 11/17/2025,Washington,San Juan,Gull (unidentified),EA H5N1
-11/17/2025,Minnesota,Crow Wing,Bald eagle,EA H5
+11/17/2025,Minnesota,Crow Wing,Bald eagle,EA/AM H5N1
 11/17/2025,Alaska,Sitka,American crow,EA H5N1
 11/16/2025,Georgia,McIntosh,Green-winged teal,EA/AM H5N1
 11/16/2025,Georgia,McIntosh,Green-winged teal,EA H5
@@ -2084,8 +2178,8 @@ Date,State,County,Species,Strain
 11/16/2025,Georgia,McIntosh,Ring-necked duck,EA/AM H5N1
 11/16/2025,Texas,Tarrant,Canada goose,EA/AM H5N1
 11/16/2025,Nevada,Churchill,Gadwall,EA H5
-11/16/2025,Ohio,Ottawa,Mallard,EA H5
-11/16/2025,Ohio,Ottawa,Mallard,EA H5
+11/16/2025,Ohio,Ottawa,Mallard,EA H5 mixed
+11/16/2025,Ohio,Ottawa,Mallard,EA H5 mixed
 11/16/2025,Ohio,Ottawa,Mallard,EA/AM H5N1
 11/16/2025,Ohio,Ottawa,Mallard,EA H5
 11/16/2025,Ohio,Ottawa,Mallard,EA H5
@@ -2095,7 +2189,7 @@ Date,State,County,Species,Strain
 11/16/2025,Ohio,Ottawa,Northern pintail,EA H5
 11/16/2025,Ohio,Ottawa,Northern pintail,EA/AM H5N1
 11/16/2025,Ohio,Ottawa,Northern pintail,EA H5
-11/16/2025,Ohio,Ottawa,Northern pintail,EA H5
+11/16/2025,Ohio,Ottawa,Northern pintail,EA H5 mixed
 11/16/2025,Ohio,Ottawa,Northern pintail,EA H5
 11/16/2025,Ohio,Ottawa,American black duck,EA/AM H5N1 mixed
 11/16/2025,Ohio,Ottawa,American black duck,EA/AM H5N1
@@ -2367,6 +2461,7 @@ Date,State,County,Species,Strain
 11/08/2025,Washington,Walla Walla,Green-winged teal,EA H5
 11/08/2025,Maryland,Anne Arundel,Black vulture,EA/AM H5N1
 11/08/2025,Maryland,Anne Arundel,Black vulture,EA H5
+11/08/2025,Oregon,Benton,Red-tailed hawk,EA H5
 11/07/2025,Wyoming,Natrona,Great horned owl,EA/AM H5N1
 11/07/2025,North Carolina,New Hanover,Canada goose,EA/AM H5N1
 11/07/2025,Illinois,Fulton,Mallard,EA H5
@@ -2374,6 +2469,7 @@ Date,State,County,Species,Strain
 11/07/2025,Colorado,Weld,Great horned owl,EA/AM H5N1
 11/07/2025,Georgia,Polk,Black vulture,EA/AM H5N1
 11/07/2025,Washington,Whatcom,Canada goose,EA/AM H5N1
+11/07/2025,Oregon,Benton,Great horned owl,EA H5
 11/06/2025,Minnesota,Hennepin,Gadwall,EA/AM H5N1
 11/06/2025,Colorado,Larimer,Red-tailed hawk,EA/AM H5N1
 11/06/2025,North Dakota,Stutsman,Snow goose,EA H5
@@ -2876,7 +2972,7 @@ Date,State,County,Species,Strain
 10/14/2025,Colorado,Larimer,Canada goose,EA/AM H5N1
 10/14/2025,Utah,Utah,Canada goose,EA/AM H5N1
 10/14/2025,Wyoming,Laramie,Red-tailed hawk,EA/AM H5N1
-10/14/2025,Colorado,Weld,Canada goose,EA H5
+10/14/2025,Colorado,Weld,Canada goose,EA/AM H5N1 mixed
 10/14/2025,Michigan,Livingston,Trumpeter swan,EA/AM H5N1
 10/14/2025,Virginia,Smyth,Black vulture,EA/AM H5N1
 10/13/2025,Oklahoma,Tulsa,Swan (unidentified),EA/AM H5N1
@@ -2983,6 +3079,9 @@ Date,State,County,Species,Strain
 10/08/2025,Utah,Weber,Red-tailed hawk,EA/AM H5N1
 10/08/2025,Delaware,Kent,Peregrine falcon,EA/AM H5N1
 10/08/2025,Wyoming,Converse,Great horned owl,EA/AM H5N1
+10/08/2025,Alaska,Aleutians East,Northern pintail,EA H5N1
+10/08/2025,Alaska,Aleutians East,Northern pintail,EA H5N1
+10/08/2025,Alaska,Aleutians East,Northern pintail,EA H5N1
 10/07/2025,Wyoming,Sheridan,Canada goose,EA H5
 10/07/2025,Minnesota,Hennepin,Canada goose,EA/AM H5N1
 10/07/2025,Minnesota,Hennepin,Canada goose,EA/AM H5N1
@@ -3171,7 +3270,7 @@ Date,State,County,Species,Strain
 09/26/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/26/2025,Michigan,Washtenaw,Mallard,EA H5
 09/26/2025,Michigan,Washtenaw,Mallard,EA H5 mixed
-09/26/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
+09/26/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1 mixed
 09/26/2025,Michigan,Washtenaw,Mallard,EA H5
 09/26/2025,Michigan,Washtenaw,Mallard,EA H5 mixed
 09/26/2025,Michigan,Washtenaw,Mallard,EA H5 mixed
@@ -3215,7 +3314,7 @@ Date,State,County,Species,Strain
 09/24/2025,Washington,Whitman,Goose (unidentified),EA/AM H5N1
 09/24/2025,Wisconsin,Milwaukee,Mallard,EA/AM H5N1
 09/24/2025,New York,Jefferson,Green-winged teal,EA/AM H5N1
-09/24/2025,New York,Jefferson,Green-winged teal,EA/AM H5N1
+09/24/2025,New York,Jefferson,Green-winged teal,EA/AM H5N1 mixed
 09/24/2025,Minnesota,Washington,Canada goose,EA/AM H5N1
 09/24/2025,Minnesota,Hennepin,Canada goose,EA/AM H5N1
 09/24/2025,Wisconsin,Dodge,Canada goose,EA/AM H5N1
@@ -3352,7 +3451,7 @@ Date,State,County,Species,Strain
 09/19/2025,Minnesota,Polk,Peregrine falcon,EA H5N1
 09/19/2025,Minnesota,Le Sueur,Canada goose,EA/AM H5N1
 09/19/2025,Kansas,Stafford,Green-winged teal,EA H5
-09/19/2025,Kansas,Stafford,Green-winged teal,EA/AM H5N1
+09/19/2025,Kansas,Stafford,Green-winged teal,EA/AM H5N1 mixed
 09/19/2025,Kansas,McPherson,Blue-winged teal,EA/AM H5N1
 09/19/2025,Kansas,McPherson,Blue-winged teal,EA H5
 09/19/2025,Kansas,McPherson,Blue-winged teal,EA/AM H5N1
@@ -3366,7 +3465,7 @@ Date,State,County,Species,Strain
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/19/2025,Michigan,Washtenaw,Mallard,EA H5
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
-09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
+09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1 mixed
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
@@ -3379,7 +3478,7 @@ Date,State,County,Species,Strain
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/19/2025,Michigan,Washtenaw,Mallard,EA H5
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
-09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
+09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1 mixed
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
 09/19/2025,Michigan,Washtenaw,Mallard,EA/AM H5N1
@@ -3637,7 +3736,7 @@ Date,State,County,Species,Strain
 09/13/2025,Kansas,Riley,Blue-winged teal,EA H5
 09/13/2025,Kansas,Riley,Blue-winged teal,EA H5
 09/13/2025,Kansas,Riley,Blue-winged teal,EA H5
-09/13/2025,Minnesota,Roseau,Mallard,EA H5
+09/13/2025,Minnesota,Roseau,Mallard,EA/AM H5N1 mixed
 09/13/2025,Kansas,Barton,Blue-winged teal,EA/AM H5N1 mixed
 09/12/2025,Wisconsin,Dane,Canada goose,EA/AM H5N1
 09/12/2025,Iowa,Cerro Gordo,Wood duck,EA H5
@@ -3938,6 +4037,7 @@ Date,State,County,Species,Strain
 06/09/2025,Maryland,Cecil,Canada goose,EA/AM H5N1
 06/09/2025,Maine,York,Common eider,EA H5
 06/07/2025,Arizona,Maricopa,Rock pigeon,EA H5
+06/07/2025,Arizona,Maricopa,Rock pigeon,EA H5
 06/06/2025,North Carolina,Durham,Turkey vulture,EA/AM H5N1
 06/05/2025,Wisconsin,Door,Caspian tern,EA/AM H5N1
 06/05/2025,Wisconsin,Door,Caspian tern,EA/AM H5N1
@@ -3977,6 +4077,7 @@ Date,State,County,Species,Strain
 05/31/2025,Arizona,Maricopa,Black-necked stilt,EA H5
 05/31/2025,Arizona,Maricopa,Gambel's quail,EA H5
 05/31/2025,Alaska,Yukon-Koyukuk,Bald eagle,EA/AM H5N1
+05/31/2025,Arizona,Maricopa,Great-tailed Grackle,EA H5
 05/30/2025,Arizona,Maricopa,Great-tailed grackle,EA H5
 05/30/2025,Arizona,Maricopa,Rock pigeon,EA/AM H5N1
 05/29/2025,Michigan,Osceola,Bald eagle,EA/AM H5N1
@@ -7121,8 +7222,8 @@ Date,State,County,Species,Strain
 12/05/2024,Kansas,Wabaunsee,Mallard,EA H5
 12/05/2024,Kansas,Wabaunsee,Mallard,EA/AM H5N1
 12/05/2024,Kansas,Wabaunsee,Gadwall,EA H5
-12/05/2024,Kansas,Wabaunsee,Green-winged teal,EA/AM H5N1
 12/05/2024,Kansas,Wabaunsee,Green-winged teal,EA H5
+12/05/2024,Kansas,Wabaunsee,Green-winged teal,EA/AM H5N1
 12/05/2024,Utah,Box Elder,Green-winged teal,EA H5
 12/05/2024,Alaska,Matanuska-Susitna,Mallard,EA H5
 12/05/2024,Alaska,Matanuska-Susitna,Mallard,EA H5
