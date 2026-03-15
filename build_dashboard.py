@@ -532,7 +532,14 @@ def main():
     if HAS_ADDFIPS:
         print("Building county heatmap data...")
         heatmap_events = [
-            {"date": e["date"], "state": e["state"], "county": e["county"], "source": "poultry"}
+            {
+                "date": e["date"],
+                "state": e["state"],
+                "county": e["county"],
+                "source": "poultry",
+                "production": e["production"],
+                "flock": e["flock"],
+            }
             for e in events
         ]
         if wild_birds:

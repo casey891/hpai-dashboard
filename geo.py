@@ -87,6 +87,7 @@ def aggregate_county_detections(all_events, fips_lookup):
                 "state": state, "county": county,
                 "wild_birds": 0, "poultry": 0, "total": 0,
                 "dated_sources": [], "latest_date": None,
+                "poultry_by_month_prod": defaultdict(lambda: defaultdict(lambda: {"count": 0, "birds": 0})),
             }
 
         entry = county_data[fips]
@@ -96,6 +97,13 @@ def aggregate_county_detections(all_events, fips_lookup):
         entry["dated_sources"].append((iso, source))
         if entry["latest_date"] is None or iso > entry["latest_date"]:
             entry["latest_date"] = iso
+        if source == "poultry":
+            month = iso[:7]
+            production = event.get("production") or "Unknown / Unspecified"
+            flock = int(event.get("flock") or 0)
+            prod_entry = entry["poultry_by_month_prod"][month][production]
+            prod_entry["count"] += 1
+            prod_entry["birds"] += flock
 
     if unmapped_set:
         print(f"  WARNING: {len(unmapped_set)} unique State+County pairs could not be FIPS-mapped:")
@@ -111,12 +119,19 @@ def compress_map_data(county_data):
     for fips, info in county_data.items():
         mo_wb = defaultdict(int)
         mo_p = defaultdict(int)
+        poultry_breakdown = {}
         for date_str, source in info["dated_sources"]:
             ym = date_str[:7]
             if source == "wild_birds":
                 mo_wb[ym] += 1
             elif source == "poultry":
                 mo_p[ym] += 1
+        for month, prod_map in info.get("poultry_by_month_prod", {}).items():
+            poultry_breakdown[month] = {
+                production: [vals["count"], vals["birds"]]
+                for production, vals in prod_map.items()
+                if vals["count"] or vals["birds"]
+            }
         result[fips] = {
             "s": info["state"],
             "c": info["county"],
@@ -126,5 +141,6 @@ def compress_map_data(county_data):
             "ld": info["latest_date"],
             "mwb": dict(mo_wb),
             "mp": dict(mo_p),
+            "mpp": poultry_breakdown,
         }
     return result

@@ -84,11 +84,17 @@ footer{text-align:center;padding:14px;color:#A7A9AC;font-size:.7rem}
 .county{stroke:#fff;stroke-width:.25px;transition:opacity .12s}
 .county:hover{opacity:.8;stroke:#013046;stroke-width:1px}
 .state-border{fill:none;stroke:#A7A9AC;stroke-width:.7px;pointer-events:none}
-.map-tooltip{position:absolute;pointer-events:none;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;box-shadow:0 4px 12px rgba(0,0,0,.12);font-size:.8rem;max-width:280px;z-index:30;opacity:0;transition:opacity .12s}
+.map-tooltip{position:absolute;pointer-events:none;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;box-shadow:0 4px 12px rgba(0,0,0,.12);font-size:.8rem;max-width:360px;z-index:30;opacity:0;transition:opacity .12s}
 .map-tooltip.visible{opacity:1}
 .tt-county{font-weight:700;font-size:.9rem;color:#013046}
 .tt-total{font-size:1.1rem;font-weight:700;margin:4px 0;color:#F6851F}
 .tt-row{font-size:.75rem;color:#939598;line-height:1.6}
+.tt-subhead{font-size:.7rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:#013046;margin-top:8px}
+.tt-breakdown{margin-top:4px}
+.tt-breakdown-item{padding-top:4px;border-top:1px solid #f1f5f9}
+.tt-breakdown-item:first-child{padding-top:0;border-top:none}
+.tt-breakdown-label{font-size:.74rem;font-weight:600;color:#334155;line-height:1.35}
+.tt-breakdown-meta{font-size:.7rem;color:#64748b;line-height:1.45}
 .tt-date{font-size:.7rem;color:#A7A9AC;margin-top:4px}
 .legend-wrap{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#939598}
 .legend-bar{width:200px;height:12px;border-radius:3px}
@@ -631,17 +637,31 @@ function cutoffYM(range){
   return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0');
 }
 function sumMonths(moDict,cutM){let n=0;for(const[month,cnt]of Object.entries(moDict)){if(month>=cutM)n+=cnt;}return n;}
+function getFilteredPoultryBreakdown(info,cutM){
+  const breakdown={};
+  if(!info||!info.mpp)return breakdown;
+  for(const[month,prodMap]of Object.entries(info.mpp)){
+    if(month<cutM)continue;
+    for(const[production,vals]of Object.entries(prodMap||{})){
+      if(!breakdown[production])breakdown[production]={count:0,birds:0};
+      breakdown[production].count+=(vals&&vals[0])||0;
+      breakdown[production].birds+=(vals&&vals[1])||0;
+    }
+  }
+  return breakdown;
+}
 function getFilteredCounts(fips){
   const info=D.map_data[fips];
-  if(!info)return{total:0,wb:0,p:0};
+  if(!info)return{total:0,wb:0,p:0,poultryBreakdown:{}};
   const cutM=cutoffYM(mapRange);
   const wb=sumMonths(info.mwb||{},cutM);
   const p=sumMonths(info.mp||{},cutM);
+  const poultryBreakdown=getFilteredPoultryBreakdown(info,cutM);
   let total;
   if(sourceFilter==='wild_birds')total=wb;
   else if(sourceFilter==='poultry')total=p;
   else total=wb+p;
-  return{total,wb,p};
+  return{total,wb,p,poultryBreakdown};
 }
 function buildColorScale(maxVal){if(maxVal<=0)maxVal=1;return d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1,maxVal]);}
 function paintLegend(maxVal){
@@ -699,6 +719,17 @@ function onMapHover(event,d){
     if(fc.wb>0)html+='Wild birds: '+fc.wb.toLocaleString()+'<br>';
     if(fc.p>0)html+='Poultry flocks: '+fc.p.toLocaleString()+'<br>';
     html+='</div>';
+    if(fc.p>0&&sourceFilter!=='wild_birds'){
+      const poultryRows=Object.entries(fc.poultryBreakdown)
+        .sort((a,b)=>(b[1].count-a[1].count)||(b[1].birds-a[1].birds)||a[0].localeCompare(b[0]));
+      if(poultryRows.length){
+        html+='<div class="tt-subhead">Poultry breakdown</div><div class="tt-breakdown">';
+        poultryRows.forEach(([production,vals])=>{
+          html+='<div class="tt-breakdown-item"><div class="tt-breakdown-label">'+production+'</div><div class="tt-breakdown-meta">'+vals.count.toLocaleString()+' infection'+(vals.count!==1?'s':'')+' · '+vals.birds.toLocaleString()+' birds affected</div></div>';
+        });
+        html+='</div>';
+      }
+    }
     if(info&&info.ld)html+='<div class="tt-date">Latest (all time): '+info.ld+'</div>';
   } else {
     html+='<div class="tt-row" style="color:#A7A9AC">No detections in this period</div>';
