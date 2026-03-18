@@ -1,6 +1,14 @@
 Date,State,County,Species,Group,Strain
+03/05/2026,Minnesota,Scott,Skunk (unidentified),Wild Carnivores,EA H5
+03/04/2026,California,San Mateo,California sea lion,Marine Mammals,EA H5N1
 03/02/2026,Colorado,Jefferson,Bobcat,Domestic/Companion,EA H5
+03/02/2026,Colorado,Adams,Striped skunk,Wild Carnivores,EA H5
+03/01/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA H5
 02/26/2026,California,San Mateo,Sea otter,Marine Mammals,EA H5N1
+02/25/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
+02/25/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
+02/23/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
+02/21/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
@@ -9,9 +17,10 @@ Date,State,County,Species,Group,Strain
 02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/20/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA H5
+02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/19/2026,Oklahoma,Comanche,Bobcat,Domestic/Companion,EA H5
 02/18/2026,Minnesota,Ramsey,Skunk (unidentified),Wild Carnivores,EA H5
-02/18/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA H5
+02/18/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA/AM H5N1
 02/07/2026,Georgia,Hart,Norway rat,Rodents/Small Mammals,EA H5
 02/07/2026,Georgia,Hart,Norway rat,Rodents/Small Mammals,EA H5
 02/07/2026,Georgia,Hart,Norway rat,Rodents/Small Mammals,EA H5
