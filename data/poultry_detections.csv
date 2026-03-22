@@ -21,6 +21,7 @@ Date,State,County,Operation Type,Birds Impacted
 03/11/2026,Indiana,Lagrange,Commercial Duck Meat Bird,7700
 03/11/2026,Indiana,Lagrange,Commercial Duck Meat Bird,8000
 03/11/2026,Nebraska,Valley,WOAH Non-Poultry,20
+03/11/2026,New York,Queens,Live Bird Market,0
 03/10/2026,Indiana,Elkhart,Commercial Duck Meat Bird,12900
 03/10/2026,Indiana,Elkhart,Commercial Duck Meat Bird,7900
 03/10/2026,Indiana,Jay,Commercial Turkey Meat Bird,20600
@@ -35,6 +36,7 @@ Date,State,County,Operation Type,Birds Impacted
 03/09/2026,New York,Queens,Live Bird Market,40
 03/09/2026,Tennessee,Hawkins,WOAH Non-Poultry,100
 03/06/2026,Illinois,Lawrence,Commercial Turkey Meat Bird,7900
+03/06/2026,New York,Kings,Live Bird Market,0
 03/06/2026,Pennsylvania,Lancaster,Commercial Table Egg Layer,175000
 03/05/2026,Illinois,Lawrence,Commercial Turkey Meat Bird,52600
 03/05/2026,Indiana,Elkhart,WOAH Poultry,18700
@@ -233,6 +235,7 @@ Date,State,County,Operation Type,Birds Impacted
 12/08/2025,South Carolina,York,WOAH Non-Poultry,40
 12/08/2025,Washington,Jefferson,WOAH Non-Poultry,20
 12/08/2025,West Virginia,Jackson,WOAH Non-Poultry,9
+12/08/2025,Wyoming,Carbon,WOAH Non-Poultry,0
 12/05/2025,Florida,Broward,WOAH Non-Poultry,260
 12/05/2025,Indiana,Elkhart,Commercial Duck Meat Bird,5400
 12/05/2025,Indiana,Elkhart,Commercial Duck Meat Bird,11900
@@ -469,6 +472,7 @@ Date,State,County,Operation Type,Birds Impacted
 05/02/2025,Illinois,Douglas,WOAH Poultry,4400
 05/02/2025,Indiana,Porter,WOAH Non-Poultry,400
 04/30/2025,South Dakota,Aurora,Commercial Table Egg Layer,633900
+04/24/2025,New York,Queens,Live Bird Market,0
 04/24/2025,North Dakota,Stutsman,WOAH Poultry,50
 04/23/2025,Minnesota,Stearns,WOAH Non-Poultry,4
 04/18/2025,New York,Queens,Live Bird Market,930
@@ -478,6 +482,7 @@ Date,State,County,Operation Type,Birds Impacted
 04/11/2025,New York,Jefferson,WOAH Non-Poultry,200
 04/11/2025,New York,Queens,Live Bird Market,240
 04/09/2025,New Mexico,Roosevelt,WOAH Non-Poultry,9
+04/08/2025,New York,Queens,Live Bird Market,0
 04/08/2025,South Dakota,Beadle,Commercial Turkey Meat Bird,33400
 04/07/2025,New Mexico,Curry,WOAH Poultry,200
 04/07/2025,New York,Queens,Live Bird Market,300
@@ -522,6 +527,7 @@ Date,State,County,Operation Type,Birds Impacted
 03/11/2025,New York,Rensselaer,WOAH Non-Poultry,50
 03/10/2025,Colorado,Weld,WOAH Non-Poultry,20
 03/10/2025,Indiana,Montgomery,WOAH Non-Poultry,20
+03/10/2025,New York,Kings,Live Bird Market,0
 03/10/2025,New York,Queens,Live Bird Market,1100
 03/07/2025,Indiana,Adams,Commercial Duck Breeder,3200
 03/07/2025,Kansas,Russell,WOAH Non-Poultry,20
@@ -535,6 +541,7 @@ Date,State,County,Operation Type,Birds Impacted
 03/04/2025,Illinois,Will,WOAH Non-Poultry,50
 03/04/2025,Indiana,Jay,Commercial Table Egg Layer,187200
 03/04/2025,Oregon,Multnomah,WOAH Non-Poultry,40
+03/03/2025,New York,Queens,Live Bird Market,0
 03/03/2025,New York,Queens,Live Bird Market,150
 02/28/2025,New Mexico,Bernalillo,WOAH Non-Poultry,50
 02/28/2025,New York,Suffolk,WOAH Non-Poultry,3
@@ -592,6 +599,7 @@ Date,State,County,Operation Type,Birds Impacted
 02/12/2025,Missouri,Lawrence,Commercial Turkey Breeder Hens,13000
 02/12/2025,Ohio,Mercer,Commercial Table Egg Layer,131000
 02/12/2025,Pennsylvania,Lancaster,WOAH Poultry,600
+02/12/2025,Wyoming,Platte,WOAH Non-Poultry,0
 02/11/2025,Indiana,Jay,Commercial Table Egg Layer,912000
 02/11/2025,New York,Madison,WOAH Non-Poultry,20
 02/11/2025,Ohio,Mercer,Commercial Table Egg Pullets,20000
@@ -610,6 +618,7 @@ Date,State,County,Operation Type,Birds Impacted
 02/06/2025,Connecticut,New London,WOAH Non-Poultry,20
 02/06/2025,Missouri,Lawrence,Commercial Turkey Meat Bird,9500
 02/06/2025,Missouri,Newton,Commercial Broiler Production,44400
+02/06/2025,New York,Bronx,Live Bird Market,0
 02/06/2025,New York,Queens,Live Bird Market,200
 02/06/2025,Ohio,Darke,Commercial Table Egg Layer,522200
 02/06/2025,Ohio,Mercer,Commercial Turkey Meat Bird,10100
@@ -621,6 +630,7 @@ Date,State,County,Operation Type,Birds Impacted
 02/05/2025,Arizona,Pinal,WOAH Non-Poultry,30
 02/05/2025,California,Stanislaus,Commercial Turkey Meat Bird,30200
 02/05/2025,Colorado,Larimer,WOAH Non-Poultry,10
+02/05/2025,New York,Kings,Live Bird Market,0
 02/05/2025,New York,Queens,Live Bird Market,520
 02/05/2025,Ohio,Auglaize,Commercial Turkey Meat Bird,11000
 02/05/2025,Ohio,Mercer,Commercial Turkey Meat Bird,8900
@@ -799,6 +809,7 @@ Date,State,County,Operation Type,Birds Impacted
 12/27/2024,Missouri,Pemiscot,WOAH Non-Poultry,70
 12/27/2024,Ohio,Darke,Commercial Table Egg Layer,931300
 12/27/2024,Wisconsin,Burnett,Commercial Turkey Meat Bird,18600
+12/27/2024,Wyoming,Sheridan,WOAH Non-Poultry,0
 12/26/2024,Kansas,Phillips,WOAH Non-Poultry,10
 12/24/2024,California,Riverside,Commercial Table Egg Layer,1105500
 12/24/2024,California,San Joaquin,Commercial Table Egg Layer,627800
@@ -1221,6 +1232,7 @@ Date,State,County,Operation Type,Birds Impacted
 11/20/2023,South Dakota,Edmunds,Commercial Turkey Breeder Replacement Hens,30100
 11/20/2023,South Dakota,Edmunds,Commercial Turkey Breeder Hens,19200
 11/20/2023,South Dakota,Edmunds,Commercial Turkey Meat Bird,33400
+11/20/2023,South Dakota,Walworth,WOAH Non-Poultry,0
 11/20/2023,Wisconsin,Taylor,WOAH Non-Poultry,8
 11/17/2023,South Dakota,Fall River,WOAH Non-Poultry,80
 11/16/2023,Florida,Duval,WOAH Non-Poultry,50
@@ -1327,6 +1339,7 @@ Date,State,County,Operation Type,Birds Impacted
 04/17/2023,Colorado,Moffat,WOAH Non-Poultry,80
 04/17/2023,Idaho,Bonneville,WOAH Non-Poultry,40
 04/17/2023,New York,Putnam,WOAH Poultry,110
+04/14/2023,Montana,Rosebud,WOAH Non-Poultry,0
 04/14/2023,Nebraska,Sheridan,WOAH Non-Poultry,10
 04/12/2023,California,Modoc,WOAH Non-Poultry,60
 04/12/2023,Colorado,Pueblo,WOAH Non-Poultry,30
@@ -1451,6 +1464,7 @@ Date,State,County,Operation Type,Birds Impacted
 12/16/2022,California,Butte,WOAH Non-Poultry,20
 12/16/2022,Colorado,Weld,Commercial Table Egg Layer,1291000
 12/16/2022,Florida,Duval,WOAH Non-Poultry,10
+12/16/2022,Montana,Flathead,WOAH Non-Poultry,0
 12/15/2022,Oregon,Polk,WOAH Non-Poultry,20
 12/14/2022,Minnesota,Redwood,WOAH Non-Poultry,40
 12/14/2022,Nebraska,Knox,WOAH Poultry,160

@@ -109,8 +109,6 @@ def _parse_hpai_flat(path):
                 flock = int(float(birds_str))
             except ValueError:
                 continue
-            if not flock:
-                continue
             events.append({
                 "date": dt,
                 "state": row.get("State", "").strip(),
@@ -177,7 +175,7 @@ def _parse_hpai_crosstab(path):
                     break
                 except ValueError:
                     continue
-        if not flock:
+        if flock is None:
             continue
         dt = _parse_date(confirmed)
         if dt is None:
