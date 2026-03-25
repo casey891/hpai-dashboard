@@ -1,5 +1,14 @@
 Date,State,County,Species,Group,Strain
+03/13/2026,New York,Westchester,Red fox,Wild Carnivores,EA H5
+03/12/2026,Alaska,Nome,Red fox,Wild Carnivores,EA H5N1
+03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
+03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
+03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
+03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
+03/06/2026,Wisconsin,Jefferson,Virginia opossum,Rodents/Small Mammals,EA H5
 03/05/2026,Minnesota,Scott,Skunk (unidentified),Wild Carnivores,EA H5
+03/05/2026,Wisconsin,Jefferson,Domestic cat,Domestic/Companion,EA H5
+03/05/2026,Wisconsin,Jefferson,Striped skunk,Wild Carnivores,EA H5
 03/04/2026,California,San Mateo,California sea lion,Marine Mammals,EA H5N1
 03/02/2026,Colorado,Jefferson,Bobcat,Domestic/Companion,EA H5
 03/02/2026,Colorado,Adams,Striped skunk,Wild Carnivores,EA H5
@@ -19,6 +28,7 @@ Date,State,County,Species,Group,Strain
 02/20/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA H5
 02/20/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
 02/19/2026,Oklahoma,Comanche,Bobcat,Domestic/Companion,EA H5
+02/19/2026,Kansas,Butler,Striped skunk,Wild Carnivores,EA H5
 02/18/2026,Minnesota,Ramsey,Skunk (unidentified),Wild Carnivores,EA H5
 02/18/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA/AM H5N1
 02/07/2026,Georgia,Hart,Norway rat,Rodents/Small Mammals,EA H5
@@ -28,24 +38,24 @@ Date,State,County,Species,Group,Strain
 02/07/2026,Georgia,Hart,Norway rat,Rodents/Small Mammals,EA H5
 02/05/2026,Colorado,Pueblo,Striped skunk,Wild Carnivores,EA/AM H5N1
 02/03/2026,Connecticut,New Haven,Fox (unidentified),Wild Carnivores,EA/AM H5N1
-01/29/2026,Montana,Teton,Skunk (unidentified),Wild Carnivores,EA H5
-01/23/2026,Louisiana,Caddo,Domestic cat,Domestic/Companion,EA H5
+01/29/2026,Montana,Teton,Striped skunk,Wild Carnivores,EA/AM H5N1
+01/23/2026,Louisiana,Caddo,Domestic cat,Domestic/Companion,EA/AM H5N1
 01/23/2026,Washington,San Juan,Red fox,Wild Carnivores,EA H5
 01/18/2026,Georgia,Walker,House mouse,Rodents/Small Mammals,EA H5
 01/15/2026,Washington,Clallam,Bobcat,Domestic/Companion,EA H5N1
 01/14/2026,California,San Diego,Mountain lion,Wild Carnivores,EA H5N1
 01/14/2026,California,Los Angeles,Catalina Island fox,Domestic/Companion,EA H5N1
-01/13/2026,Oregon,Tillamook,Bobcat,Domestic/Companion,EA H5
+01/13/2026,Oregon,Tillamook,Bobcat,Domestic/Companion,EA/AM H5N1
 01/13/2026,California,Los Angeles,Catalina Island fox,Domestic/Companion,EA H5N1
 01/10/2026,California,Placer,Mountain lion,Wild Carnivores,EA H5
-01/09/2026,Washington,Grant,Domestic cat,Domestic/Companion,EA H5
+01/09/2026,Washington,Grant,Domestic cat,Domestic/Companion,EA/AM H5N1
 01/08/2026,Nebraska,Butler,Skunk (unidentified),Wild Carnivores,EA/AM H5N1
 01/07/2026,Washington,Whatcom,Striped skunk,Wild Carnivores,EA/AM H5N1
-01/07/2026,New Jersey,Burlington,Domestic cat,Domestic/Companion,EA H5
-12/28/2025,Florida,Brevard,Bottlenose dolphin,Marine Mammals,EA H5
+01/07/2026,New Jersey,Burlington,Domestic cat,Domestic/Companion,EA/AM H5N1
+12/28/2025,Florida,Brevard,Bottlenose dolphin,Marine Mammals,EA/AM H5N1
 12/24/2025,Washington,San Juan,Red fox,Wild Carnivores,EA H5N1
 12/23/2025,Illinois,Knox,Domestic cat,Domestic/Companion,EA/AM H5N1
-12/23/2025,Florida,Brevard,Bottlenose dolphin,Marine Mammals,EA H5
+12/23/2025,Florida,Brevard,Bottlenose dolphin,Marine Mammals,EA/AM H5N1
 12/19/2025,Idaho,Ada1,Mountain lion,Wild Carnivores,EA/AM H5N1
 12/17/2025,Nebraska,Box Butte,Mountain lion,Wild Carnivores,EA/AM H5N1
 12/16/2025,Florida,St. Johns,Red fox,Wild Carnivores,EA H5
@@ -93,7 +103,6 @@ Date,State,County,Species,Group,Strain
 06/19/2025,Maine,Lincoln,Harbor seal,Marine Mammals,EA/AM H5N1
 06/11/2025,Minnesota,Rice,Raccoon,Wild Carnivores,EA H5
 06/08/2025,Arizona,Maricopa,Round-tailed ground squirrel,Rodents/Small Mammals,EA H5
-06/07/2025,Arizona,Maricopa,Black rat,Rodents/Small Mammals,EA/AM H5N1
 06/07/2025,Arizona,Maricopa,Black rat,Rodents/Small Mammals,EA H5
 05/31/2025,Arizona,Maricopa,Desert cottontail,Rodents/Small Mammals,EA H5
 05/29/2025,Colorado,Costilla,Red fox,Wild Carnivores,EA H5
@@ -319,6 +328,7 @@ Date,State,County,Species,Group,Strain
 11/15/2024,Washington,Franklin,Deer mouse,Rodents/Small Mammals,EA H5
 11/14/2024,Washington,Franklin,Deer mouse,Rodents/Small Mammals,EA H5
 11/14/2024,Washington,Franklin,House mouse,Rodents/Small Mammals,EA H5
+11/14/2024,California,Yolo,North American river otter,Marine Mammals,EA H5
 11/11/2024,Washington,Franklin,Coyote,Wild Carnivores,EA H5
 11/08/2024,Washington,Franklin,House mouse,Rodents/Small Mammals,EA H5
 11/08/2024,Alaska,Juneau,Ermine,Wild Carnivores,EA/AM H5N1
