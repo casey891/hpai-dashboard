@@ -623,7 +623,8 @@ function showError(msg){
 }
 
 /* ── Heatmap helpers ── */
-function cutoffYM(range){
+function isoDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function mapCutoffISO(range){
   const now=new Date();let c;
   switch(range){
     case '7d':c=new Date(now.getFullYear(),now.getMonth(),now.getDate()-7);break;
@@ -634,14 +635,17 @@ function cutoffYM(range){
     case '1y':c=new Date(now.getFullYear()-1,now.getMonth(),now.getDate());break;
     default:c=new Date(2000,0,1);
   }
-  return c.getFullYear()+'-'+String(c.getMonth()+1).padStart(2,'0');
+  return isoDate(c);
 }
 function sumMonths(moDict,cutM){let n=0;for(const[month,cnt]of Object.entries(moDict)){if(month>=cutM)n+=cnt;}return n;}
-function getFilteredPoultryBreakdown(info,cutM){
+function sumDays(dayDict,cutD){let n=0;for(const[day,cnt]of Object.entries(dayDict)){if(day>=cutD)n+=cnt;}return n;}
+function getFilteredPoultryBreakdown(info,cutD,cutM){
   const breakdown={};
-  if(!info||!info.mpp)return breakdown;
-  for(const[month,prodMap]of Object.entries(info.mpp)){
-    if(month<cutM)continue;
+  const dailyBreakdown=info&&info.dpp;
+  const sourceBreakdown=dailyBreakdown||info&&info.mpp;
+  if(!sourceBreakdown)return breakdown;
+  for(const[bucket,prodMap]of Object.entries(sourceBreakdown)){
+    if(dailyBreakdown?(bucket<cutD):(bucket<cutM))continue;
     for(const[production,vals]of Object.entries(prodMap||{})){
       if(!breakdown[production])breakdown[production]={count:0,birds:0};
       breakdown[production].count+=(vals&&vals[0])||0;
@@ -653,10 +657,11 @@ function getFilteredPoultryBreakdown(info,cutM){
 function getFilteredCounts(fips){
   const info=D.map_data[fips];
   if(!info)return{total:0,wb:0,p:0,poultryBreakdown:{}};
-  const cutM=cutoffYM(mapRange);
-  const wb=sumMonths(info.mwb||{},cutM);
-  const p=sumMonths(info.mp||{},cutM);
-  const poultryBreakdown=getFilteredPoultryBreakdown(info,cutM);
+  const cutD=mapCutoffISO(mapRange);
+  const cutM=cutD.slice(0,7);
+  const wb=info.dwb?sumDays(info.dwb,cutD):sumMonths(info.mwb||{},cutM);
+  const p=info.dp?sumDays(info.dp,cutD):sumMonths(info.mp||{},cutM);
+  const poultryBreakdown=getFilteredPoultryBreakdown(info,cutD,cutM);
   let total;
   if(sourceFilter==='wild_birds')total=wb;
   else if(sourceFilter==='poultry')total=p;
@@ -700,9 +705,26 @@ function updateMapColors(){
   paintLegend(maxCount);
   const activeCounties=positives.length;
   const totalDet=positives.reduce((a,b)=>a+b,0);
-  const cutM=cutoffYM(mapRange);
+  const cutD=mapCutoffISO(mapRange);
+  const cutM=cutD.slice(0,7);
   let unk=0;
-  if(D.unknown_by_month){for(const[m,v]of Object.entries(D.unknown_by_month)){if(m>=cutM){if(sourceFilter==='wild_birds')unk+=v.wb||0;else if(sourceFilter==='poultry')unk+=v.p||0;else unk+=(v.wb||0)+(v.p||0);}}}
+  if(D.unknown_by_day){
+    for(const[day,v]of Object.entries(D.unknown_by_day)){
+      if(day>=cutD){
+        if(sourceFilter==='wild_birds')unk+=v.wb||0;
+        else if(sourceFilter==='poultry')unk+=v.p||0;
+        else unk+=(v.wb||0)+(v.p||0);
+      }
+    }
+  } else if(D.unknown_by_month){
+    for(const[m,v]of Object.entries(D.unknown_by_month)){
+      if(m>=cutM){
+        if(sourceFilter==='wild_birds')unk+=v.wb||0;
+        else if(sourceFilter==='poultry')unk+=v.p||0;
+        else unk+=(v.wb||0)+(v.p||0);
+      }
+    }
+  }
   const rangeLabel={'7d':'7-day','14d':'14-day','30d':'30-day','60d':'60-day','3m':'3-month','1y':'1-year'}[mapRange]||mapRange;
   const srcLabel=sourceFilter==='both'?'':(sourceFilter==='wild_birds'?' (wild birds only)':' (poultry only)');
   let summary=activeCounties.toLocaleString()+' counties with '+totalDet.toLocaleString()+' detections in '+rangeLabel+' window'+srcLabel;

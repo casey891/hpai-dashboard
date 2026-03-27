@@ -87,7 +87,10 @@ def aggregate_county_detections(all_events, fips_lookup):
                 "state": state, "county": county,
                 "wild_birds": 0, "poultry": 0, "total": 0,
                 "dated_sources": [], "latest_date": None,
+                "wild_birds_by_day": defaultdict(int),
+                "poultry_by_day": defaultdict(int),
                 "poultry_by_month_prod": defaultdict(lambda: defaultdict(lambda: {"count": 0, "birds": 0})),
+                "poultry_by_day_prod": defaultdict(lambda: defaultdict(lambda: {"count": 0, "birds": 0})),
             }
 
         entry = county_data[fips]
@@ -97,13 +100,19 @@ def aggregate_county_detections(all_events, fips_lookup):
         entry["dated_sources"].append((iso, source))
         if entry["latest_date"] is None or iso > entry["latest_date"]:
             entry["latest_date"] = iso
+        if source == "wild_birds":
+            entry["wild_birds_by_day"][iso] += 1
         if source == "poultry":
             month = iso[:7]
+            entry["poultry_by_day"][iso] += 1
             production = event.get("production") or "Unknown / Unspecified"
             flock = int(event.get("flock") or 0)
             prod_entry = entry["poultry_by_month_prod"][month][production]
             prod_entry["count"] += 1
             prod_entry["birds"] += flock
+            day_prod_entry = entry["poultry_by_day_prod"][iso][production]
+            day_prod_entry["count"] += 1
+            day_prod_entry["birds"] += flock
 
     if unmapped_set:
         print(f"  WARNING: {len(unmapped_set)} unique State+County pairs could not be FIPS-mapped:")
@@ -119,7 +128,10 @@ def compress_map_data(county_data):
     for fips, info in county_data.items():
         mo_wb = defaultdict(int)
         mo_p = defaultdict(int)
+        day_wb = dict(info.get("wild_birds_by_day", {}))
+        day_p = dict(info.get("poultry_by_day", {}))
         poultry_breakdown = {}
+        poultry_breakdown_by_day = {}
         for date_str, source in info["dated_sources"]:
             ym = date_str[:7]
             if source == "wild_birds":
@@ -132,6 +144,12 @@ def compress_map_data(county_data):
                 for production, vals in prod_map.items()
                 if vals["count"] or vals["birds"]
             }
+        for day, prod_map in info.get("poultry_by_day_prod", {}).items():
+            poultry_breakdown_by_day[day] = {
+                production: [vals["count"], vals["birds"]]
+                for production, vals in prod_map.items()
+                if vals["count"] or vals["birds"]
+            }
         result[fips] = {
             "s": info["state"],
             "c": info["county"],
@@ -139,6 +157,9 @@ def compress_map_data(county_data):
             "p": info["poultry"],
             "t": info["total"],
             "ld": info["latest_date"],
+            "dwb": day_wb,
+            "dp": day_p,
+            "dpp": poultry_breakdown_by_day,
             "mwb": dict(mo_wb),
             "mp": dict(mo_p),
             "mpp": poultry_breakdown,

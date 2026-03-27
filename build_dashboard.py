@@ -550,25 +550,33 @@ def main():
         fips_lookup = build_fips_lookup()
         county_data, unknown_count, unknown_events = aggregate_county_detections(heatmap_events, fips_lookup)
         map_compressed = compress_map_data(county_data)
-        # Compress unknown events by year-month and source
+        # Compress unknown events by day and by year-month so exact-date map
+        # windows can still report excluded detections accurately.
+        unk_by_day = defaultdict(lambda: {"wb": 0, "p": 0})
         unk_by_month = defaultdict(lambda: {"wb": 0, "p": 0})
         for ue in unknown_events:
+            day = ue["date"].strftime("%Y-%m-%d")
             ym = ue["date"].strftime("%Y-%m")
             if ue["source"] == "wild_birds":
+                unk_by_day[day]["wb"] += 1
                 unk_by_month[ym]["wb"] += 1
             else:
+                unk_by_day[day]["p"] += 1
                 unk_by_month[ym]["p"] += 1
+        unk_by_day_compressed = {day: dict(v) for day, v in unk_by_day.items()}
         unk_compressed = {ym: dict(v) for ym, v in unk_by_month.items()}
         print(f"  {len(map_compressed)} counties mapped, {unknown_count} excluded (county unknown)")
     else:
         print("  WARNING: addfips not installed, skipping heatmap")
         map_compressed = None
+        unk_by_day_compressed = {}
         unk_compressed = {}
 
     # 5. Build data & HTML
     data = build_data(events, caged_prices, livestock=livestock, mammals=mammals, wild_birds=wild_birds, livestock_updated=livestock_updated)
     if map_compressed:
         data["map_data"] = map_compressed
+        data["unknown_by_day"] = unk_by_day_compressed
         data["unknown_by_month"] = unk_compressed
     html, data_json = generate_html(data, data_url=args.data_url)
 
