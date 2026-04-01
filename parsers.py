@@ -90,24 +90,41 @@ def _detect_csv_format(path):
     return "flat"
 
 
+def _parse_birds_affected(s):
+    """Parse Birds Affected value, handling 'M' suffix (millions) from Tableau."""
+    s = s.strip().replace(",", "")
+    if not s:
+        return None
+    if s.upper().endswith("M"):
+        try:
+            return int(float(s[:-1]) * 1_000_000)
+        except ValueError:
+            return None
+    if s.upper().endswith("K"):
+        try:
+            return int(float(s[:-1]) * 1_000)
+        except ValueError:
+            return None
+    try:
+        return int(float(s))
+    except ValueError:
+        return None
+
+
 def _parse_hpai_flat(path):
     """Parse flat CSV from Tableau .csv endpoint (UTF-8 comma-delimited)."""
     events = []
     with open(path, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            confirmed = row.get("Confirmed", "").strip()
+            confirmed = (row.get("Confirmed Diagnosis") or row.get("Confirmed") or "").strip()
             if not confirmed:
                 continue
             dt = _parse_date(confirmed)
             if dt is None:
                 continue
-            birds_str = row.get("Birds Affected", "").strip().replace(",", "")
-            if not birds_str:
-                continue
-            try:
-                flock = int(float(birds_str))
-            except ValueError:
+            flock = _parse_birds_affected(row.get("Birds Affected", ""))
+            if flock is None:
                 continue
             events.append({
                 "date": dt,
@@ -117,6 +134,15 @@ def _parse_hpai_flat(path):
                 "flock": flock,
             })
     return events
+
+
+def _find_col(hdr_low, *candidates):
+    """Return index of first header containing any candidate substring."""
+    for c in candidates:
+        for i, h in enumerate(hdr_low):
+            if c in h:
+                return i
+    raise ValueError(f"Column not found: {candidates}")
 
 
 def _parse_hpai_crosstab(path):
@@ -135,10 +161,13 @@ def _parse_hpai_crosstab(path):
 
     hdrs = lines[hdr_idx].split("\t")
     hdr_low = [h.strip().lower() for h in hdrs]
-    ci = hdr_low.index("confirmed")
-    si = hdr_low.index("state")
-    cni = hdr_low.index("county name") if "county name" in hdr_low else None
-    pi = hdr_low.index("production")
+    ci = _find_col(hdr_low, "confirmed diagnosis", "confirmed")
+    si = _find_col(hdr_low, "state")
+    try:
+        cni = _find_col(hdr_low, "county name")
+    except ValueError:
+        cni = None
+    pi = _find_col(hdr_low, "production")
     data_start = pi + 1
 
     events = []
@@ -219,7 +248,7 @@ def _parse_livestock_flat(path):
     with open(path, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            confirmed = row.get("Confirmed", "").strip()
+            confirmed = (row.get("Confirmed Diagnosis") or row.get("Confirmed") or "").strip()
             if not confirmed:
                 continue
             dt = _parse_date(confirmed)
@@ -254,11 +283,11 @@ def _parse_livestock_crosstab(path):
 
     hdrs = lines[hdr_idx].split("\t")
     hdr_low = [h.strip().lower() for h in hdrs]
-    ci = hdr_low.index("confirmed")
-    si = hdr_low.index("state")
-    idi = hdr_low.index("special id")
-    pi = hdr_low.index("production")
-    spi = hdr_low.index("species")
+    ci = _find_col(hdr_low, "confirmed diagnosis", "confirmed")
+    si = _find_col(hdr_low, "state")
+    idi = _find_col(hdr_low, "special id")
+    pi = _find_col(hdr_low, "production")
+    spi = _find_col(hdr_low, "species")
 
     events = []
     for line in lines[hdr_idx + 1:]:

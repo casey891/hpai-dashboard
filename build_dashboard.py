@@ -484,7 +484,14 @@ def main():
     livestock_path = Path(args.livestock)
 
     if not csv_path.exists():
-        sys.exit(f"ERROR: File not found: {csv_path}")
+        print(f"  CSV not found: {csv_path}")
+        print(f"  Attempting Tableau direct download as fallback...")
+        from download_data import DOWNLOADS, download_one
+        flock_config = DOWNLOADS["A Table by Confirmation Date.csv"]
+        if not download_one("A Table by Confirmation Date.csv", flock_config, base_dir):
+            sys.exit("ERROR: Could not download flock data from Tableau endpoint.")
+        if not csv_path.exists():
+            sys.exit(f"ERROR: File still not found after download: {csv_path}")
 
     # 1. Parse HPAI CSV
     print(f"Parsing HPAI data: {csv_path}")

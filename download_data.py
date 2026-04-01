@@ -36,7 +36,7 @@ DOWNLOADS = {
     "A Table by Confirmation Date.csv": {
         "url": "https://publicdashboards.dl.usda.gov/t/MRP_PUB/views/VS_Avian_HPAIConfirmedDetections2022/HPAI2022ConfirmedDetections.csv",
         "type": "tableau_csv",
-        "validate": lambda text: "Confirmed" in text.split("\n")[0],
+        "validate": lambda text: "Confirmed" in text.split("\n")[0] and "State" in text.split("\n")[0],
         "prefer_local": True,
     },
 }
