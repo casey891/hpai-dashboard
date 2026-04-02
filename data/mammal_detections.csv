@@ -1,8 +1,8 @@
 Date,State,County,Species,Group,Strain
+03/18/2026,California,San Luis Obispo,California sea lion,Marine Mammals,EA H5N1
 03/13/2026,New York,Westchester,Red fox,Wild Carnivores,EA H5
+03/13/2026,New Jersey,Essex,Domestic cat,Domestic/Companion,EA H5
 03/12/2026,Alaska,Nome,Red fox,Wild Carnivores,EA H5N1
-03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
-03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
 03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
 03/10/2026,Colorado,Weld,Fox (unidentified),Wild Carnivores,EA H5
 03/06/2026,Wisconsin,Jefferson,Virginia opossum,Rodents/Small Mammals,EA H5
@@ -10,8 +10,8 @@ Date,State,County,Species,Group,Strain
 03/05/2026,Wisconsin,Jefferson,Domestic cat,Domestic/Companion,EA H5
 03/05/2026,Wisconsin,Jefferson,Striped skunk,Wild Carnivores,EA H5
 03/04/2026,California,San Mateo,California sea lion,Marine Mammals,EA H5N1
-03/02/2026,Colorado,Jefferson,Bobcat,Domestic/Companion,EA H5
-03/02/2026,Colorado,Adams,Striped skunk,Wild Carnivores,EA H5
+03/02/2026,Colorado,Jefferson,Bobcat,Domestic/Companion,EA/AM H5N1
+03/02/2026,Colorado,Adams,Striped skunk,Wild Carnivores,EA/AM H5N1
 03/01/2026,Colorado,Weld,Skunk (unidentified),Wild Carnivores,EA H5
 02/26/2026,California,San Mateo,Sea otter,Marine Mammals,EA H5N1
 02/25/2026,California,San Mateo,Northern elephant seal,Marine Mammals,EA H5N1
@@ -457,7 +457,7 @@ Date,State,County,Species,Group,Strain
 05/06/2024,New Mexico,Roosevelt,Red fox,Wild Carnivores,EA/AM H5N1
 05/06/2024,New Mexico,Roosevelt,House mouse,Rodents/Small Mammals,EA H5N1
 05/05/2024,New Mexico,Roosevelt,Striped skunk,Wild Carnivores,EA H5N1
-05/02/2024,Minnesota,Washington,Red fox,Wild Carnivores,EA H5N1
+05/02/2024,Minnesota,Washington,Red fox,Wild Carnivores,EA/AM H5N1
 04/29/2024,New York,Onondaga,Red fox,Wild Carnivores,EA/AM H5N1
 04/25/2024,Michigan,Ionia,Domestic cat,Domestic/Companion,EA/AM H5N1
 04/24/2024,Michigan,Ionia,Red fox,Wild Carnivores,EA/AM H5N1
@@ -490,7 +490,6 @@ Date,State,County,Species,Group,Strain
 03/20/2024,New Mexico,Curry,Domestic cat,Domestic/Companion,EA/AM H5N1
 03/20/2024,New Mexico,Curry,Domestic cat,Domestic/Companion,EA/AM H5N1
 03/20/2024,Oklahoma,Harmon,Domestic cat,Domestic/Companion,EA/AM H5N1
-03/20/2024,Texas,Hartley,Domestic cat,Domestic/Companion,EA/AM H5N1
 03/19/2024,New Mexico,Curry,Domestic cat,Domestic/Companion,EA/AM H5N1
 03/19/2024,Montana,Yellowstone,Domestic cat,Domestic/Companion,EA/AM H5N1
 03/19/2024,Texas,Hartley,Domestic cat,Domestic/Companion,EA/AM H5N1
@@ -590,7 +589,6 @@ Date,State,County,Species,Group,Strain
 03/14/2023,California,Mono,Mountain lion,Wild Carnivores,EA/AM H5N1
 03/14/2023,California,Mono,Mountain lion,Wild Carnivores,EA/AM H5N1
 03/10/2023,New Mexico,San Juan,Striped skunk,Wild Carnivores,EA/AM H5N1
-03/10/2023,Utah,Salt Lake,Mountain lion,Wild Carnivores,EA/AM H5N1
 03/07/2023,Oregon,Douglas,American marten,Wild Carnivores,EA H5N1
 03/06/2023,Texas,Carson,Striped skunk,Wild Carnivores,EA/AM H5N1
 03/03/2023,California,Trinity,Fisher,Wild Carnivores,EA H5N1
@@ -689,10 +687,7 @@ Date,State,County,Species,Group,Strain
 06/13/2022,Alaska,Nome Census Area,Red fox,Wild Carnivores,EA/AM H5N1
 06/07/2022,Idaho,Adams,Striped skunk,Wild Carnivores,EA/AM H5N1
 06/07/2022,Idaho,Adams,Striped skunk,Wild Carnivores,EA/AM H5N1
-06/06/2022,Washington,Franklin,Raccoon,Wild Carnivores,EA H5N1
 06/06/2022,Washington,Franklin,Raccoon,Wild Carnivores,EA/AM H5N1
-06/06/2022,Washington,Franklin,Raccoon,Wild Carnivores,EA H5N1
-06/06/2022,Washington,Franklin,Raccoon,Wild Carnivores,EA H5N1
 06/05/2022,Idaho,Latah,Striped skunk,Wild Carnivores,EA/AM H5N1
 06/01/2022,Michigan,Muskegon,Red fox,Wild Carnivores,EA/AM H5N1
 05/31/2022,Michigan,Chippewa,Red fox,Wild Carnivores,EA H5N1
@@ -732,7 +727,7 @@ Date,State,County,Species,Group,Strain
 05/03/2022,Michigan,Wexford,Coyote,Wild Carnivores,EA/AM H5N1
 04/27/2022,New York,Erie,Red fox,Wild Carnivores,EA H5N1
 04/27/2022,New York,Erie,Red fox,Wild Carnivores,EA H5N1
-04/24/2022,Wisconsin,Waushara,Red fox,Wild Carnivores,EA/AM H5N1
+04/24/2022,Wisconsin,Waushara,Red fox,Wild Carnivores,EA H5N1
 04/24/2022,Wisconsin,Lincoln,Bobcat,Domestic/Companion,EA H5N1
 04/22/2022,Minnesota,Anoka,Red fox,Wild Carnivores,EA/AM H5N1
 04/20/2022,Nebraska,Lancaster,Grizzly bear,Wild Carnivores,EA/AM H5N1
@@ -747,7 +742,6 @@ Date,State,County,Species,Group,Strain
 04/11/2022,Wisconsin,Jefferson,Red fox,Wild Carnivores,EA H5N1
 04/11/2022,New York,Tompkins,Red fox,Wild Carnivores,EA H5N1
 04/09/2022,Wisconsin,Jefferson,Red fox,Wild Carnivores,EA H5N1
-04/09/2022,Wisconsin,Jefferson,Red fox,Wild Carnivores,EA H5N1
-04/01/2022,Michigan,Macomb,Red fox,Wild Carnivores,EA/AM H5N1
+04/09/2022,Wisconsin,Jefferson,Red fox,Wild Carnivores,EA/AM H5N1
 04/01/2022,Michigan,Macomb,Red fox,Wild Carnivores,EA/AM H5N1
 03/30/2022,Florida,Dixie,Bottlenose dolphin,Marine Mammals,EA/AM H5N1
