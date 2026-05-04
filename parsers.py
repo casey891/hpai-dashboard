@@ -168,14 +168,33 @@ def _parse_hpai_crosstab(path):
     except ValueError:
         cni = None
     pi = _find_col(hdr_low, "production")
-    data_start = pi + 1
+
+    # Collect indices of all known named columns
+    named_cols = {ci, si, pi}
+    if cni is not None:
+        named_cols.add(cni)
+
+    # Detect optional columns added in the 2026 format refresh
+    try:
+        idi = _find_col(hdr_low, "special id")
+        named_cols.add(idi)
+    except ValueError:
+        idi = None
+    try:
+        cri = _find_col(hdr_low, "control area released")
+        named_cols.add(cri)
+    except ValueError:
+        cri = None
+
+    # Data (bird-count) columns = everything not identified as a named column
+    data_cols = [i for i in range(len(hdrs)) if i not in named_cols]
 
     events = []
     prev_conf = prev_st = prev_cn = None
 
     for line in lines[hdr_idx + 1:]:
         cols = line.split("\t")
-        if len(cols) <= data_start:
+        if not any(idx < len(cols) for idx in data_cols):
             continue
         confirmed = cols[ci].strip()
         state = cols[si].strip()
@@ -196,20 +215,22 @@ def _parse_hpai_crosstab(path):
         if not confirmed or not production:
             continue
         flock = None
-        for cell in cols[data_start:]:
-            v = cell.strip().replace(",", "")
-            if v:
-                try:
-                    flock = int(float(v))
-                    break
-                except ValueError:
-                    continue
+        for idx in data_cols:
+            if idx < len(cols):
+                v = cols[idx].strip().replace(",", "")
+                if v:
+                    try:
+                        flock = int(float(v))
+                        break
+                    except ValueError:
+                        continue
         if flock is None:
             continue
         dt = _parse_date(confirmed)
         if dt is None:
             continue
-        events.append({"date": dt, "state": state, "county": county, "production": production, "flock": flock})
+        car = cols[cri].strip() if cri is not None and cri < len(cols) else None
+        events.append({"date": dt, "state": state, "county": county, "production": production, "flock": flock, "control_area_released": car})
 
     return events
 
