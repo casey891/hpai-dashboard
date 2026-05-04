@@ -1,4 +1,9 @@
 Date,State,Special Id,Production,Species
+04/13/2026,Idaho,ID 117,Dairy Milking Cows,Cattle
+04/13/2026,Idaho,ID 118,Dairy Milking Cows,Cattle
+04/13/2026,Idaho,ID 119,Dairy Milking Cows,Cattle
+04/13/2026,Idaho,ID 120,Dairy Milking Cows,Cattle
+04/13/2026,Idaho,ID 121,Dairy Milking Cows,Cattle
 12/13/2025,Wisconsin,WI 001,Dairy Milking Cows,Cattle
 11/26/2025,California,CA 778,Dairy Milking Cows,Cattle
 10/10/2025,Idaho,ID 112,Dairy Milking Cows,Cattle
@@ -683,7 +688,7 @@ Date,State,Special Id,Production,Species
 10/31/2024,Utah,UT 007,Dairy Milking Cows,Cattle
 10/31/2024,Utah,UT 008,Dairy Milking Cows,Cattle
 10/31/2024,Utah,UT 009,Dairy Milking Cows,Cattle
-10/30/2024,Oregon,OR 001,Backyard Producer,Swine
+10/30/2024,Oregon,OR 001,Backyard Producer,
 10/29/2024,California,CA 198,Dairy Milking Cows,Cattle
 10/29/2024,California,CA 199,Dairy Milking Cows,Cattle
 10/29/2024,California,CA 200,Dairy Milking Cows,Cattle
@@ -1038,7 +1043,7 @@ Date,State,Special Id,Production,Species
 05/20/2024,Texas,TX 014,Dairy Milking Cows,Cattle
 05/17/2024,South Dakota,SD 003,Dairy Milking Cows,Cattle
 05/16/2024,Idaho,ID 006,Dairy Milking Cows,Cattle
-05/16/2024,Idaho,ID 007,Backyard Producer,Alpaca
+05/16/2024,Idaho,ID 007,Backyard Producer,
 05/16/2024,Michigan,MI 015,Dairy Milking Cows,Cattle
 05/14/2024,Idaho,ID 005,Dairy Milking Cows,Cattle
 05/14/2024,Michigan,MI 013,Dairy Milking Cows,Cattle

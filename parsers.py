@@ -288,6 +288,16 @@ def _parse_livestock_flat(path):
     return events
 
 
+def _infer_livestock_species(production):
+    """Infer species from livestock production type when species column is unavailable."""
+    low = production.lower()
+    if "dairy" in low or "cattle" in low or "beef" in low:
+        return "Cattle"
+    if "swine" in low or "pig" in low or "hog" in low:
+        return "Swine"
+    return ""
+
+
 def _parse_livestock_crosstab(path):
     """Parse crosstab CSV from Tableau 'Download Data' (UTF-16 tab-delimited)."""
     with open(path, encoding="utf-16") as f:
@@ -296,7 +306,7 @@ def _parse_livestock_crosstab(path):
     hdr_idx = None
     for i, line in enumerate(lines):
         low = line.lower()
-        if "confirmed" in low and "production" in low and "species" in low:
+        if "confirmed" in low and "production" in low:
             hdr_idx = i
             break
     if hdr_idx is None:
@@ -308,18 +318,25 @@ def _parse_livestock_crosstab(path):
     si = _find_col(hdr_low, "state")
     idi = _find_col(hdr_low, "special id")
     pi = _find_col(hdr_low, "production")
-    spi = _find_col(hdr_low, "species")
+    try:
+        spi = _find_col(hdr_low, "species")
+    except ValueError:
+        spi = None
+    min_cols = max(ci, si, idi, pi) + 1
 
     events = []
     for line in lines[hdr_idx + 1:]:
         cols = line.split("\t")
-        if len(cols) < max(ci, si, idi, pi, spi) + 1:
+        if len(cols) < min_cols:
             continue
         confirmed = cols[ci].strip()
         state = cols[si].strip()
         special_id = cols[idi].strip()
         production = cols[pi].strip()
-        species = cols[spi].strip()
+        if spi is not None and spi < len(cols):
+            species = cols[spi].strip()
+        else:
+            species = _infer_livestock_species(production)
         if not confirmed or not state:
             continue
         dt = _parse_date(confirmed)
