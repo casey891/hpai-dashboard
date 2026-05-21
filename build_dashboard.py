@@ -177,8 +177,13 @@ def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=No
         wb_days = sorted(wb_daily.keys())
         wb_day_labels = [datetime.strptime(d, "%Y-%m-%d").strftime("%b %d") for d in wb_days]
         # Cap event rows at source — table JS will also cap rendering at 500
+        def wb_date_str(dt):
+            return dt.strftime("%Y-%m-%d") if dt else ""
+
         wb_rows = sorted(
-            [{"d": e["date"].strftime("%Y-%m-%d"), "s": e["state"],
+            [{"d": wb_date_str(e.get("detected_date") or e["date"]),
+              "cd": wb_date_str(e.get("collection_date")),
+              "s": e["state"],
               "c": e["county"], "sp": e["species"], "st": e["strain"]}
              for e in wild_birds],
             key=lambda r: r["d"], reverse=True,
@@ -230,9 +235,12 @@ def export_clean_csvs(data_dir, events, livestock=None, mammals=None, wild_birds
         wb_path = data_dir / "wild_bird_detections.csv"
         with open(wb_path, "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
-            w.writerow(["Date", "State", "County", "Species", "Strain"])
+            w.writerow(["Date Detected", "Collection Date", "State", "County", "Species", "Strain"])
             for e in sorted(wild_birds, key=lambda e: e["date"], reverse=True):
-                w.writerow([e["date"].strftime("%m/%d/%Y"), e["state"], e["county"],
+                detected = e.get("detected_date") or e["date"]
+                collection = e.get("collection_date")
+                collection_value = collection.strftime("%m/%d/%Y") if collection else "Unknown"
+                w.writerow([detected.strftime("%m/%d/%Y"), collection_value, e["state"], e["county"],
                             e["species"], e["strain"]])
         print(f"  {wb_path} ({len(wild_birds)} rows)")
 
@@ -383,11 +391,11 @@ def generate_html(data, data_url="data"):
   </div>
   <div class="card">
     <h2>Wild Bird Detection Details</h2>
-    <div class="sub">Individual confirmed detections arranged by sample collection date</div>
+    <div class="sub">Individual confirmed detections arranged by APHIS detection date</div>
     <input type="text" class="tbl-search" id="wbSearch" placeholder="Filter by state, county, species..." oninput="updateWbTable()">
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>Date</th><th>State</th><th>County</th><th>Species</th><th>Strain</th></tr></thead>
+        <thead><tr><th>Date Detected</th><th>Collection Date</th><th>State</th><th>County</th><th>Species</th><th>Strain</th></tr></thead>
         <tbody id="wbTblBody"></tbody>
       </table>
     </div>

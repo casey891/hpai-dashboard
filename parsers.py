@@ -477,15 +477,16 @@ def parse_wild_birds_csv(path):
     with open(path, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            date_str = row.get("Collection Date", "").strip()
-            if not date_str:
-                continue
-            dt = _parse_date(date_str)
+            collection_dt = _parse_date(row.get("Collection Date", "").strip())
+            detected_dt = _parse_date(row.get("Date Detected", "").strip())
+            dt = detected_dt or collection_dt
             if dt is None:
                 continue
             species = row.get("Bird Species", "").strip()
             events.append({
                 "date": dt,
+                "collection_date": collection_dt,
+                "detected_date": detected_dt,
                 "state": row.get("State", "").strip(),
                 "county": row.get("County", "").strip(),
                 "species": species,

@@ -18,7 +18,9 @@ Usage:
 import argparse
 import sys
 from datetime import datetime
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urljoin
 
 import requests
 
@@ -27,6 +29,8 @@ import requests
 DOWNLOADS = {
     "HPAI Detections in Wild Birds.csv": {
         "url": "https://www.aphis.usda.gov/sites/default/files/hpai-wild-birds.csv",
+        "page_url": "https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1",
+        "csv_url_contains": "hpai-wild-birds",
         "type": "direct",
     },
     "HPAI Detections in Mammals.csv": {
@@ -42,9 +46,43 @@ DOWNLOADS = {
 }
 
 
+class CsvToDatatableParser(HTMLParser):
+    """Find APHIS csv-to-datatable CSV source URLs in rendered Drupal markup."""
+
+    def __init__(self):
+        super().__init__()
+        self.urls = []
+
+    def handle_starttag(self, tag, attrs):
+        attr = dict(attrs)
+        csv_url = (attr.get("data-csv-url") or "").strip()
+        classes = attr.get("class", "")
+        if csv_url and "csv-to-datatable" in classes:
+            self.urls.append(csv_url)
+
+
+def discover_csv_url(page_url, fallback_url, contains=None):
+    """Resolve the CSV URL wired to an APHIS csv-to-datatable block."""
+    try:
+        resp = requests.get(page_url, timeout=60)
+        resp.raise_for_status()
+    except requests.RequestException:
+        return fallback_url
+
+    parser = CsvToDatatableParser()
+    parser.feed(resp.text)
+    for csv_url in parser.urls:
+        full_url = urljoin(page_url, csv_url)
+        if not contains or contains in full_url:
+            return full_url
+    return fallback_url
+
+
 def download_one(name, config, output_dir):
     """Download a single dataset. Returns True on success, False on failure."""
     url = config["url"]
+    if config.get("page_url"):
+        url = discover_csv_url(config["page_url"], url, config.get("csv_url_contains"))
     out_path = output_dir / name
     print(f"  {name}")
 

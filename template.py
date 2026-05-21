@@ -709,7 +709,7 @@ function updateWbTable(resetPage){
   const q=(document.getElementById('wbSearch')?.value||'').toLowerCase().trim();
   const filtered=D.wild_birds.events.filter(e=>e.d>=cutoff&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.st.toLowerCase().includes(q)));
   const start=wbPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
-  document.getElementById('wbTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.st+'</td></tr>').join('');
+  document.getElementById('wbTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+(e.cd?fmtDate(e.cd):'Unknown')+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.st+'</td></tr>').join('');
   document.getElementById('wbTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
   renderPager('wbPager',wbPage,filtered.length);
 }
