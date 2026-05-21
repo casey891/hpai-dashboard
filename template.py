@@ -329,7 +329,7 @@ const TOPO_URL='https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json';
 let mapRange='30d',sourceFilter='both';
 let mapSvg,mapPath,mapTooltip,countyPaths;
 let eggRange='all',birdsRange='all',infRange='all',tblRange='all';
-let lsRange='all',wbRange='all',mmRange='all',mmTblRange='all';
+let lsRange='all',wbRange='all',wbDateMode='collection',mmRange='all',mmTblRange='all';
 let kpiRange='30d';
 const PAGE_SIZE=100;
 let tblPage=0,lsPage=0,wbPage=0,mmPage=0;
@@ -692,24 +692,35 @@ function updateLsTable(resetPage){
   renderPager('lsPager',lsPage,filtered.length);
 }
 function initWildBirds(){
-  const WB=D.wild_birds;
+  const WB=wbSeries();
   wbChart=new Chart(document.getElementById('cWildBirds'),{type:'bar',data:{labels:WB.month_labels,datasets:[{label:'Detections',data:WB.monthly_counts,backgroundColor:'#1F9EBC'}]},options:{responsive:true,aspectRatio:2.5,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' detections'}}},scales:{x:{ticks:{maxRotation:45},grid:{display:false}},y:{title:{display:true,text:'Detections'},grid:{color:'#f1f5f9'},ticks:{callback:fmtBirds}}}}});
-  updateWbTable();
+  updateWildBirds();
 }
-function wbDailyIndices(range){const cutoff=cutoffDate(range);const idx=[];D.wild_birds.daily_dates.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
+function wbSeries(){const WB=D.wild_birds;return wbDateMode==='detection'?(WB.by_detection||WB):(WB.by_collection||WB);}
+function wbBasisDate(e){return wbDateMode==='detection'?e.d:e.cd;}
+function wbSortDate(e){return wbBasisDate(e)||'0000-00-00';}
+function setWbDateMode(mode){
+  wbDateMode=mode==='detection'?'detection':'collection';
+  document.querySelectorAll('[data-chart="wbDateMode"] .rbtn').forEach(b=>b.classList.toggle('active',b.dataset.mode===wbDateMode));
+  const sub=document.getElementById('wbDetailSub');
+  if(sub)sub.textContent='Individual confirmed detections arranged by '+(wbDateMode==='detection'?'APHIS detection date':'sample collection date');
+  updateWildBirds();
+}
+function wbDailyIndices(range,WB){const cutoff=cutoffDate(range);const idx=[];WB.daily_dates.forEach((d,i)=>{if(new Date(d)>=cutoff)idx.push(i);});return idx;}
 function updateWildBirds(){
-  if(!wbChart||!D.wild_birds)return;const WB=D.wild_birds;
-  if(isDaily(wbRange)){const idx=wbDailyIndices(wbRange);wbChart.data.labels=sliceByIdx(WB.daily_labels,idx);wbChart.data.datasets[0].data=sliceByIdx(WB.daily_counts,idx);}
+  if(!wbChart||!D.wild_birds)return;const WB=wbSeries();
+  if(isDaily(wbRange)){const idx=wbDailyIndices(wbRange,WB);wbChart.data.labels=sliceByIdx(WB.daily_labels,idx);wbChart.data.datasets[0].data=sliceByIdx(WB.daily_counts,idx);}
   else{const cutM=cutoffMonth(wbRange);const idx=[];WB.months.forEach((m,i)=>{if(m>=cutM)idx.push(i);});wbChart.data.labels=sliceByIdx(WB.month_labels,idx);wbChart.data.datasets[0].data=sliceByIdx(WB.monthly_counts,idx);}
-  wbChart.update();document.getElementById('wbTitle').textContent='Wild Bird HPAI Detections by '+(isDaily(wbRange)?'Day':'Month');updateWbTable();
+  const basis=wbDateMode==='detection'?'Detection':'Collection';
+  wbChart.update();document.getElementById('wbTitle').textContent='Wild Bird HPAI Detections by '+basis+' '+(isDaily(wbRange)?'Day':'Month');updateWbTable();
 }
 function updateWbTable(resetPage){
   if(!D.wild_birds)return;if(resetPage!==false)wbPage=0;
   const cutoff=cutoffISO(wbRange);
   const q=(document.getElementById('wbSearch')?.value||'').toLowerCase().trim();
-  const filtered=D.wild_birds.events.filter(e=>e.d>=cutoff&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.st.toLowerCase().includes(q)));
+  const filtered=D.wild_birds.events.filter(e=>{const bd=wbBasisDate(e);return (wbRange==='all'||(bd&&bd>=cutoff))&&(!q||e.s.toLowerCase().includes(q)||e.c.toLowerCase().includes(q)||e.sp.toLowerCase().includes(q)||e.st.toLowerCase().includes(q));}).sort((a,b)=>wbSortDate(b).localeCompare(wbSortDate(a))||(b.d||'').localeCompare(a.d||''));
   const start=wbPage*PAGE_SIZE;const show=filtered.slice(start,start+PAGE_SIZE);
-  document.getElementById('wbTblBody').innerHTML=show.map(e=>'<tr><td>'+fmtDate(e.d)+'</td><td>'+(e.cd?fmtDate(e.cd):'Unknown')+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.st+'</td></tr>').join('');
+  document.getElementById('wbTblBody').innerHTML=show.map(e=>'<tr><td>'+(e.cd?fmtDate(e.cd):'Unknown')+'</td><td>'+(e.d?fmtDate(e.d):'Unknown')+'</td><td>'+e.s+'</td><td>'+e.c+'</td><td>'+e.sp+'</td><td>'+e.st+'</td></tr>').join('');
   document.getElementById('wbTblSummary').textContent='Showing '+(start+1)+'-'+(start+show.length)+' of '+filtered.length.toLocaleString()+' detections';
   renderPager('wbPager',wbPage,filtered.length);
 }
@@ -840,6 +851,7 @@ function initDashboard(){
 
   /* Range button wiring */
   document.querySelectorAll('.range-row').forEach(row=>{const chart=row.dataset.chart;row.querySelectorAll('.rbtn').forEach(btn=>{btn.addEventListener('click',()=>{
+    if(chart==='wbDateMode'){setWbDateMode(btn.dataset.mode);return;}
     row.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const r=btn.dataset.r;
     if(chart==='map'){mapRange=r;updateMapColors();}
     if(chart==='source'){sourceFilter=r;updateMapColors();}

@@ -166,16 +166,31 @@ def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=No
 
     # ── Wild birds aggregation ──
     if wild_birds:
-        wb_monthly = defaultdict(int)
-        wb_daily = defaultdict(int)
-        for e in wild_birds:
-            mk = e["date"].strftime("%Y-%m")
-            wb_monthly[mk] += 1
-            dk = e["date"].strftime("%Y-%m-%d")
-            wb_daily[dk] += 1
-        wb_months = sorted(wb_monthly.keys())
-        wb_days = sorted(wb_daily.keys())
-        wb_day_labels = [datetime.strptime(d, "%Y-%m-%d").strftime("%b %d") for d in wb_days]
+        def build_wb_series(date_fn):
+            wb_monthly = defaultdict(int)
+            wb_daily = defaultdict(int)
+            for e in wild_birds:
+                dt = date_fn(e)
+                if not dt:
+                    continue
+                mk = dt.strftime("%Y-%m")
+                wb_monthly[mk] += 1
+                dk = dt.strftime("%Y-%m-%d")
+                wb_daily[dk] += 1
+            wb_months = sorted(wb_monthly.keys())
+            wb_days = sorted(wb_daily.keys())
+            return {
+                "months": wb_months,
+                "month_labels": [datetime.strptime(m, "%Y-%m").strftime("%b %Y") for m in wb_months],
+                "monthly_counts": [wb_monthly[m] for m in wb_months],
+                "daily_dates": wb_days,
+                "daily_labels": [datetime.strptime(d, "%Y-%m-%d").strftime("%b %d") for d in wb_days],
+                "daily_counts": [wb_daily[d] for d in wb_days],
+            }
+
+        collection_series = build_wb_series(lambda e: e.get("collection_date"))
+        detection_series = build_wb_series(lambda e: e.get("detected_date") or e["date"])
+
         # Cap event rows at source — table JS will also cap rendering at 500
         def wb_date_str(dt):
             return dt.strftime("%Y-%m-%d") if dt else ""
@@ -189,12 +204,9 @@ def build_data(events, caged_prices, livestock=None, mammals=None, wild_birds=No
             key=lambda r: r["d"], reverse=True,
         )
         result["wild_birds"] = {
-            "months": wb_months,
-            "month_labels": [datetime.strptime(m, "%Y-%m").strftime("%b %Y") for m in wb_months],
-            "monthly_counts": [wb_monthly[m] for m in wb_months],
-            "daily_dates": wb_days,
-            "daily_labels": wb_day_labels,
-            "daily_counts": [wb_daily[d] for d in wb_days],
+            **collection_series,
+            "by_collection": collection_series,
+            "by_detection": detection_series,
             "events": wb_rows,
             "total": len(wild_birds),
         }
@@ -385,17 +397,29 @@ def generate_html(data, data_url="data"):
   <div class="card">
     <h2 id="wbTitle">Wild Bird HPAI Detections by Month</h2>
     <div class="sub">Confirmed detections in wild bird populations</div>
-    <div class="controls">{RANGE_BUTTONS.format(chart="wb")}</div>
+    <div class="controls">
+      {RANGE_BUTTONS.format(chart="wb")}
+      <div class="range-row" data-chart="wbDateMode">
+        <button class="rbtn active" data-mode="collection">Collection Date</button>
+        <button class="rbtn" data-mode="detection">Detection Date</button>
+      </div>
+    </div>
     <canvas id="cWildBirds"></canvas>
     <div class="card-source">Chart: Innovate Animal Ag · Source: <a href="https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds?page=1" target="_blank">USDA APHIS</a> · <a href="{data_url}/wild_bird_detections.csv" download>Download Data</a></div>
   </div>
   <div class="card">
     <h2>Wild Bird Detection Details</h2>
-    <div class="sub">Individual confirmed detections arranged by APHIS detection date</div>
+    <div class="sub" id="wbDetailSub">Individual confirmed detections arranged by sample collection date</div>
+    <div class="controls">
+      <div class="range-row" data-chart="wbDateMode">
+        <button class="rbtn active" data-mode="collection">Collection Date</button>
+        <button class="rbtn" data-mode="detection">Detection Date</button>
+      </div>
+    </div>
     <input type="text" class="tbl-search" id="wbSearch" placeholder="Filter by state, county, species..." oninput="updateWbTable()">
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>Date Detected</th><th>Collection Date</th><th>State</th><th>County</th><th>Species</th><th>Strain</th></tr></thead>
+        <thead><tr><th>Collection Date</th><th>Date Detected</th><th>State</th><th>County</th><th>Species</th><th>Strain</th></tr></thead>
         <tbody id="wbTblBody"></tbody>
       </table>
     </div>
