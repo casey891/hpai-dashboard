@@ -1,4 +1,14 @@
 Date Detected,Collection Date,State,County,Species,Strain
+05/22/2026,11/14/2025,Minnesota,Lake,Bald eagle,EA H5
+05/21/2026,04/13/2026,Iowa,Jackson,Bufflehead,EA H5
+05/21/2026,04/13/2026,Iowa,Jackson,American white pelican,EA H5
+05/21/2026,05/13/2026,Michigan,Benzie,Bald eagle,EA H5
+05/21/2026,02/21/2026,Colorado,Larimer,Red-tailed hawk,EA H5
+05/21/2026,02/14/2026,Colorado,Larimer,Red-tailed hawk,EA H5
+05/21/2026,02/17/2026,Colorado,Larimer,Red-tailed hawk,EA H5
+05/21/2026,02/25/2026,Colorado,Larimer,Sharp-shinned hawk,EA H5
+05/21/2026,02/09/2026,Colorado,Larimer,Great horned owl,EA H5
+05/21/2026,05/12/2026,Wisconsin,Jefferson,American white pelican,EA H5
 05/18/2026,01/23/2026,Florida,Lee,Little blue heron,EA H5
 05/18/2026,12/26/2025,Florida,Sarasota,Bald eagle,EA H5
 05/18/2026,02/04/2026,Colorado,Eagle,Red-tailed hawk,EA H5
@@ -784,8 +794,8 @@ Date Detected,Collection Date,State,County,Species,Strain
 02/17/2026,02/04/2026,California,San Luis Obispo,Turkey vulture,EA H5N1
 02/17/2026,02/04/2026,California,San Luis Obispo,American white pelican,EA H5
 02/17/2026,02/04/2026,California,Los Angeles,Turkey vulture,EA H5N1
-02/17/2026,Unknown,Pennsylvania,Philadelphia,Snow goose,EA/AM H5N1
 02/17/2026,02/04/2026,Pennsylvania,Bucks,Great blue heron,EA H5
+02/17/2026,Unknown,Pennsylvania,Philadelphia,Snow goose,EA/AM H5N1
 02/17/2026,02/04/2026,Pennsylvania,Philadelphia,Cooper's hawk,EA H5
 02/17/2026,01/30/2026,Pennsylvania,Jefferson,Eastern screech owl,EA/AM H5N1
 02/17/2026,01/22/2026,Pennsylvania,Washington,Canada goose,EA/AM H5N1
