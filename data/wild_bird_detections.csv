@@ -1,4 +1,17 @@
 Date Detected,Collection Date,State,County,Species,Strain
+06/10/2026,02/03/2026,Utah,Box Elder,Bald eagle,EA H5
+06/10/2026,01/23/2026,Virginia,Chesterfield,Bald eagle,EA H5
+06/10/2026,02/06/2026,Virginia,Virginia Beach,Bald eagle,EA H5
+06/10/2026,04/30/2026,California,Glenn,Bald eagle,EA H5
+06/08/2026,05/24/2026,Alaska,Matanuska-Susitna,Bald eagle,EA H5
+06/08/2026,06/02/2026,Minnesota,Cass,Pelican (unidentified),EA H5
+06/08/2026,06/02/2026,Minnesota,Cass,Pelican (unidentified),EA H5
+06/08/2026,06/02/2026,Minnesota,Cass,Pelican (unidentified),EA H5
+06/05/2026,01/26/2025,California,Solano,Snow goose,EA H5
+06/05/2026,02/21/2025,California,Solano,Snow goose,EA H5
+06/05/2026,11/17/2025,California,Solano,Canada goose,EA H5
+06/05/2026,05/29/2026,Minnesota,Sherburne,Bald eagle,EA H5
+06/05/2026,05/30/2026,Minnesota,Sherburne,Bald eagle,EA H5
 06/04/2026,01/22/2025,California,Alameda,Marbled Godwit,EA H5
 06/04/2026,01/22/2025,California,Alameda,Dunlin,EA H5
 06/04/2026,01/07/2025,California,Contra Costa,Black-crowned night heron,EA H5
@@ -8,6 +21,7 @@ Date Detected,Collection Date,State,County,Species,Strain
 06/04/2026,02/28/2025,California,Solano,Snow goose,EA H5
 06/04/2026,12/10/2025,California,Solano,Snow goose,EA H5
 06/02/2026,05/22/2026,North Dakota,Eddy,Bald eagle,EA H5
+06/02/2026,05/18/2026,California,Sacramento,Macaw (unidentified),EA H5
 06/01/2026,05/23/2026,Minnesota,Sherburne,Canada goose,EA H5
 05/28/2026,05/12/2026,Montana,Teton,American white pelican,EA H5
 05/28/2026,05/22/2026,Montana,Broadwater,American white pelican,EA H5
@@ -24,6 +38,8 @@ Date Detected,Collection Date,State,County,Species,Strain
 05/21/2026,02/25/2026,Colorado,Larimer,Sharp-shinned hawk,EA H5
 05/21/2026,02/09/2026,Colorado,Larimer,Great horned owl,EA H5
 05/21/2026,05/12/2026,Wisconsin,Jefferson,American white pelican,EA H5
+05/21/2026,02/18/2026,California,San Diego,Great horned owl,EA/AM H5N1
+05/21/2026,02/20/2026,California,San Diego,Great horned owl,EA/AM H5N1
 05/18/2026,01/23/2026,Florida,Lee,Little blue heron,EA H5
 05/18/2026,12/26/2025,Florida,Sarasota,Bald eagle,EA H5
 05/18/2026,02/04/2026,Colorado,Eagle,Red-tailed hawk,EA H5
@@ -37,19 +53,19 @@ Date Detected,Collection Date,State,County,Species,Strain
 05/18/2026,05/06/2026,Minnesota,Chisago,American white pelican,EA H5
 05/18/2026,05/09/2026,Minnesota,Hennepin,Wood duck,EA H5
 05/18/2026,05/04/2026,Utah,Weber,Great horned owl,EA H5
-05/08/2026,04/13/2026,Minnesota,Lake of the Woods,Red-tailed hawk,EA H5
-05/08/2026,05/02/2026,Minnesota,Sherburne,Red-tailed hawk,EA H5
+05/08/2026,04/13/2026,Wisconsin,Wood,Red-tailed hawk,EA/AM H5N1
+05/08/2026,05/02/2026,Minnesota,Sherburne,Red-tailed hawk,EA/AM H5N1
+05/08/2026,04/28/2026,New Jersey,Burlington,Canada goose,EA/AM H5N1
 05/08/2026,04/28/2026,New Jersey,Burlington,Canada goose,EA H5
-05/08/2026,04/28/2026,New Jersey,Burlington,Canada goose,EA H5
-05/08/2026,04/28/2026,New Jersey,Burlington,Canada goose,EA H5
-05/06/2026,04/29/2026,Minnesota,Hennepin,Wood duck,EA H5
+05/08/2026,04/28/2026,New Jersey,Burlington,Canada goose,EA/AM H5N1
+05/06/2026,04/29/2026,Minnesota,Hennepin,Wood duck,EA/AM H5N1
 05/04/2026,12/01/2025,Kansas,Geary,Snow goose,EA/AM H5N1
 05/04/2026,04/21/2026,New York,Suffolk,Red-tailed hawk,EA H5
 05/01/2026,04/21/2026,New York,Saratoga,Bald eagle,EA H5
-05/01/2026,04/21/2026,New York,Suffolk,Great horned owl,EA H5
-05/01/2026,04/21/2026,New York,St. Lawrence,Swan (unidentified),EA H5
+05/01/2026,04/21/2026,New York,Suffolk,Great horned owl,EA/AM H5N1
+05/01/2026,04/21/2026,New York,St. Lawrence,Swan (unidentified),EA/AM H5N1
 05/01/2026,01/30/2026,Oklahoma,Logan,Cackling goose,EA H5
-05/01/2026,03/21/2026,Virginia,Orange,Black vulture,EA H5
+05/01/2026,03/21/2026,Virginia,Orange,Black vulture,EA/AM H5N1
 05/01/2026,03/24/2026,Virginia,Rockingham,Red-tailed hawk,EA H5
 05/01/2026,12/08/2025,Kansas,Stafford,Snow goose,EA H5
 05/01/2026,12/08/2025,Kansas,Barton,Ross's goose,EA H5
@@ -81,11 +97,11 @@ Date Detected,Collection Date,State,County,Species,Strain
 05/01/2026,02/12/2026,North Dakota,Morton,Canada goose,EA H5
 05/01/2026,02/17/2026,North Dakota,Burleigh,Canada goose,EA H5
 05/01/2026,12/08/2025,Kansas,Stafford,Snow goose,EA H5
-04/30/2026,04/27/2026,Maryland,Harford,Black vulture,EA H5
-04/30/2026,04/27/2026,Maryland,Harford,Black vulture,EA H5
-04/30/2026,04/08/2026,Texas,Bexar,Vulture (unidentified),EA H5
+04/30/2026,04/27/2026,Maryland,Harford,Black vulture,EA/AM H5N1
+04/30/2026,04/27/2026,Maryland,Harford,Black vulture,EA/AM H5N1
+04/30/2026,04/08/2026,Texas,Bexar,Vulture (unidentified),EA/AM H5N1
 04/30/2026,03/03/2026,California,Marin,Common murre,EA H5N1
-04/29/2026,04/26/2026,Colorado,Larimer,Turkey vulture,EA H5
+04/29/2026,04/26/2026,Colorado,Larimer,Turkey vulture,EA/AM H5N1
 04/29/2026,04/14/2026,Connecticut,Hartford,Red-tailed hawk,EA H5
 04/29/2026,11/26/2025,Alaska,Kenai Peninsula,Mallard,EA H5N1
 04/29/2026,04/13/2026,California,San Mateo,Herring gull,EA H5N1
@@ -137,8 +153,8 @@ Date Detected,Collection Date,State,County,Species,Strain
 04/10/2026,03/16/2026,Florida,Duval,Great horned owl,EA/AM H5N1
 04/10/2026,03/16/2026,Florida,Duval,Great horned owl,EA/AM H5N1
 04/10/2026,03/16/2026,Florida,Duval,Bald eagle,EA/AM H5N1
-04/10/2026,03/04/2026,Texas,Bexar,Black vulture,EA H5
-04/10/2026,03/04/2026,Texas,Bexar,Black vulture,EA H5
+04/10/2026,03/04/2026,Texas,Bexar,Black vulture,EA/AM H5N1
+04/10/2026,03/04/2026,Texas,Bexar,Black vulture,EA/AM H5N1
 04/10/2026,04/06/2026,Florida,Clay,Bald eagle,EA/AM H5N1
 04/10/2026,10/19/2025,Minnesota,Beltrami,Bald eagle,EA/AM H5N1
 04/10/2026,04/01/2026,New York,Ulster,Red-tailed hawk,EA/AM H5N1
@@ -780,8 +796,8 @@ Date Detected,Collection Date,State,County,Species,Strain
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
+02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
