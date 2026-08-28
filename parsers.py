@@ -17,7 +17,7 @@ from urllib.error import HTTPError, URLError
 
 def _parse_date(s):
     """Try multiple date formats and return a datetime, or None."""
-    for fmt in ("%d-%b-%y", "%m/%d/%Y", "%Y-%m-%d", "%m/%d/%Y %I:%M:%S %p"):
+    for fmt in ("%d-%b-%Y", "%d-%b-%y", "%m/%d/%Y", "%Y-%m-%d", "%m/%d/%Y %I:%M:%S %p"):
         try:
             return datetime.strptime(s, fmt)
         except ValueError:
