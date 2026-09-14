@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-download_data.py — Download 3 of 4 USDA APHIS HPAI datasets.
+download_data.py — Download the 4 USDA APHIS HPAI datasets.
 
-- Wild Birds & Mammals: direct CSV from APHIS static files
-- Flocks: Tableau Server .csv endpoint (flat CSV format).
-  NOTE: The Tableau CSV endpoint often lags 1-2 days behind the actual
-  dashboard. If a manually-downloaded file already exists (UTF-16 crosstab
-  from the Tableau "Download Data" dialog), it is kept as-is.
-- Livestock: NOT automatable (Tableau view doesn't expose data table).
-  Download manually via Claude in Chrome or the APHIS website.
+- Wild Birds & Mammals: direct CSV from APHIS static files.
+- Flocks & Livestock: Tableau crosstab export driven by a headless browser
+  (see tableau_export.py). The plain .csv endpoint now returns a summary
+  worksheet rather than the detail table, so it is no longer usable.
+
+A failed Tableau export leaves any existing local file untouched, so the
+build can fall back to the last good copy instead of publishing empty data.
 
 Usage:
-    python download_data.py                # download all 3 to current directory
+    python download_data.py                # download all 4 to current directory
     python download_data.py --output-dir . # specify output directory
 """
 
@@ -38,10 +38,12 @@ DOWNLOADS = {
         "type": "direct",
     },
     "A Table by Confirmation Date.csv": {
-        "url": "https://publicdashboards.dl.usda.gov/t/MRP_PUB/views/VS_Avian_HPAIConfirmedDetections2022/HPAI2022ConfirmedDetections.csv",
-        "type": "tableau_csv",
-        "validate": lambda text: "Confirmed" in text.split("\n")[0] and "State" in text.split("\n")[0],
-        "prefer_local": True,
+        "type": "tableau_crosstab",
+        "export_key": "poultry",
+    },
+    "Table Details by Date.csv": {
+        "type": "tableau_crosstab",
+        "export_key": "livestock",
     },
 }
 
@@ -80,6 +82,14 @@ def discover_csv_url(page_url, fallback_url, contains=None):
 
 def download_one(name, config, output_dir):
     """Download a single dataset. Returns True on success, False on failure."""
+    if config.get("type") == "tableau_crosstab":
+        from tableau_export import export_one
+        ok, msg = export_one(config["export_key"], output_dir)
+        if not ok:
+            print(f"    FAILED — {msg}")
+            print(f"    Keeping existing local copy of {name}.")
+        return ok
+
     url = config["url"]
     if config.get("page_url"):
         url = discover_csv_url(config["page_url"], url, config.get("csv_url_contains"))
@@ -145,7 +155,8 @@ def main():
     failed = [n for n, ok in results.items() if not ok]
     if failed:
         print(f"\n{len(failed)} download(s) failed.")
-        print("For Tableau failures, download manually or use Claude in Chrome.")
+        print("Tableau exports fall back to the existing local file; if one has")
+        print("been failing for days, check whether APHIS restructured the dashboard.")
         return 1
 
     print("\nAll downloads successful!")

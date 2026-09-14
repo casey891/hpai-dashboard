@@ -19,8 +19,8 @@ A self-contained interactive dashboard for tracking Highly Pathogenic Avian Infl
 
 | Source | Description |
 |--------|-------------|
-| [USDA APHIS — Commercial/Backyard Flocks](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks) | "A Table by Confirmation Date" CSV (required) |
-| [USDA APHIS — Livestock](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock) | "Table Details by Date" CSV (optional) |
+| [USDA APHIS — Commercial/Backyard Flocks](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks) | "A Table by Confirmation Date" CSV (Tableau crosstab export) |
+| [USDA APHIS — Livestock](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock) | "Table Details by Date" CSV (Tableau crosstab export) |
 | [USDA APHIS — Wild Birds](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/wild-birds) | "HPAI Detections in Wild Birds" CSV (optional) |
 | [USDA APHIS — Mammals](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/mammals) | "HPAI Detections in Mammals" CSV (optional) |
 | [USDA AMS MARS API](https://mymarketnews.ams.usda.gov/viewReport/2843) | Daily wholesale egg prices (fetched at build time) |
@@ -29,11 +29,16 @@ A self-contained interactive dashboard for tracking Highly Pathogenic Avian Infl
 
 - Python 3.8+
 - [`requests`](https://docs.python-requests.org/) — for downloading APHIS data
+- [`playwright`](https://playwright.dev/python/) — for the Tableau crosstab exports (flocks, livestock)
 - [`addfips`](https://github.com/fitnr/addfips) — for county heatmap FIPS mapping (optional but recommended)
 
 ```bash
-pip install requests addfips
+pip install requests playwright addfips
+python3 -m playwright install chromium
 ```
+
+Playwright downloads its own private Chromium (~95 MB); it does not touch your
+everyday browser or its logins.
 
 ### Egg prices (MARS API)
 
@@ -47,7 +52,7 @@ If `MARS_API_KEY` is not set, egg prices will be skipped automatically. You can 
 
 ## Usage
 
-The build script automatically downloads 3 of 4 datasets (flocks, wild birds, mammals) and builds the dashboard:
+The build script downloads all four datasets and builds the dashboard:
 
 ```bash
 # Download fresh data + build dashboard
@@ -65,12 +70,29 @@ python3 build_dashboard.py -o docs/index.html
 
 Output is written to `index.html` and `data.json` in the current directory by default.
 
-**Livestock data** must be downloaded manually from the [APHIS livestock page](https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/hpai-confirmed-cases-livestock) — the Tableau view doesn't expose an automated endpoint. Place it as `Table Details by Date.csv` in the project directory.
+### How the flock and livestock tables are fetched
+
+These two live in Tableau dashboards whose detail tables aren't reachable over
+plain HTTP — the `.csv` endpoint returns a summary worksheet, not the data. The
+export only works inside a live vizql session, so `tableau_export.py` drives a
+headless Chromium through the same "Download Data" dialog a person would use,
+and saves the UTF-16 crosstab.
+
+Each export is validated (UTF-16 BOM, expected header columns, minimum row
+count) before it replaces the file on disk, so a failed or truncated download
+never overwrites a known-good local copy — the build falls back to the last one
+and prints a warning.
+
+```bash
+python3 tableau_export.py                 # export both
+python3 tableau_export.py --only poultry  # just one
+python3 tableau_export.py --headed        # watch it run (debugging)
+```
 
 You can also download datasets independently:
 
 ```bash
-python3 download_data.py                # download all 3 to current directory
+python3 download_data.py                # download all 4 to current directory
 python3 download_data.py -o data/       # specify output directory
 ```
 
@@ -85,7 +107,8 @@ python3 -m http.server 8000 -d .
 
 ```
 build_dashboard.py   — CLI entry point: downloads data, aggregates, generates HTML
-download_data.py     — APHIS dataset downloader (3 of 4 datasets automated)
+download_data.py     — APHIS dataset downloader (all 4 datasets automated)
+tableau_export.py    — headless-browser crosstab export for the flock + livestock tables
 parsers.py           — CSV parsers, species classifiers, MARS API egg price fetcher
 geo.py               — FIPS county lookup, detection aggregation, map data compression
 template.py          — HTML/CSS/JS template, color constants, checkbox builders

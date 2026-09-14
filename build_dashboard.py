@@ -502,11 +502,22 @@ def main():
     base_dir = Path(args.output).parent or Path(".")
 
     # ── Download fresh data ──
+    download_failures = []
     if not args.no_download:
         from download_data import DOWNLOADS, download_one
         print("Downloading fresh APHIS data...\n")
         for name, config in DOWNLOADS.items():
-            download_one(name, config, base_dir)
+            if not download_one(name, config, base_dir):
+                download_failures.append(name)
+            print()
+        if download_failures:
+            print("!" * 70)
+            print(f"WARNING: {len(download_failures)} dataset(s) could not be refreshed:")
+            for name in download_failures:
+                print(f"  - {name}")
+            print("Building from the last good local copy instead. If this repeats,")
+            print("APHIS has probably restructured the dashboard.")
+            print("!" * 70)
             print()
 
     # ── CSV file paths (3 automated + 1 manual) ──
@@ -548,6 +559,31 @@ def main():
         print(f"Parsing wild bird data: {wild_birds_path}")
         wild_birds = parse_wild_birds_csv(str(wild_birds_path))
         print(f"  {len(wild_birds)} wild bird detections loaded")
+
+    # Freshness check — a stale dataset means an export has been failing.
+    today = datetime.today()
+    staleness = [
+        ("poultry", events, 10),
+        ("livestock", livestock, 21),
+        ("mammals", mammals, 21),
+        ("wild birds", wild_birds, 14),
+    ]
+    stale = []
+    for label, rows, max_age_days in staleness:
+        if not rows:
+            continue
+        newest = max(r["date"] for r in rows)
+        age = (today - newest).days
+        if age > max_age_days:
+            stale.append(f"{label}: newest detection {newest:%b %d, %Y} ({age} days old)")
+    if stale:
+        print()
+        print("!" * 70)
+        print("WARNING: dataset(s) look stale — an export may be silently failing:")
+        for line in stale:
+            print(f"  - {line}")
+        print("!" * 70)
+        print()
 
     # Export clean CSVs
     out_dir = Path(args.output).parent
