@@ -5,3 +5,5 @@ __pycache__/
 heatmap.html
 update_dashboard.sh
 handoff.md
+build_status.json
+.notify_state.json

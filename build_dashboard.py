@@ -576,6 +576,7 @@ def main():
         age = (today - newest).days
         if age > max_age_days:
             stale.append(f"{label}: newest detection {newest:%b %d, %Y} ({age} days old)")
+    stale_details = list(stale)
     if stale:
         print()
         print("!" * 70)
@@ -671,6 +672,21 @@ def main():
     print(f"\n  To test locally:")
     print(f"    python3 -m http.server 8000 -d {out.parent}")
     print(f"    Open: http://localhost:8000")
+
+    # Machine-readable summary so notify.py can alert without scraping stdout.
+    status = {
+        "generated": datetime.now().isoformat(timespec="seconds"),
+        "build_ok": True,
+        "download_failures": download_failures,
+        "stale": stale_details,
+        "counts": {
+            "poultry": len(events),
+            "livestock": len(livestock or []),
+            "mammals": len(mammals or []),
+            "wild_birds": len(wild_birds or []),
+        },
+    }
+    (base_dir / "build_status.json").write_text(json.dumps(status, indent=2))
 
 
 if __name__ == "__main__":
