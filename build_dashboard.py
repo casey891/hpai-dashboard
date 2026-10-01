@@ -561,12 +561,16 @@ def main():
         print(f"  {len(wild_birds)} wild bird detections loaded")
 
     # Freshness check — a stale dataset means an export has been failing.
+    # Thresholds sit above the longest natural lull in APHIS reporting, so a
+    # quiet stretch of disease activity doesn't read as a broken export.
+    # Livestock and mammals are left out: they routinely go 2-4 months with no
+    # new detections (121 and 85 days since 2025), so a newest-detection age
+    # can't tell a lull from a failure. Failed refreshes for every dataset are
+    # still caught directly via download_failures.
     today = datetime.today()
     staleness = [
-        ("poultry", events, 10),
-        ("livestock", livestock, 21),
-        ("mammals", mammals, 21),
-        ("wild birds", wild_birds, 14),
+        ("poultry", events, 60),         # longest lull since 2024: 44 days (summer 2025)
+        ("wild birds", wild_birds, 21),  # longest lull since 2024: 15 days
     ]
     stale = []
     for label, rows, max_age_days in staleness:
