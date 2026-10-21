@@ -18,12 +18,16 @@ Usage:
 """
 
 import argparse
+import json
 import os
+import socket
 import sys
 import tempfile
+import urllib.request
 from pathlib import Path
 
-TABLEAU_BASE = "https://publicdashboards.dl.usda.gov/t/MRP_PUB/views"
+TABLEAU_HOST = "publicdashboards.dl.usda.gov"
+TABLEAU_BASE = f"https://{TABLEAU_HOST}/t/MRP_PUB/views"
 
 EXPORTS = {
     "poultry": {
@@ -78,6 +82,35 @@ def _validate(path, required_headers, min_rows):
     return True, "ok", rows
 
 
+def _host_resolver_args():
+    """Chromium args that pin TABLEAU_HOST to an IP when local DNS can't resolve it.
+
+    Since Oct 2026 USDA's nameservers time out on DS/NS queries for the
+    dl.usda.gov zone cut, so DNSSEC-validating resolvers (Google, Cloudflare,
+    most ISPs) return SERVFAIL for the host even though the server itself is
+    up. When that happens, ask Google DNS-over-HTTPS with validation disabled
+    (cd=1) and map the host to that IP. TLS still verifies against the real
+    hostname. Returns [] when normal DNS works or the fallback lookup fails.
+    """
+    try:
+        socket.getaddrinfo(TABLEAU_HOST, 443)
+        return []
+    except socket.gaierror:
+        pass
+    try:
+        req = f"https://dns.google/resolve?name={TABLEAU_HOST}&type=A&cd=1"
+        with urllib.request.urlopen(req, timeout=15) as r:
+            answers = json.load(r).get("Answer", [])
+        ips = [a["data"] for a in answers if a.get("type") == 1]
+    except Exception as e:
+        print(f"    DNS fallback lookup failed: {e}")
+        return []
+    if not ips:
+        return []
+    print(f"    {TABLEAU_HOST} does not resolve locally; pinning to {ips[0]} (DoH, cd=1)")
+    return [f"--host-resolver-rules=MAP {TABLEAU_HOST} {ips[0]}"]
+
+
 def export_one(key, out_dir, headed=False, timeout_ms=90_000):
     """Export one dataset. Returns (ok, message)."""
     from playwright.sync_api import TimeoutError as PWTimeout
@@ -92,7 +125,7 @@ def export_one(key, out_dir, headed=False, timeout_ms=90_000):
     print(f"    sheet: {cfg['sheet']}")
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=not headed)
+        browser = p.chromium.launch(headless=not headed, args=_host_resolver_args())
         ctx = browser.new_context(accept_downloads=True,
                                   viewport={"width": 1600, "height": 1200})
         page = ctx.new_page()
