@@ -888,6 +888,25 @@ function initDashboard(){
     };
     reportHeight();window.addEventListener('resize',reportHeight);
     new ResizeObserver(reportHeight).observe(wrapEl);
+
+    /* Analytics reporter: innovateanimalag.org/hpai-dashboard forwards these to
+       its GA4 as dashboard_interaction. Only control names and option values
+       are sent, nothing about the reader. */
+    const track=(control,option)=>window.parent.postMessage({type:'analytics',control:control,option:String(option)},'*');
+    document.addEventListener('click',e=>{
+      const msLink=e.target.closest('.ms-panel a');
+      if(msLink){const panel=msLink.closest('.ms-panel');track('filter',panelToChart(panel)||panel.id);return;}
+      const b=e.target.closest('.tab-btn,.rbtn,.tbl-pager button');if(!b)return;
+      if(b.classList.contains('tab-btn')){track('tab',b.dataset.tab);return;}
+      const pager=b.closest('.tbl-pager');
+      if(pager){track(pager.id.replace('Pager','')+'_page',b.textContent.includes('Prev')?'prev':'next');return;}
+      if(b.dataset.v){track('inf_view',b.dataset.v);return;}
+      const row=b.closest('.range-row');
+      if(row)track((row.dataset.chart||'chart')+'_range',b.dataset.r||b.dataset.mode||'');
+    },true);
+    document.addEventListener('change',e=>{
+      const panel=e.target.closest('.ms-panel');if(panel)track('filter',panelToChart(panel)||panel.id);
+    },true);
   }
 }
 
