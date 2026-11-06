@@ -1,0 +1,135 @@
+{
+ "updated": "2026-11-06",
+ "poultry": {
+  "since": "2022-02-08",
+  "latest": "2026-11-05",
+  "flocks": 2303,
+  "birds": 211786546,
+  "year": 2026,
+  "flocks_year": 317,
+  "birds_year": 26716888,
+  "flocks_30d": 33,
+  "birds_30d": 2804400,
+  "states_30d": [
+   {
+    "state": "California",
+    "flocks": 6,
+    "birds": 1309520
+   },
+   {
+    "state": "Illinois",
+    "flocks": 1,
+    "birds": 934600
+   },
+   {
+    "state": "Minnesota",
+    "flocks": 3,
+    "birds": 144400
+   },
+   {
+    "state": "Oregon",
+    "flocks": 1,
+    "birds": 94200
+   },
+   {
+    "state": "South Dakota",
+    "flocks": 2,
+    "birds": 74100
+   },
+   {
+    "state": "North Dakota",
+    "flocks": 1,
+    "birds": 60600
+   },
+   {
+    "state": "Wisconsin",
+    "flocks": 2,
+    "birds": 54900
+   },
+   {
+    "state": "Washington",
+    "flocks": 4,
+    "birds": 47090
+   },
+   {
+    "state": "Iowa",
+    "flocks": 1,
+    "birds": 45000
+   },
+   {
+    "state": "Kansas",
+    "flocks": 1,
+    "birds": 29000
+   },
+   {
+    "state": "Idaho",
+    "flocks": 1,
+    "birds": 10000
+   },
+   {
+    "state": "Nebraska",
+    "flocks": 1,
+    "birds": 650
+   },
+   {
+    "state": "Puerto Rico",
+    "flocks": 2,
+    "birds": 90
+   },
+   {
+    "state": "Montana",
+    "flocks": 2,
+    "birds": 80
+   },
+   {
+    "state": "Utah",
+    "flocks": 2,
+    "birds": 70
+   },
+   {
+    "state": "Wyoming",
+    "flocks": 1,
+    "birds": 50
+   },
+   {
+    "state": "Arkansas",
+    "flocks": 1,
+    "birds": 40
+   },
+   {
+    "state": "Ohio",
+    "flocks": 1,
+    "birds": 10
+   }
+  ]
+ },
+ "dairy": {
+  "since": "2024-03-25",
+  "latest": "2026-11-05",
+  "herds": 1229,
+  "herds_year": 139,
+  "herds_30d": 47,
+  "states": 22,
+  "states_30d": [
+   "Washington",
+   "Indiana",
+   "Texas",
+   "Colorado",
+   "Kansas"
+  ]
+ },
+ "wild_birds": {
+  "since": "2022-01-12",
+  "latest": "2026-11-04",
+  "detections": 20739,
+  "detections_30d": 360
+ },
+ "mammals": {
+  "latest": "2026-09-14",
+  "detections": 827
+ },
+ "egg_price": {
+  "date": "2026-11-06",
+  "dollars_per_dozen": 0.46
+ }
+}

@@ -668,6 +668,10 @@ def main():
     data_out = out.parent / "data.json"
     data_out.write_text(data_json)
 
+    # Headline numbers for the text on innovateanimalag.org/hpai-dashboard.
+    from summary import write_summary
+    print(f"Summary written to:   {write_summary(data, out.parent)}")
+
     html_kb = len(html.encode()) / 1024
     data_kb = len(data_json.encode()) / 1024
     print(f"\nDashboard written to: {out}  ({html_kb:.0f} KB)")
