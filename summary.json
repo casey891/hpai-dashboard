@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07",
+ "updated": "2026-11-08",
  "poultry": {
   "since": "2022-02-08",
   "latest": "2026-11-05",
@@ -8,8 +8,8 @@
   "year": 2026,
   "flocks_year": 317,
   "birds_year": 26716888,
-  "flocks_30d": 33,
-  "birds_30d": 2804400,
+  "flocks_30d": 30,
+  "birds_30d": 2778410,
   "states_30d": [
    {
     "state": "California",
@@ -23,8 +23,8 @@
    },
    {
     "state": "Minnesota",
-    "flocks": 3,
-    "birds": 144400
+    "flocks": 2,
+    "birds": 118500
    },
    {
     "state": "Oregon",
@@ -48,8 +48,8 @@
    },
    {
     "state": "Washington",
-    "flocks": 4,
-    "birds": 47090
+    "flocks": 3,
+    "birds": 47050
    },
    {
     "state": "Iowa",
@@ -72,11 +72,6 @@
     "birds": 650
    },
    {
-    "state": "Puerto Rico",
-    "flocks": 2,
-    "birds": 90
-   },
-   {
     "state": "Montana",
     "flocks": 2,
     "birds": 80
@@ -97,6 +92,11 @@
     "birds": 40
    },
    {
+    "state": "Puerto Rico",
+    "flocks": 1,
+    "birds": 40
+   },
+   {
     "state": "Ohio",
     "flocks": 1,
     "birds": 10
@@ -108,13 +108,13 @@
   "latest": "2026-11-05",
   "herds": 1229,
   "herds_year": 139,
-  "herds_30d": 46,
+  "herds_30d": 45,
   "states": 22,
   "states_30d": [
    "Washington",
    "Indiana",
-   "Texas",
-   "Colorado"
+   "Colorado",
+   "Texas"
   ]
  },
  "wild_birds": {
