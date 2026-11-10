@@ -1,20 +1,20 @@
 {
- "updated": "2026-11-09",
+ "updated": "2026-11-10",
  "poultry": {
   "since": "2022-02-08",
   "latest": "2026-11-06",
-  "flocks": 2304,
-  "birds": 211739546,
+  "flocks": 2305,
+  "birds": 211748146,
   "year": 2026,
-  "flocks_year": 318,
-  "birds_year": 26669888,
-  "flocks_30d": 31,
-  "birds_30d": 2731410,
+  "flocks_year": 319,
+  "birds_year": 26678488,
+  "flocks_30d": 32,
+  "birds_30d": 2740010,
   "states_30d": [
    {
     "state": "California",
     "flocks": 7,
-    "birds": 1309520
+    "birds": 1309620
    },
    {
     "state": "Illinois",
@@ -53,8 +53,8 @@
    },
    {
     "state": "Kansas",
-    "flocks": 1,
-    "birds": 29000
+    "flocks": 2,
+    "birds": 37500
    },
    {
     "state": "Idaho",
@@ -105,14 +105,15 @@
  },
  "dairy": {
   "since": "2024-03-25",
-  "latest": "2026-11-05",
-  "herds": 1231,
-  "herds_year": 141,
-  "herds_30d": 47,
+  "latest": "2026-11-06",
+  "herds": 1233,
+  "herds_year": 143,
+  "herds_30d": 49,
   "states": 22,
   "states_30d": [
    "Washington",
    "Texas",
+   "Idaho",
    "Indiana",
    "Colorado"
   ]
@@ -126,9 +127,5 @@
  "mammals": {
   "latest": "2026-09-14",
   "detections": 827
- },
- "egg_price": {
-  "date": "2026-11-09",
-  "dollars_per_dozen": 0.52
  }
 }
