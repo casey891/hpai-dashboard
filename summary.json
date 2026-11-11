@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-10",
+ "updated": "2026-11-11",
  "poultry": {
   "since": "2022-02-08",
-  "latest": "2026-11-06",
-  "flocks": 2305,
-  "birds": 211748146,
+  "latest": "2026-11-10",
+  "flocks": 2307,
+  "birds": 211745166,
   "year": 2026,
-  "flocks_year": 319,
-  "birds_year": 26678488,
-  "flocks_30d": 32,
-  "birds_30d": 2740010,
+  "flocks_year": 321,
+  "birds_year": 26675508,
+  "flocks_30d": 34,
+  "birds_30d": 2737030,
   "states_30d": [
    {
     "state": "California",
@@ -59,7 +59,7 @@
    {
     "state": "Idaho",
     "flocks": 1,
-    "birds": 10000
+    "birds": 7000
    },
    {
     "state": "Nebraska",
@@ -68,8 +68,8 @@
    },
    {
     "state": "Montana",
-    "flocks": 2,
-    "birds": 80
+    "flocks": 3,
+    "birds": 100
    },
    {
     "state": "Utah",
@@ -98,23 +98,24 @@
    },
    {
     "state": "Ohio",
-    "flocks": 1,
+    "flocks": 2,
     "birds": 10
    }
   ]
  },
  "dairy": {
   "since": "2024-03-25",
-  "latest": "2026-11-06",
-  "herds": 1233,
-  "herds_year": 143,
-  "herds_30d": 49,
+  "latest": "2026-11-10",
+  "herds": 1234,
+  "herds_year": 144,
+  "herds_30d": 50,
   "states": 22,
   "states_30d": [
    "Washington",
    "Texas",
    "Idaho",
    "Indiana",
+   "Oregon",
    "Colorado"
   ]
  },
@@ -127,5 +128,9 @@
  "mammals": {
   "latest": "2026-09-14",
   "detections": 827
+ },
+ "egg_price": {
+  "date": "2026-11-10",
+  "dollars_per_dozen": 0.63
  }
 }
