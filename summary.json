@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-11",
+ "updated": "2026-11-12",
  "poultry": {
   "since": "2022-02-08",
   "latest": "2026-11-10",
   "flocks": 2307,
-  "birds": 211745166,
+  "birds": 211745175,
   "year": 2026,
   "flocks_year": 321,
-  "birds_year": 26675508,
+  "birds_year": 26675517,
   "flocks_30d": 34,
-  "birds_30d": 2737030,
+  "birds_30d": 2737039,
   "states_30d": [
    {
     "state": "California",
@@ -99,7 +99,7 @@
    {
     "state": "Ohio",
     "flocks": 2,
-    "birds": 10
+    "birds": 19
    }
   ]
  },
@@ -123,14 +123,14 @@
   "since": "2022-01-12",
   "latest": "2026-11-04",
   "detections": 20739,
-  "detections_30d": 343
+  "detections_30d": 340
  },
  "mammals": {
   "latest": "2026-09-14",
   "detections": 827
  },
  "egg_price": {
-  "date": "2026-11-10",
-  "dollars_per_dozen": 0.63
+  "date": "2026-11-12",
+  "dollars_per_dozen": 0.69
  }
 }
