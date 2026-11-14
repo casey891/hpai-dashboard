@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13",
+ "updated": "2026-11-14",
  "poultry": {
   "since": "2022-02-08",
   "latest": "2026-11-10",
@@ -103,7 +103,7 @@
   "latest": "2026-11-10",
   "herds": 1234,
   "herds_year": 144,
-  "herds_30d": 50,
+  "herds_30d": 49,
   "states": 22,
   "states_30d": [
    "Washington",
@@ -116,9 +116,9 @@
  },
  "wild_birds": {
   "since": "2022-01-12",
-  "latest": "2026-11-04",
-  "detections": 20739,
-  "detections_30d": 318
+  "latest": "2026-11-09",
+  "detections": 20805,
+  "detections_30d": 313
  },
  "mammals": {
   "latest": "2026-09-14",
