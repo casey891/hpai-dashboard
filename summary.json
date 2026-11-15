@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14",
+ "updated": "2026-11-15",
  "poultry": {
   "since": "2022-02-08",
   "latest": "2026-11-10",
@@ -8,8 +8,8 @@
   "year": 2026,
   "flocks_year": 321,
   "birds_year": 26675517,
-  "flocks_30d": 32,
-  "birds_30d": 2736989,
+  "flocks_30d": 30,
+  "birds_30d": 2736919,
   "states_30d": [
    {
     "state": "California",
@@ -72,11 +72,6 @@
     "birds": 100
    },
    {
-    "state": "Utah",
-    "flocks": 2,
-    "birds": 70
-   },
-   {
     "state": "Washington",
     "flocks": 3,
     "birds": 50
@@ -103,7 +98,7 @@
   "latest": "2026-11-10",
   "herds": 1234,
   "herds_year": 144,
-  "herds_30d": 49,
+  "herds_30d": 44,
   "states": 22,
   "states_30d": [
    "Washington",
@@ -118,7 +113,7 @@
   "since": "2022-01-12",
   "latest": "2026-11-09",
   "detections": 20805,
-  "detections_30d": 313
+  "detections_30d": 305
  },
  "mammals": {
   "latest": "2026-09-14",
