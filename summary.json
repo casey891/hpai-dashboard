@@ -1,20 +1,25 @@
 {
- "updated": "2026-11-18",
+ "updated": "2026-11-19",
  "poultry": {
   "since": "2022-02-08",
-  "latest": "2026-11-17",
-  "flocks": 2312,
-  "birds": 211965125,
+  "latest": "2026-11-18",
+  "flocks": 2316,
+  "birds": 213879585,
   "year": 2026,
-  "flocks_year": 326,
-  "birds_year": 26895467,
+  "flocks_year": 330,
+  "birds_year": 28809927,
   "flocks_30d": 34,
-  "birds_30d": 2022269,
+  "birds_30d": 3866219,
   "states_30d": [
    {
+    "state": "Florida",
+    "flocks": 1,
+    "birds": 1825500
+   },
+   {
     "state": "California",
-    "flocks": 7,
-    "birds": 1309620
+    "flocks": 8,
+    "birds": 1398470
    },
    {
     "state": "Maryland",
@@ -42,19 +47,19 @@
     "birds": 60600
    },
    {
-    "state": "Wisconsin",
-    "flocks": 3,
-    "birds": 54930
-   },
-   {
     "state": "Iowa",
     "flocks": 1,
     "birds": 45000
    },
    {
-    "state": "Kansas",
+    "state": "Wisconsin",
     "flocks": 2,
-    "birds": 37500
+    "birds": 13530
+   },
+   {
+    "state": "Kansas",
+    "flocks": 1,
+    "birds": 8500
    },
    {
     "state": "Idaho",
@@ -72,19 +77,19 @@
     "birds": 650
    },
    {
-    "state": "Montana",
+    "state": "Washington",
     "flocks": 4,
-    "birds": 160
+    "birds": 110
+   },
+   {
+    "state": "Montana",
+    "flocks": 3,
+    "birds": 100
    },
    {
     "state": "Texas",
     "flocks": 1,
     "birds": 60
-   },
-   {
-    "state": "Washington",
-    "flocks": 3,
-    "birds": 50
    },
    {
     "state": "Wyoming",
@@ -108,12 +113,12 @@
   "latest": "2026-11-14",
   "herds": 1235,
   "herds_year": 145,
-  "herds_30d": 45,
+  "herds_30d": 44,
   "states": 22,
   "states_30d": [
    "Washington",
-   "Texas",
    "Idaho",
+   "Texas",
    "Indiana",
    "Oklahoma",
    "Oregon",
@@ -124,14 +129,14 @@
   "since": "2022-01-12",
   "latest": "2026-11-09",
   "detections": 20805,
-  "detections_30d": 296
+  "detections_30d": 292
  },
  "mammals": {
   "latest": "2026-09-14",
   "detections": 827
  },
  "egg_price": {
-  "date": "2026-11-18",
-  "dollars_per_dozen": 0.91
+  "date": "2026-11-19",
+  "dollars_per_dozen": 1.08
  }
 }
