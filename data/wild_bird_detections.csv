@@ -1,4 +1,54 @@
 Date Detected,Collection Date,State,County,Species,Strain
+11/19/2026,11/11/2026,Washington,King,Red-tailed hawk,EA H5
+11/19/2026,11/10/2026,Texas,Nueces,Goose (unidentified),EA H5
+11/19/2026,11/09/2026,Idaho,Bonneville,Great horned owl,EA H5
+11/19/2026,11/06/2026,Washington,Grant,American wigeon,EA H5
+11/19/2026,11/06/2026,Washington,Grant,Gadwall,EA H5
+11/19/2026,11/02/2026,Wyoming,Laramie,Great horned owl,EA H5
+11/16/2026,11/09/2026,Michigan,Bay,Mallard,EA H5
+11/16/2026,11/09/2026,Michigan,Bay,Northern pintail,EA H5
+11/16/2026,11/08/2026,Indiana,Newton,Mallard,EA H5
+11/16/2026,11/06/2026,Michigan,St. Clair,Mallard,EA H5
+11/16/2026,11/06/2026,Michigan,St. Clair,Mallard,EA H5
+11/16/2026,11/06/2026,Michigan,St. Clair,Mallard,EA H5
+11/16/2026,11/06/2026,Michigan,St. Clair,Ring-necked duck,EA H5
+11/16/2026,11/05/2026,Michigan,Tuscola,Mallard,EA H5
+11/16/2026,11/05/2026,Michigan,Tuscola,Mallard,EA H5
+11/16/2026,11/05/2026,North Dakota,Stutsman,Mallard,EA H5
+11/16/2026,11/05/2026,North Dakota,Stutsman,Green-winged teal,EA H5
+11/16/2026,11/05/2026,North Dakota,Stutsman,Green-winged teal,EA H5
+11/16/2026,11/05/2026,North Dakota,Barnes,Green-winged teal,EA H5
+11/16/2026,11/05/2026,North Dakota,Barnes,Green-winged teal,EA H5
+11/16/2026,11/05/2026,Kansas,McPherson,Gadwall,EA H5
+11/16/2026,11/05/2026,Kansas,McPherson,Ring-necked duck,EA H5
+11/16/2026,11/05/2026,Oregon,Unknown,Great horned owl,EA H5
+11/16/2026,11/03/2026,Kansas,Barton,Green-winged teal,EA H5
+11/16/2026,11/02/2026,North Dakota,Barnes,American wigeon,EA H5
+11/16/2026,11/02/2026,Kansas,Clay,Ring-necked duck,EA H5
+11/13/2026,11/10/2026,California,Yolo,Falcon (unidentified),EA H5
+11/13/2026,11/05/2026,Arizona,Maricopa,Bald eagle,EA H5
+11/13/2026,11/05/2026,Michigan,Genesee,Great horned owl,EA H5
+11/13/2026,11/04/2026,Washington,Snohomish,Cackling goose,EA H5
+11/13/2026,11/04/2026,Washington,Snohomish,Cackling goose,EA H5
+11/13/2026,11/04/2026,Missouri,Chariton,Blue-winged teal,EA H5
+11/13/2026,11/04/2026,Missouri,Chariton,Green-winged teal,EA H5
+11/13/2026,11/03/2026,Colorado,Douglas,Red-tailed hawk,EA H5
+11/13/2026,10/30/2026,Washington,Yakima,Rock pigeon,EA H5
+11/13/2026,10/30/2026,Wisconsin,Douglas,Mallard,EA H5
+11/13/2026,10/30/2026,Wisconsin,Douglas,Redhead duck,EA H5
+11/13/2026,10/29/2026,Wisconsin,Burnett,Mallard,EA H5
+11/13/2026,10/29/2026,Wisconsin,Burnett,Mallard,EA H5
+11/13/2026,10/28/2026,Washington,Yakima,Rock pigeon,EA H5N1
+11/12/2026,11/05/2026,California,Marin,Western gull,EA H5
+11/12/2026,11/04/2026,Montana,Park,Bald eagle,EA H5
+11/12/2026,11/04/2026,California,Sacramento,Canada goose,EA H5
+11/12/2026,11/03/2026,Oregon,Marion,Cackling goose,EA H5
+11/12/2026,11/03/2026,California,Los Angeles,Red-tailed hawk,EA H5
+11/12/2026,11/03/2026,Texas,Nueces,Brown pelican,EA H5
+11/12/2026,11/01/2026,Washington,Grant,Mallard,EA H5
+11/12/2026,10/31/2026,Nevada,Churchill,Green-winged teal,EA H5
+11/12/2026,10/28/2026,North Dakota,Ward,American white pelican,EA H5
+11/12/2026,10/17/2026,North Dakota,Stark,Great horned owl,EA H5
 11/09/2026,10/31/2026,Kansas,Pottawattamie,Green-winged teal,EA H5
 11/09/2026,10/31/2026,Kansas,Pottawattamie,Green-winged teal,EA H5
 11/09/2026,10/31/2026,Kansas,Pottawattamie,Green-winged teal,EA H5
@@ -26,7 +76,7 @@ Date Detected,Collection Date,State,County,Species,Strain
 11/09/2026,10/09/2026,Utah,Cache,Canada goose,EA H5
 11/09/2026,10/09/2026,Utah,Box Elder,Gull (unidentified),EA H5
 11/09/2026,Unknown,Kentucky,Bullitt,Duck (unidentified),EA H5
-11/05/2026,11/29/2026,Texas,Harris,Muscovy duck,EA H5
+11/05/2026,10/29/2026,Texas,Harris,Muscovy duck,EA H5
 11/05/2026,10/30/2026,Alabama,Mobile,Canada goose,EA H5
 11/05/2026,10/30/2026,Minnesota,Itasca,Bald eagle,EA H5
 11/05/2026,10/29/2026,Texas,Hale,Blue-winged teal,EA H5
@@ -74,108 +124,108 @@ Date Detected,Collection Date,State,County,Species,Strain
 11/04/2026,Unknown,South Carolina,Clarendon,Bald eagle,EA H5
 11/03/2026,11/17/2026,Washington,Yakima,Rock pigeon,EA H5
 11/03/2026,10/27/2026,North Dakota,Emmons,Green-winged teal,EA H5
-11/03/2026,10/27/2026,North Dakota,Emmons,Ring-necked duck,EA H5
+11/03/2026,10/27/2026,North Dakota,Emmons,Ring-necked duck,EA/AM H5N1
 11/03/2026,10/25/2026,Utah,Box Elder,Northern pintail,EA H5
 11/03/2026,10/25/2026,South Dakota,Kingsbury,Green-winged teal,EA H5
 11/03/2026,10/24/2026,California,Riverside,Ring-necked duck,EA H5
-11/03/2026,10/24/2026,California,Riverside,Green-winged teal,EA H5
+11/03/2026,10/24/2026,California,Riverside,Green-winged teal,EA/AM H5N1
 11/03/2026,10/24/2026,California,Riverside,Green-winged teal,EA H5
 11/03/2026,10/24/2026,California,Riverside,Green-winged teal,EA H5
 11/03/2026,10/24/2026,California,Riverside,Northern shoveler,EA H5
 11/03/2026,10/24/2026,California,Riverside,Cinnamon teal,EA H5
 11/03/2026,10/24/2026,California,Riverside,Cinnamon teal,EA H5
 11/03/2026,10/24/2026,California,Riverside,Cinnamon teal,EA H5
-11/03/2026,10/24/2026,California,Riverside,Cinnamon teal,EA H5
+11/03/2026,10/24/2026,California,Riverside,Cinnamon teal,EA/AM H5N1
 11/03/2026,10/24/2026,California,Riverside,Redhead duck,EA H5
-11/03/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA H5
+11/03/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
 11/03/2026,10/17/2026,Washington,Yakima,Black-billed magpie,EA H5
-11/02/2026,10/26/2026,Wyoming,Johnson,Canada goose,EA H5
+11/02/2026,10/26/2026,Wyoming,Johnson,Canada goose,EA/AM H5N1
 11/02/2026,10/24/2026,Indiana,LaPorte,Northern pintail,EA H5
-11/02/2026,10/24/2026,Iowa,Warren,Blue-winged teal,EA H5
+11/02/2026,10/24/2026,Iowa,Warren,Blue-winged teal,EA/AM H5N1
+11/02/2026,10/24/2026,Iowa,Jackson,Wood duck,EA/AM H5N1
 11/02/2026,10/24/2026,Iowa,Jackson,Wood duck,EA H5
-11/02/2026,10/24/2026,Iowa,Jackson,Wood duck,EA H5
-11/02/2026,10/23/2026,Wyoming,Sheridan,Canada goose,EA H5
+11/02/2026,10/23/2026,Wyoming,Sheridan,Canada goose,EA/AM H5N1
 11/02/2026,10/20/2026,Illinois,Cook,Duck (unidentified),EA H5
+11/02/2026,10/17/2026,Ohio,Ottawa,Mallard,EA/AM H5N1
 11/02/2026,10/17/2026,Ohio,Ottawa,Mallard,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Mallard,EA H5
-11/02/2026,10/17/2026,Ohio,Ottawa,Mallard,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern shoveler,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern shoveler,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern shoveler,EA H5
-11/02/2026,10/17/2026,Ohio,Ottawa,Northern shoveler,EA H5
+11/02/2026,10/17/2026,Ohio,Ottawa,Northern shoveler,EA/AM H5N1
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern pintail,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern pintail,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern pintail,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern pintail,EA H5
 11/02/2026,10/17/2026,Ohio,Ottawa,Northern pintail,EA H5
+11/02/2026,10/17/2026,Ohio,Marion,Green-winged teal,EA/AM H5N1
 11/02/2026,10/17/2026,Ohio,Marion,Green-winged teal,EA H5
-11/02/2026,10/17/2026,Ohio,Marion,Green-winged teal,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
-11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA H5
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
+11/02/2026,10/13/2026,Mississippi,Jackson,Muscovy duck,EA/AM H5N1
 10/30/2026,10/23/2026,Louisiana,Ascension,Goose (unidentified),EA H5
-10/30/2026,10/22/2026,Nevada,Lincoln,Canada goose,EA H5
-10/30/2026,10/22/2026,Nevada,Lincoln,Canada goose,EA H5
-10/30/2026,10/22/2026,Nevada,Elko,Canada goose,EA H5
-10/30/2026,10/22/2026,Nevada,Elko,Canada goose,EA H5
+10/30/2026,10/22/2026,Nevada,Lincoln,Canada goose,EA/AM H5N1
+10/30/2026,10/22/2026,Nevada,Lincoln,Canada goose,EA/AM H5N1
+10/30/2026,10/22/2026,Nevada,Elko,Canada goose,EA/AM H5N1
+10/30/2026,10/22/2026,Nevada,Elko,Canada goose,EA/AM H5N1
 10/30/2026,10/20/2026,Rhode Island,Providence,Mallard,EA H5
 10/30/2026,10/19/2026,Washington,Grant,Green-winged teal,EA H5
 10/30/2026,10/19/2026,Washington,Grant,American wigeon,EA H5
-10/30/2026,10/19/2026,Washington,Grant,Gadwall,EA H5
+10/30/2026,10/19/2026,Washington,Grant,Gadwall,EA/AM H5N1
 10/30/2026,10/18/2026,Washington,Grant,American wigeon,EA H5
 10/30/2026,10/18/2026,Washington,Grant,American wigeon,EA H5
 10/30/2026,10/18/2026,Washington,Grant,American wigeon,EA H5
 10/30/2026,10/18/2026,Washington,Grant,American wigeon,EA H5
-10/30/2026,10/18/2026,Washington,Grant,American wigeon,EA H5
+10/30/2026,10/18/2026,Washington,Grant,American wigeon,EA/AM H5N1
 10/30/2026,10/18/2026,Washington,Grant,Gadwall,EA H5
-10/30/2026,10/18/2026,Washington,Grant,Gadwall,EA H5
+10/30/2026,10/18/2026,Washington,Grant,Gadwall,EA/AM H5N1
 10/30/2026,10/18/2026,Washington,Grant,Northern pintail,EA H5
 10/30/2026,10/18/2026,Washington,Grant,Green-winged teal,EA H5
 10/30/2026,10/18/2026,Washington,Grant,Green-winged teal,EA H5
 10/30/2026,10/18/2026,Washington,Grant,Green-winged teal,EA H5
 10/30/2026,10/17/2026,Colorado,Logan,Blue-winged teal,EA H5
-10/30/2026,10/17/2026,Colorado,Logan,Blue-winged teal,EA H5
+10/30/2026,10/17/2026,Colorado,Logan,Blue-winged teal,EA/AM H5N1
 10/30/2026,10/17/2026,Colorado,Logan,Blue-winged teal,EA H5
 10/30/2026,10/17/2026,Washington,Grant,American wigeon,EA H5
-10/30/2026,10/17/2026,Washington,Grant,American wigeon,EA H5
-10/30/2026,10/17/2026,Washington,Grant,Gadwall,EA H5
+10/30/2026,10/17/2026,Washington,Grant,American wigeon,EA/AM H5N1
+10/30/2026,10/17/2026,Washington,Grant,Gadwall,EA/AM H5N1
 10/30/2026,10/17/2026,Washington,Grant,American wigeon,EA H5
 10/30/2026,10/17/2026,Washington,Grant,Northern shoveler,EA H5
 10/30/2026,10/17/2026,Washington,Grant,Green-winged teal,EA H5
-10/30/2026,10/17/2026,Washington,Grant,Gadwall,EA H5
+10/30/2026,10/17/2026,Washington,Grant,Gadwall,EA/AM H5N1
 10/30/2026,10/12/2026,California,San Mateo,Western gull,EA H5
 10/30/2026,10/11/2026,Colorado,Jackson,Green-winged teal,EA H5
-10/30/2026,10/10/2026,Louisiana,Unknown,Goose (unidentified),EA H5
+10/30/2026,10/10/2026,Louisiana,Unknown,Goose (unidentified),EA/AM H5N1
 10/29/2026,10/23/2026,Michigan,Clare,Trumpeter swan,EA H5
 10/29/2026,10/20/2026,Michigan,Huron,Northern shoveler,EA H5
 10/29/2026,10/20/2026,Michigan,Huron,Ring-necked duck,EA H5
 10/29/2026,10/20/2026,Michigan,Huron,Northern pintail,EA H5
 10/29/2026,10/20/2026,North Dakota,Kidder,Northern shoveler,EA H5
-10/29/2026,10/08/2026,Oregon,Deschutes,Mallard,EA H5
-10/28/2026,10/23/2026,North Carolina,Durham,Black vulture,EA H5
-10/28/2026,10/22/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/22/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/22/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/22/2026,Wyoming,Sheridan,Magpie (unidentified),EA H5
-10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA H5
-10/28/2026,10/21/2026,Wyoming,Sublette,Swan (unidentified),EA H5
+10/29/2026,10/08/2026,Oregon,Deschutes,Mallard,EA/AM H5N1
+10/28/2026,10/23/2026,North Carolina,Durham,Black vulture,EA/AM H5N1
+10/28/2026,10/22/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/22/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/22/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/22/2026,Wyoming,Sheridan,Magpie (unidentified),EA/AM H5N1
+10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/21/2026,Wyoming,Sheridan,Wild turkey,EA/AM H5N1
+10/28/2026,10/21/2026,Wyoming,Sublette,Swan (unidentified),EA/AM H5N1
 10/28/2026,10/21/2026,Iowa,Butler,Blue-winged teal,EA H5
 10/28/2026,10/17/2026,Wisconsin,Dane,Blue-winged teal,EA H5
-10/28/2026,10/17/2026,Iowa,Allamakee,Wood duck,EA H5
+10/28/2026,10/17/2026,Iowa,Allamakee,Wood duck,EA/AM H5N1
 10/28/2026,10/17/2026,Montana,Teton,Mallard,EA H5
 10/28/2026,10/17/2026,Montana,Teton,Mallard,EA H5
 10/28/2026,10/17/2026,Montana,Teton,Mallard,EA H5
+10/28/2026,10/17/2026,Montana,Teton,Mallard,EA/AM H5N1
 10/28/2026,10/17/2026,Montana,Teton,Mallard,EA H5
 10/28/2026,10/17/2026,Montana,Teton,Mallard,EA H5
-10/28/2026,10/17/2026,Montana,Teton,Mallard,EA H5
-10/28/2026,10/17/2026,Montana,Teton,Gadwall,EA H5
+10/28/2026,10/17/2026,Montana,Teton,Gadwall,EA/AM H5N1
 10/28/2026,10/17/2026,Montana,Teton,American wigeon,EA H5
 10/28/2026,10/17/2026,Montana,Teton,American wigeon,EA H5
 10/28/2026,10/17/2026,Montana,Teton,American wigeon,EA H5
@@ -184,23 +234,23 @@ Date Detected,Collection Date,State,County,Species,Strain
 10/28/2026,10/17/2026,Montana,Teton,Blue-winged teal,EA H5
 10/28/2026,10/17/2026,Montana,Teton,Blue-winged teal,EA H5
 10/28/2026,10/17/2026,Montana,Teton,Blue-winged teal,EA H5
-10/28/2026,10/17/2026,Montana,Teton,Green-winged teal,EA H5
-10/28/2026,10/17/2026,Montana,Teton,Green-winged teal,EA H5
-10/28/2026,10/14/2026,Kentucky,Jefferson,Canada goose,EA H5
-10/28/2026,10/14/2026,Missouri,Christian,Canada goose,EA H5
-10/28/2026,10/13/2026,South Carolina,Charleston,Canada goose,EA H5
-10/28/2026,10/13/2026,Missouri,Christian,Canada goose,EA H5
+10/28/2026,10/17/2026,Montana,Teton,Green-winged teal,EA/AM H5N1
+10/28/2026,10/17/2026,Montana,Teton,Green-winged teal,EA/AM H5N1
+10/28/2026,10/14/2026,Kentucky,Jefferson,Canada goose,EA/AM H5N1
+10/28/2026,10/14/2026,Missouri,Christian,Canada goose,EA/AM H5N1
+10/28/2026,10/13/2026,South Carolina,Charleston,Canada goose,EA/AM H5N1
+10/28/2026,10/13/2026,Missouri,Christian,Canada goose,EA/AM H5N1
 10/28/2026,10/09/2026,Iowa,Jackson,Wood duck,EA H5
 10/28/2026,10/09/2026,Iowa,Jackson,Wood duck,EA H5
-10/28/2026,10/09/2026,North Carolina,Warren,Black vulture,EA H5
-10/28/2026,10/08/2026,Mississippi,Jackson,Canada goose,EA H5
-10/28/2026,10/08/2026,Mississippi,Jackson,Canada goose,EA H5
-10/28/2026,10/08/2026,Mississippi,Jackson,Canada goose,EA H5
-10/28/2026,10/07/2026,Missouri,Christian,Canada goose,EA H5
+10/28/2026,10/09/2026,North Carolina,Warren,Black vulture,EA/AM H5N1
+10/28/2026,10/08/2026,Mississippi,Jackson,Canada goose,EA/AM H5N1
+10/28/2026,10/08/2026,Mississippi,Jackson,Canada goose,EA/AM H5N1
+10/28/2026,10/08/2026,Mississippi,Jackson,Canada goose,EA/AM H5N1
+10/28/2026,10/07/2026,Missouri,Christian,Canada goose,EA/AM H5N1
+10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA/AM H5N1
 10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA H5
-10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA H5
-10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA H5
-10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA H5
+10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA/AM H5N1
+10/28/2026,09/14/2026,Missouri,Christian,Canada goose,EA/AM H5N1
 10/27/2026,10/20/2026,New York,Genesee,Mallard,EA H5
 10/27/2026,10/20/2026,New York,Genesee,Green-winged teal,EA H5
 10/27/2026,10/20/2026,New York,Genesee,Green-winged teal,EA H5
@@ -281,7 +331,6 @@ Date Detected,Collection Date,State,County,Species,Strain
 10/22/2026,10/06/2026,North Dakota,Kidder,Blue-winged teal,EA H5
 10/21/2026,10/19/2026,California,San Diego,American white pelican,EA/AM H5N1
 10/21/2026,10/19/2026,California,San Diego,Canada goose,EA/AM H5N1
-10/21/2026,10/19/2026,California,Los Angeles,California gull,EA H5
 10/21/2026,10/14/2026,California,Fresno,Canada goose,EA H5
 10/21/2026,10/14/2026,California,Fresno,Canada goose,EA H5
 10/21/2026,10/12/2026,Minnesota,Washington,Peregrine falcon,EA/AM H5N1
@@ -862,7 +911,7 @@ Date Detected,Collection Date,State,County,Species,Strain
 09/02/2026,08/25/2026,North Dakota,Williams,Black vulture,EA/AM H5N1
 09/02/2026,08/27/2026,Minnesota,Washington,Canada goose,EA/AM H5N1
 08/31/2026,08/13/2026,California,Siskiyou,Mallard,EA H5
-08/31/2026,08/13/2026,California,Siskiyou,Mallard,EA H5
+08/31/2026,08/13/2026,California,Siskiyou,Mallard,EA H5 mixed
 08/31/2026,08/13/2026,California,Siskiyou,Mallard,EA H5
 08/31/2026,08/17/2026,Florida,Brevard,Black vulture,EA/AM H5N1
 08/31/2026,11/08/2025,Florida,Palm Beach,Canada goose,EA H5
@@ -1856,8 +1905,8 @@ Date Detected,Collection Date,State,County,Species,Strain
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
-02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
+02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA H5
 02/17/2026,02/03/2026,New Hampshire,Strafford,Mallard,EA/AM H5N1
@@ -1885,8 +1934,8 @@ Date Detected,Collection Date,State,County,Species,Strain
 02/17/2026,02/04/2026,California,San Luis Obispo,Turkey vulture,EA H5N1
 02/17/2026,02/04/2026,California,San Luis Obispo,American white pelican,EA H5
 02/17/2026,02/04/2026,California,Los Angeles,Turkey vulture,EA H5N1
-02/17/2026,02/04/2026,Pennsylvania,Bucks,Great blue heron,EA H5
 02/17/2026,Unknown,Pennsylvania,Philadelphia,Snow goose,EA/AM H5N1
+02/17/2026,02/04/2026,Pennsylvania,Bucks,Great blue heron,EA H5
 02/17/2026,02/04/2026,Pennsylvania,Philadelphia,Cooper's hawk,EA H5
 02/17/2026,01/30/2026,Pennsylvania,Jefferson,Eastern screech owl,EA/AM H5N1
 02/17/2026,01/22/2026,Pennsylvania,Washington,Canada goose,EA/AM H5N1
